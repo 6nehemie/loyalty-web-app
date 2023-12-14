@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .heading-1 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 72px;
+  }
+  .heading-2 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 54px;
+  }
+  .heading-3 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 32px;
+  }
+  .heading-1 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 28px;
+  }
+
+  .navbar {
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    margin: 32px 40px;
+  }
+}
