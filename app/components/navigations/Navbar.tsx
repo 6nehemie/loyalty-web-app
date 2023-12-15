@@ -21,7 +21,7 @@ const Navbar = () => {
           <div className="col-span-1 flex items-center gap-2">
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="flex items-center text-sm gap-2 hover:bg-black hover:bg-opacity-20 transition-colors duration-200 px-1.5 py-0.5 rounded-md"
+              className="flex items-center text-md gap-2 hover:bg-black hover:bg-opacity-20 transition-colors duration-200 px-1.5 py-0.5 rounded-md"
             >
               <Bars2Icon className="h-6 w-6" />
               {/* <span>Menu</span> */}

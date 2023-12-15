@@ -60,6 +60,22 @@ html {
     backdrop-filter: blur(5px);
   }
 
-  .base-hover {
+  .carCard .carImage {
+    transition: all 0.3s;
+  }
+
+  .carCard:hover .carImage {
+    filter: blur(6px);
+  }
+
+  .carCard .cardArrow {
+    transition: all 0.1s ease;
+    visibility: hidden;
+    transform: translateY(30px);
+  }
+
+  .carCard:hover .cardArrow {
+    visibility: visible;
+    transform: translateY(0);
   }
 }

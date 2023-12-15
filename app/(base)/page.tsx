@@ -1,9 +1,12 @@
-import { Hero } from '../components';
+import { Hero, Latest } from '../components';
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="">
       <Hero />
+      <div className="bg-light-gray p-sides">
+        <Latest />
+      </div>
     </div>
   );
 }

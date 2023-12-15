@@ -20,7 +20,7 @@ const Button1: React.FC<Button1Props> = ({
   return (
     <Link
       href={link}
-      className={`h-[48px] flex items-center px-[34px] rounded-md ${themeMode} ${className} transition-colors duration-300`}
+      className={`h-[48px] flex items-center px-6 rounded-md ${themeMode} ${className} transition-colors duration-300`}
     >
       {children}
     </Link>

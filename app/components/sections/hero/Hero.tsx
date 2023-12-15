@@ -16,21 +16,23 @@ const Hero = () => {
 
       <div className="h-[160px] w-full bg-gradient-to-b from-black to-transparent opacity-40"></div>
 
-      <div className="p-sides flex flex-col gap-9 max-md:gap-6 max-w-wide w-full mx-auto pb-11 text-white">
-        <div>
-          <h1 className="heading-1 leading-[100%]">
-            Voitures de luxe. <br className="max-lg:hidden" />
-            Services premium.
-          </h1>
-        </div>
+      <div className="p-sides">
+        <div className="flex flex-col gap-9 max-md:gap-6 max-w-wide w-full mx-auto pb-11 text-white">
+          <div>
+            <h1 className="heading-1 leading-[100%]">
+              Voitures de luxe. <br className="max-lg:hidden" />
+              Services premium.
+            </h1>
+          </div>
 
-        <div className="flex  items-center gap-6 font-light">
-          <Button1 link="/" className="max-md:w-full justify-center">
-            Réservez maintenant
-          </Button1>
-          <Button1 link="/" light className="max-md:hidden">
-            En savoir plus
-          </Button1>
+          <div className="flex  items-center gap-6 font-light">
+            <Button1 link="/" className="max-md:w-full justify-center">
+              Réservez maintenant
+            </Button1>
+            <Button1 link="/" light className="max-md:hidden">
+              En savoir plus
+            </Button1>
+          </div>
         </div>
       </div>
     </section>

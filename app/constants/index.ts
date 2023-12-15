@@ -22,7 +22,7 @@ export const fleet = {
       image:
         'https://utfs.io/f/dbbb881f-64d1-49fe-babf-a2308b3b3f79-eknbh8.png',
       link: '/fleet/1',
-      price: '250',
+      price: 250,
     },
     {
       title: 'Audi RS3',
@@ -30,7 +30,7 @@ export const fleet = {
       image:
         'https://utfs.io/f/5525718d-aff4-4c1d-b5e7-d4997404cf29-g3vg1q.png',
       link: '/fleet/2',
-      price: '250',
+      price: 250,
     },
     {
       title: 'Audi RS6',
@@ -38,7 +38,7 @@ export const fleet = {
       image:
         'https://utfs.io/f/306a9ff3-56e0-49bd-a821-f1ca80558278-g3vg1t.png',
       link: '/fleet/3',
-      price: '250',
+      price: 250,
     },
   ],
   collection: [
