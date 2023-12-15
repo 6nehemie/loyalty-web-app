@@ -9,7 +9,7 @@ export default function BaseLayout({
     <div>
       <Navbar />
       {children}
-      <main>Footer</main>
+      <main></main>
     </div>
   );
 }

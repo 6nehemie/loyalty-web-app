@@ -22,7 +22,9 @@ html {
 @layer components {
   .heading-1 {
     font-family: 'Exo 2', sans-serif;
-    font-size: 72px;
+    font-weight: 400;
+    /* font-size: 72px; */
+    font-size: clamp(24px, 4vw, 100px);
   }
   .heading-2 {
     font-family: 'Exo 2', sans-serif;
@@ -32,7 +34,7 @@ html {
     font-family: 'Exo 2', sans-serif;
     font-size: 32px;
   }
-  .heading-1 {
+  .heading-4 {
     font-family: 'Exo 2', sans-serif;
     font-size: 28px;
   }
@@ -40,6 +42,24 @@ html {
   .navbar {
     display: grid;
     grid-template-columns: 1fr max-content 1fr;
-    margin: 32px 40px;
+    margin: 24px 40px;
+  }
+
+  .p-sides {
+    padding: 0 40px;
+  }
+
+  .backdrop {
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 110;
+    backdrop-filter: blur(5px);
+  }
+
+  .base-hover {
   }
 }
