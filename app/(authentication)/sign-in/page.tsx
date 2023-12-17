@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const SignInPage = () => {
   return (
-    <section className="signInGrid h-screen w-screen overflow-hidden">
+    <div className="signInGrid h-screen w-screen overflow-hidden">
       <div className="h-screen overflow-hidden max-xl:hidden">
         <Image
           src={signIn.image}
@@ -31,7 +31,7 @@ const SignInPage = () => {
           </p>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 export default SignInPage;

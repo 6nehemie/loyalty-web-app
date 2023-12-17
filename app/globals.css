@@ -20,6 +20,12 @@ html {
 }
 
 @layer components {
+  .normal-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 160px;
+  }
+
   .heading-1 {
     font-family: 'Exo 2', sans-serif;
     font-weight: 400;

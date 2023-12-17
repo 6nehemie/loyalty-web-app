@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       maxWidth: {
         wide: '1556px',
+        large: '1294px',
       },
       backgroundImage: {},
       colors: {
