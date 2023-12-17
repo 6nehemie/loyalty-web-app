@@ -78,4 +78,13 @@ html {
     visibility: visible;
     transform: translateY(0);
   }
+
+  .signInGrid {
+    display: grid;
+    grid-template-columns: 1fr 744px;
+
+    @media only screen and (max-width: 1280px) {
+      grid-template-columns: 1fr;
+    }
+  }
 }

@@ -1,9 +1,13 @@
+'use client';
+
 import {
   ArrowSmallRightIcon,
   InformationCircleIcon,
 } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { Button1 } from '..';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface CarCardProps {
   title: string;
@@ -33,7 +37,7 @@ const CarCard: React.FC<CarCardProps> = ({
         />
       </div>
 
-      <div className="relative carImage px-1">
+      <Link href={href} className="relative carImage px-1">
         <Image
           src={image}
           alt={title}
@@ -41,7 +45,8 @@ const CarCard: React.FC<CarCardProps> = ({
           height={216}
           className="w-full mx-auto"
         />
-      </div>
+      </Link>
+
       <div className="cardArrow absolute top-1/2 left-1/2 z-[50]">
         <div className="-translate-x-[50%] -translate-y-[50%]">
           <button className="flex font-exo items-center gap-2 text-white">
@@ -57,7 +62,7 @@ const CarCard: React.FC<CarCardProps> = ({
 
       <div className="flex p-6 pt-12 items-center gap-4 justify-end text-sm">
         <p>À partir de {price}€/j</p>
-        <Button1 link={href}>Réservez maintenant</Button1>
+        <Button1 link={'/book'}>Réservez maintenant</Button1>
       </div>
     </div>
   );
