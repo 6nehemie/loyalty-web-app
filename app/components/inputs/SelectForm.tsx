@@ -20,17 +20,17 @@ const SelectForm = () => {
   };
 
   return (
-    <div className="relative h-20">
+    <div className="relative h-20 mb-2 font-exo z-[20]">
       <input type="text" className="hidden" defaultValue={input} />
 
-      <p className="">Civilité *</p>
+      <p className="mb-2">Civilité *</p>
       <div
         ref={choiceRef}
         className="absolute flex flex-col items-center w-max cursor-pointer border-2 bg-light-gray rounded-md  outline-none"
       >
         <div
           onClick={() => setIsDropdownOpen((prev) => !prev)}
-          className="px-4 flex justify-between items-center h-[54px] w-[263px]"
+          className="px-4 flex justify-between items-center h-[50px] w-[263px]"
         >
           <p className="text-sm">{input}</p>
           <div>

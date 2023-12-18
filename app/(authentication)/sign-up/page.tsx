@@ -1,10 +1,36 @@
 import { signUp } from '@/app/constants';
-import { InputFrom, Logo, SelectForm, SubmitButton } from '@/app/components';
+import {
+  InputFrom,
+  Logo,
+  CheckboxForm,
+  SelectForm,
+  SubmitButton,
+  SignUpStepOne,
+  SignUpStepTwo,
+} from '@/app/components';
 import Link from 'next/link';
+import { ChoiceType } from '@/app/types';
+
+interface UserSignUpData {
+  civility: ChoiceType;
+  firstName: string;
+  lastName: string;
+  email: string;
+  generalConditions: boolean;
+  privacy: boolean;
+  password: string;
+  confirmPassword: string;
+  newsletter: boolean;
+}
+
+enum SignUpStep {
+  STEP_ONE,
+  STEP_TWO,
+}
 
 const SignUpPage = () => {
   return (
-    <div className="p-sides">
+    <div className="p-sides font-exo">
       <nav className="flex justify-between items-center py-8 max-w-wide w-full mx-auto">
         <Logo />
         <Link href="/sign-in">Connexion</Link>
@@ -23,25 +49,20 @@ const SignUpPage = () => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <SelectForm />
-            <div className="grid grid-cols-2 gap-6 w-full">
-              <InputFrom label="Prénom *" type="text" name="firstName" />
-              <InputFrom label="Nom *" type="text" name="lastName" />
-            </div>
-            <InputFrom label="Email *" type="email" name="email" />
-          </div>
-          <div></div>
+          <form action="" className="flex flex-col gap-12">
+            <SignUpStepOne />
+            {/* <SignUpStepTwo /> */}
 
-          <div className="font-light">
-            <SubmitButton label="Inscription" className="w-full mb-3" />
-            <p>
-              Avez-vous déjà un compte ?{' '}
-              <Link href={'/sign-in'} className="underline">
-                Connexion
-              </Link>
-            </p>
-          </div>
+            <div className="font-light">
+              <SubmitButton label="Continuer" className="w-full mb-3" />
+              <p>
+                Avez-vous déjà un compte ?{' '}
+                <Link href={'/sign-in'} className="underline">
+                  Connexion
+                </Link>
+              </p>
+            </div>
+          </form>
         </div>
       </div>
     </div>

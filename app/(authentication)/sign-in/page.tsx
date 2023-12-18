@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const SignInPage = () => {
   return (
-    <div className="signInGrid h-screen w-screen overflow-hidden">
+    <div className="signInGrid h-screen w-screen overflow-hidden font-exo">
       <div className="h-screen overflow-hidden max-xl:hidden">
         <Image
           src={signIn.image}
