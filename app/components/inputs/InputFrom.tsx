@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { LegacyRef, useState } from 'react';
 
 interface InputFromProps {
   label?: string;
@@ -8,6 +8,8 @@ interface InputFromProps {
   type: string;
   placeholder?: string;
   required?: boolean;
+  setCurrentValue?: any;
+  ref?: LegacyRef<HTMLInputElement> | undefined;
 }
 
 const InputFrom: React.FC<InputFromProps> = ({
@@ -16,6 +18,8 @@ const InputFrom: React.FC<InputFromProps> = ({
   type = 'text',
   required,
   placeholder,
+  setCurrentValue,
+  ref,
 }) => {
   const [showPassword, setShowPassword] = useState<'password' | 'text'>(
     'password'
@@ -35,7 +39,9 @@ const InputFrom: React.FC<InputFromProps> = ({
           type={type === 'password' ? showPassword : type}
           name={name}
           id={name}
+          ref={ref}
           required={required}
+          onChange={(e) => setCurrentValue && setCurrentValue(e.target.value)}
           className="h-[54px] border-2 bg-light-gray rounded-md px-4 outline-none font-exo w-full "
         />
         {type === 'password' && (

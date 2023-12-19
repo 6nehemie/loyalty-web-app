@@ -1,32 +1,8 @@
 import { signUp } from '@/app/constants';
-import {
-  InputFrom,
-  Logo,
-  CheckboxForm,
-  SelectForm,
-  SubmitButton,
-  SignUpStepOne,
-  SignUpStepTwo,
-} from '@/app/components';
+import { Logo, SubmitButton } from '@/app/components';
 import Link from 'next/link';
 import { ChoiceType } from '@/app/types';
-
-interface UserSignUpData {
-  civility: ChoiceType;
-  firstName: string;
-  lastName: string;
-  email: string;
-  generalConditions: boolean;
-  privacy: boolean;
-  password: string;
-  confirmPassword: string;
-  newsletter: boolean;
-}
-
-enum SignUpStep {
-  STEP_ONE,
-  STEP_TWO,
-}
+import StepContainer from '@/app/components/sections/auth/sign-up/StepContainer';
 
 const SignUpPage = () => {
   return (
@@ -49,19 +25,8 @@ const SignUpPage = () => {
             </p>
           </div>
 
-          <form action="" className="flex flex-col gap-12">
-            <SignUpStepOne />
-            {/* <SignUpStepTwo /> */}
-
-            <div className="font-light">
-              <SubmitButton label="Continuer" className="w-full mb-3" />
-              <p>
-                Avez-vous déjà un compte ?{' '}
-                <Link href={'/sign-in'} className="underline">
-                  Connexion
-                </Link>
-              </p>
-            </div>
+          <form action="" className="">
+            <StepContainer />
           </form>
         </div>
       </div>

@@ -4,6 +4,7 @@ type SubmitButtonProps = {
   light?: boolean;
   label?: string;
   className?: string;
+  disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
 };
 
@@ -11,7 +12,8 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   light,
   label,
   className,
-  type = 'submit',
+  disabled,
+  type,
 }) => {
   const themeMode = light
     ? 'bg-white text-black hover:bg-zinc-200'
@@ -20,6 +22,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   return (
     <button
       type={type}
+      disabled={disabled}
       className={`h-[48px] font-light flex items-center justify-center px-6 rounded-md ${themeMode} ${className} transition-colors duration-300`}
     >
       {label}

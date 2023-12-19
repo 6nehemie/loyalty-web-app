@@ -3,9 +3,14 @@
 import { useClickOutside } from '@/app/hooks';
 import { ChoiceType } from '@/app/types';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
-import { useRef, useState } from 'react';
+import { LegacyRef, useCallback, useEffect, useRef, useState } from 'react';
 
-const SelectForm = () => {
+interface SelectFormProps {
+  ref?: LegacyRef<HTMLInputElement> | undefined;
+  setCurrentValue?: any;
+}
+
+const SelectForm: React.FC<SelectFormProps> = ({ ref, setCurrentValue }) => {
   const choice: ChoiceType[] = ['Monsieur', 'Madame'];
 
   const choiceRef = useRef<HTMLDivElement>(null);
@@ -19,9 +24,16 @@ const SelectForm = () => {
     setIsDropdownOpen(false);
   };
 
+  //? Prevents useEffect from re-rendering (infinite loop)
+  const stableSetCurrentValue = useCallback(setCurrentValue, []);
+
+  useEffect(() => {
+    stableSetCurrentValue && stableSetCurrentValue(input);
+  }, [input, stableSetCurrentValue]);
+
   return (
     <div className="relative h-20 mb-2 font-exo z-[20]">
-      <input type="text" className="hidden" defaultValue={input} />
+      <input ref={ref} type="text" className="hidden" defaultValue={input} />
 
       <p className="mb-2">Civilité *</p>
       <div

@@ -1,13 +1,14 @@
 'use client';
 
 import { CheckIcon } from '@heroicons/react/24/outline';
-import React, { Children, useState } from 'react';
+import React, { Children, LegacyRef, useState } from 'react';
 
 interface CheckboxFormProps {
   label?: string;
   name: string;
   required?: boolean;
   children?: React.ReactNode;
+  setCurrentValue?: any;
 }
 
 const CheckboxForm: React.FC<CheckboxFormProps> = ({
@@ -15,8 +16,10 @@ const CheckboxForm: React.FC<CheckboxFormProps> = ({
   name,
   required,
   children,
+  setCurrentValue,
 }) => {
   const [isChecked, setIsChecked] = useState(false);
+
   return (
     <div className="relative">
       <label
@@ -39,6 +42,9 @@ const CheckboxForm: React.FC<CheckboxFormProps> = ({
         id={name}
         className="hidden"
         required={required}
+        onChange={(event) =>
+          setCurrentValue && setCurrentValue(event.target.checked)
+        }
       />
     </div>
   );

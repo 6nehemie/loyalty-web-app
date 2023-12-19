@@ -12,6 +12,7 @@ const SignInPage = () => {
           alt={'Login image'}
           height={2510}
           width={1673}
+          priority
           className="h-full w-full object-cover"
         />
       </div>
