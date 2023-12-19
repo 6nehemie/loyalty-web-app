@@ -6,6 +6,7 @@ import SignUpStepTwo from './SignUpStepTwo';
 import { ChoiceType } from '@/app/types';
 import { AntiFormBtn, SubmitButton } from '@/app/components';
 import Link from 'next/link';
+import { ErrorMessage } from '@/app/utils/validation';
 
 enum SignUpStep {
   STEP_ONE,
@@ -16,7 +17,6 @@ enum SignUpStep {
 const StepContainer = () => {
   const [step, setStep] = useState(SignUpStep.STEP_ONE);
   const [isNextStepAllowed, setIsNextStepAllowed] = useState<boolean>(false);
-  const [isAllowedToSubmit, setIsAllowedToSubmit] = useState<boolean>(false);
 
   const handleNextStep = () => {
     if (isNextStepAllowed) setStep(SignUpStep.STEP_TWO);

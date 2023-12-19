@@ -2,7 +2,7 @@
 
 import { CheckboxForm, InputFrom, SelectForm } from '@/app/components';
 import { ChoiceType, UserStepOneDataType } from '@/app/types';
-import { Validation } from '@/app/utils/validation';
+import { ErrorMessage, Validation } from '@/app/utils/validation';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -13,6 +13,7 @@ interface SignUpStepOneProps {
 const SignUpStepOne: React.FC<SignUpStepOneProps> = ({
   setIsNextStepAllowed,
 }) => {
+  const [emailError, setEmailError] = useState<string>('');
   const [userStepOneData, setUserStepOneData] = useState<UserStepOneDataType>({
     civility: undefined,
     firstName: '',
@@ -42,6 +43,7 @@ const SignUpStepOne: React.FC<SignUpStepOneProps> = ({
   };
 
   useEffect(() => {
+    console.log(emailError);
     if (
       userStepOneData?.civility &&
       Validation.isValidName(userStepOneData?.firstName) &&
@@ -51,8 +53,10 @@ const SignUpStepOne: React.FC<SignUpStepOneProps> = ({
       userStepOneData?.privacy
     ) {
       setIsNextStepAllowed(true);
-    } else setIsNextStepAllowed(false);
-  }, [userStepOneData, setIsNextStepAllowed]);
+    } else {
+      setIsNextStepAllowed(false);
+    }
+  }, [userStepOneData, setIsNextStepAllowed, emailError]);
 
   return (
     <div className="flex flex-col gap-4">
