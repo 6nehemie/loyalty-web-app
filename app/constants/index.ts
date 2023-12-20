@@ -113,3 +113,34 @@ export const signUp = {
   subtitle:
     "Créez votre compte Loyalty RC et rejoignez notre communauté.\nIl vous offrira un accès privilégié à l'ensemble de nos services de location de voiture haut de gamme.",
 };
+
+export const orderHistory = [
+  {
+    title: 'Audi RS3',
+    image: 'https://utfs.io/f/3b27db93-783c-4d64-9d8e-7941ade3b1a7-eh3yri.webp',
+    date: '17 oct 2023 - 25 oct 2023',
+    duration: 8,
+    price: '1350',
+  },
+  {
+    title: 'Audi RS3',
+    image: 'https://utfs.io/f/3b27db93-783c-4d64-9d8e-7941ade3b1a7-eh3yri.webp',
+    date: '17 oct 2023 - 25 oct 2023',
+    duration: 8,
+    price: '1350',
+  },
+  {
+    title: 'Audi RS3',
+    image: 'https://utfs.io/f/3b27db93-783c-4d64-9d8e-7941ade3b1a7-eh3yri.webp',
+    date: '17 oct 2023 - 25 oct 2023',
+    duration: 8,
+    price: '1350',
+  },
+  {
+    title: 'Audi RS3',
+    image: 'https://utfs.io/f/3b27db93-783c-4d64-9d8e-7941ade3b1a7-eh3yri.webp',
+    date: '17 oct 2023 - 25 oct 2023',
+    duration: 8,
+    price: '1350',
+  },
+];

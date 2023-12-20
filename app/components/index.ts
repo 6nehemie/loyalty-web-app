@@ -15,3 +15,4 @@ export { default as BookCarCard } from './cards/dashboardCards/BookCarCard';
 export { default as MyProfilCard } from './cards/myProfilCard/MyProfilCard';
 export { default as AccountSideBar } from './navigations/account/AccountSideBar';
 export { default as AddInfoBtn } from './buttons/AddInfoBtn';
+export { default as OrderHistoryCard } from './cards/dashboardCards/OrderHistoryCard';

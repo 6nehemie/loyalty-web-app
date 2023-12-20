@@ -6,8 +6,8 @@ export default function AccountLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="mt-16 p-sides">
-      <div className="flex gap-6 max-w-wide w-full mx-auto">
+    <section className="mt-16 p-sides h-full">
+      <div className="flex gap-6 max-w-wide w-full h-full mx-auto">
         <div className="w-max">
           <AccountSideBar />
         </div>
