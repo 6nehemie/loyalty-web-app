@@ -51,26 +51,26 @@ export const accountNavigation = [
   {
     label: 'Tableau de bord',
     link: '/account',
-    icon: <HomeIcon className="h-5 w-5" />,
+    icon: <HomeIcon className="h-5 w-5" strokeWidth={2} />,
   },
   {
     label: 'Mon Profil LoyaltyRC',
     link: '/account/profile-settings',
-    icon: <UserIcon className="h-5 w-5" />,
+    icon: <UserIcon className="h-5 w-5" strokeWidth={2} />,
   },
   {
     label: 'Mode de paiement',
     link: '/account/payment-method',
-    icon: <CreditCardIcon className="h-5 w-5" />,
+    icon: <CreditCardIcon className="h-5 w-5" strokeWidth={2} />,
   },
   {
     label: 'Historique des commandes',
     link: '/account/order-history',
-    icon: <ClockIcon className="h-5 w-5" />,
+    icon: <ClockIcon className="h-5 w-5" strokeWidth={2} />,
   },
   {
     label: 'Messages',
     link: '/account/messages',
-    icon: <ChatBubbleLeftRightIcon className="h-5 w-5" />,
+    icon: <ChatBubbleLeftRightIcon className="h-5 w-5" strokeWidth={2} />,
   },
 ];

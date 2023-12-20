@@ -12,4 +12,6 @@ export { default as CheckboxForm } from './inputs/CheckboxForm';
 export { default as SignUpStepOne } from './sections/auth/sign-up/SignUpStepOne';
 export { default as SignUpStepTwo } from './sections/auth/sign-up/SignUpStepTwo';
 export { default as BookCarCard } from './cards/dashboardCards/BookCarCard';
+export { default as MyProfilCard } from './cards/myProfilCard/MyProfilCard';
 export { default as AccountSideBar } from './navigations/account/AccountSideBar';
+export { default as AddInfoBtn } from './buttons/AddInfoBtn';

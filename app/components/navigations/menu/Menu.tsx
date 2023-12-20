@@ -23,7 +23,7 @@ const Menu: React.FC<MenuProps> = ({ isMenuOpen, setIsMenuOpen }) => {
         ref={menuRef}
         className={` ${
           isMenuOpen ? 'translate-x-0' : '-translate-x-[100%]'
-        } transition-transform duration-300 fixed z-[120] h-screen flex bg-cool-gray-2 rounded-r-md`}
+        } transition-transform duration-300 fixed z-[120] h-screen top-0 flex bg-cool-gray-2 rounded-r-md`}
       >
         {/* LEFT CONTENT */}
         <div className="h-screen w-[460px] bg-white rounded-r-md">

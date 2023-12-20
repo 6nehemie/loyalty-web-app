@@ -14,6 +14,10 @@ const AccountSideBar = () => {
   const handleCurrentPath = (link: string) => {
     return pathname === link ? 'text-dark-gray font-medium' : '';
   };
+
+  const handleCurrentPathIcon = (link: string) => {
+    return pathname === link ? 'bg-light-gray' : '';
+  };
   return (
     <nav className="w-[300px] pt-[104px] font-exo">
       <div className="flex flex-col gap-6 p-2 text-cool-gray-1">
@@ -25,13 +29,19 @@ const AccountSideBar = () => {
               item.link
             )} `}
           >
-            <span>{item.icon}</span>
+            <span
+              className={`${handleCurrentPathIcon(
+                item.link
+              )}  p-1.5 rounded-full`}
+            >
+              {item.icon}
+            </span>
             <span>{item.label}</span>
           </Link>
         ))}
         <button className="flex items-center gap-4 hover:text-black transition-colors duration-200">
-          <span>
-            <ArrowRightOnRectangleIcon className="h-5 w-5" />
+          <span className="p-1.5">
+            <ArrowRightOnRectangleIcon className="h-5 w-5" strokeWidth={2} />
           </span>
           <span>Déconnexion</span>
         </button>

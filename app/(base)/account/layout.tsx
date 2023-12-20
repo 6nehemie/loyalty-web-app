@@ -8,10 +8,9 @@ export default function AccountLayout({
   return (
     <section className="mt-16 p-sides">
       <div className="flex gap-6 max-w-wide w-full mx-auto">
-        {/* Include shared UI here e.g. a header or sidebar */}
-
-        <AccountSideBar />
-
+        <div className="w-max">
+          <AccountSideBar />
+        </div>
         {children}
       </div>
     </section>

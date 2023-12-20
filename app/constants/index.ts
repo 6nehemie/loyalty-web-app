@@ -1,4 +1,15 @@
-import { title } from 'process';
+export const userInfos = {
+  firstName: 'Nehemie',
+  lastName: 'Mombanga',
+  email: 'nehemie@something.com',
+  phone: '+33 7 42 42 42 42',
+  address: {
+    street: '17 Rue de la paix',
+    city: 'Paris',
+    zip: '75000',
+    country: 'France',
+  },
+};
 
 export const navbarNavigation = [
   { label: 'À propos de nous', link: '/about' },

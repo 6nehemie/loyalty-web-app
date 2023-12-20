@@ -53,7 +53,7 @@ const Navbar = () => {
           {/* CONNECTION */}
           <div className="col-start-3 justify-end flex items-center gap-5 text-sm">
             <Link
-              href={'sign-in'}
+              href={'/sign-in'}
               className="flex items-center gap-2 bg-dark-gray text-white px-4 py-2 rounded-md transition-colors duration-200"
             >
               <UserIcon className="h-4 max-md:h-5" />
