@@ -26,6 +26,13 @@ html {
     gap: 160px;
   }
 
+  .dashboard-heading {
+    font-family: 'Exo 2', sans-serif;
+    margin-bottom: 24px;
+    font-weight: 400;
+    font-size: 38px;
+  }
+
   .heading-1 {
     font-family: 'Exo 2', sans-serif;
     font-weight: 400;
@@ -92,5 +99,12 @@ html {
     @media only screen and (max-width: 1280px) {
       grid-template-columns: 1fr;
     }
+  }
+
+  .account-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
   }
 }

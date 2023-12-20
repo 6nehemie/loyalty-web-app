@@ -1,5 +1,12 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/20/solid';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightIcon,
+  ChatBubbleLeftRightIcon,
+  ClockIcon,
+  CreditCardIcon,
+  HomeIcon,
+  UserIcon,
+} from '@heroicons/react/24/outline';
 
 export const menuNavigation = [
   {
@@ -38,4 +45,32 @@ export const menuNavigation = [
     icon: <ArrowRightIcon className="h-4 w-4" />,
   },
   { label: 'À propos de nous', link: '/about' },
+];
+
+export const accountNavigation = [
+  {
+    label: 'Tableau de bord',
+    link: '/account',
+    icon: <HomeIcon className="h-5 w-5" />,
+  },
+  {
+    label: 'Mon Profil LoyaltyRC',
+    link: '/account/profile-settings',
+    icon: <UserIcon className="h-5 w-5" />,
+  },
+  {
+    label: 'Mode de paiement',
+    link: '/account/payment-method',
+    icon: <CreditCardIcon className="h-5 w-5" />,
+  },
+  {
+    label: 'Historique des commandes',
+    link: '/account/order-history',
+    icon: <ClockIcon className="h-5 w-5" />,
+  },
+  {
+    label: 'Messages',
+    link: '/account/messages',
+    icon: <ChatBubbleLeftRightIcon className="h-5 w-5" />,
+  },
 ];

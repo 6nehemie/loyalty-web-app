@@ -10,13 +10,21 @@ import {
 import Link from 'next/link';
 import Menu from './menu/Menu';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isHomePage = pathname === '/';
   return (
     <>
       <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-      <nav className="p-sides fixed w-full text-white z-[100]">
+      <nav
+        className={`p-sides  w-full  z-[100]
+        ${isHomePage ? 'text-white fixed' : 'text-black sticky top-0 bg-white'}
+      `}
+      >
         <div className="navbar mx-auto max-w-wide w-full">
           <div className="col-span-1 flex items-center gap-2">
             <button
