@@ -14,11 +14,11 @@ export const menuNavigation = [
     link: '/fleet',
     icon: <ArrowRightIcon className="h-4 w-4" />,
   },
-  {
-    label: 'Abonnements',
-    link: '/subscriptions',
-    icon: <ArrowRightIcon className="h-4 w-4" />,
-  },
+  // {
+  //   label: 'Abonnements',
+  //   link: '/subscriptions',
+  //   icon: <ArrowRightIcon className="h-4 w-4" />,
+  // },
   {
     label: 'Shop',
     link: '/shop',
@@ -29,16 +29,16 @@ export const menuNavigation = [
     link: '/blog',
     icon: <ArrowRightIcon className="h-4 w-4" />,
   },
-  {
-    label: 'Contact',
-    link: '/contact',
-    icon: <ArrowRightIcon className="h-4 w-4" />,
-  },
-  {
-    label: 'Messages',
-    link: '/messages',
-    icon: <ArrowRightIcon className="h-4 w-4" />,
-  },
+  // {
+  //   label: 'Contact',
+  //   link: '/contact',
+  //   icon: <ArrowRightIcon className="h-4 w-4" />,
+  // },
+  // {
+  //   label: 'Messages',
+  //   link: '/messages',
+  //   icon: <ArrowRightIcon className="h-4 w-4" />,
+  // },
   {
     label: 'Notifications',
     link: '/notifications',

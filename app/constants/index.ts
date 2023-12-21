@@ -144,3 +144,39 @@ export const orderHistory = [
     price: '1350',
   },
 ];
+
+export const contact = {
+  title: 'Nous sommes joignables:',
+  phoneNumber: '+33 7 42 42 42 42',
+  email: 'contact@loyaltyrc.com',
+  openingHours: [
+    {
+      day: 'Lundi',
+      hours: '9:00 - 18:00',
+    },
+    {
+      day: 'Mardi',
+      hours: '9:00 - 18:00',
+    },
+    {
+      day: 'Mercredi',
+      hours: '9:00 - 18:00',
+    },
+    {
+      day: 'Jeudi',
+      hours: '9:00 - 18:00',
+    },
+    {
+      day: 'Vendredi',
+      hours: '9:00 - 18:00',
+    },
+    {
+      day: 'Samedi',
+      hours: '9:00 - 18:00',
+    },
+    {
+      day: 'Dimanche',
+      hours: '9:00 - 18:00',
+    },
+  ],
+};

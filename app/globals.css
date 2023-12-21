@@ -107,4 +107,13 @@ html {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 24px;
   }
+
+  .menu-content {
+    height: 100vh;
+    position: relative;
+    max-width: 416px;
+    width: 100%;
+    padding: 0 20px;
+    padding-top: 128px;
+  }
 }
