@@ -1,8 +1,8 @@
 import { signUp } from '@/app/constants';
-import { Logo, SubmitButton } from '@/app/components';
+import { Logo } from '@/app/components';
 import Link from 'next/link';
-import { ChoiceType } from '@/app/types';
 import StepContainer from '@/app/components/sections/auth/sign-up/StepContainer';
+import { createUser } from '@/app/actions/createUser';
 
 const SignUpPage = () => {
   return (
@@ -25,7 +25,7 @@ const SignUpPage = () => {
             </p>
           </div>
 
-          <form action="" className="">
+          <form action={createUser} className="">
             <StepContainer />
           </form>
         </div>

@@ -91,7 +91,7 @@ const SignUpStepOne: React.FC<SignUpStepOneProps> = ({
       <div className="flex flex-col gap-2 mt-2 w-full">
         <CheckboxForm
           setCurrentValue={handleGeneralConditionsChange}
-          name="general-conditions"
+          name="generalConditions"
           required
         >
           <p>

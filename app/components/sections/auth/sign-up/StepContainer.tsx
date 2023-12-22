@@ -30,11 +30,15 @@ const StepContainer = () => {
   return (
     <div className="flex flex-col gap-12">
       {step === SignUpStep.STEP_ONE ? (
-        <div>
+        <div
+          className={`${step === SignUpStep.STEP_ONE ? 'visible' : 'hidden'}`}
+        >
           <SignUpStepOne setIsNextStepAllowed={setIsNextStepAllowed} />
         </div>
       ) : (
-        <div>
+        <div
+          className={`${step === SignUpStep.STEP_TWO ? 'visible' : 'hidden'}`}
+        >
           <SignUpStepTwo setIsAllowedToSubmit={handleAllowSubmit} />
         </div>
       )}
