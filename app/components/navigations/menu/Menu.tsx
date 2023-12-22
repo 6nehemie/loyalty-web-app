@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  ArrowRightIcon,
-  ArrowTopRightOnSquareIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline';
+import { ArrowRightIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Backdrop } from '../..';
 import React, { useRef } from 'react';
 import useClickOutside from '@/app/hooks/useClickOutside';
@@ -12,7 +8,6 @@ import MenuCollection from './MenuCollection';
 import MenuAccount from './MenuAccount';
 import MenuNotifications from './MenuNotifications';
 import Link from 'next/link';
-import { set } from 'mongoose';
 
 export const menuNavigation = [{ label: 'À propos de nous', link: '/about' }];
 
