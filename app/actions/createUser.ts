@@ -6,7 +6,7 @@ import { hashPassword } from '../utils/encryptedData';
 import { Validation } from '../utils/validation';
 import { redirect } from 'next/navigation';
 
-export const createUser = async (formData: FormData) => {
+export const createUser = async (prevState: any, formData: FormData) => {
   const errors = [];
 
   const firstName = formData.get('firstName');

@@ -4,7 +4,11 @@ import Link from 'next/link';
 import StepContainer from '@/app/components/sections/auth/sign-up/StepContainer';
 import { createUser } from '@/app/actions/createUser';
 
-const SignUpPage = async () => {
+const initialState = {
+  message: null,
+};
+
+const SignUpPage = () => {
   return (
     <div className="p-sides font-exo">
       <nav className="flex justify-between items-center py-8 max-w-wide w-full mx-auto">
@@ -25,7 +29,7 @@ const SignUpPage = async () => {
             </p>
           </div>
 
-          <form action={createUser} className="">
+          <form className="">
             <StepContainer />
           </form>
         </div>

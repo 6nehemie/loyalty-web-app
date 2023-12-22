@@ -1,4 +1,4 @@
-import { Button1, InputFrom, SubmitButton } from '@/app/components';
+import { InputFrom, SubmitButton } from '@/app/components';
 import { signIn } from '@/app/constants';
 import Image from 'next/image';
 import Link from 'next/link';
