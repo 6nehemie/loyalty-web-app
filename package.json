@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "db": "npx prisma studio",
-    "dev": "next dev && npm run db",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

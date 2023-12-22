@@ -18,7 +18,7 @@ const SignInPage = () => {
       </div>
 
       <div className="flex items-center justify-center p-5">
-        <div className="max-w-[361px] w-full flex flex-col gap-6">
+        <form className="max-w-[361px] w-full flex flex-col gap-6">
           <h1 className="heading-4">Bienvenue</h1>
           <InputFrom label="Email" type="email" name="email" />
           <InputFrom label="Mot de passe" type="password" name="password" />
@@ -30,7 +30,7 @@ const SignInPage = () => {
               Inscription
             </Link>
           </p>
-        </div>
+        </form>
       </div>
     </div>
   );

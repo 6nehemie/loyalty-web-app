@@ -19,7 +19,6 @@ const SignUpStepTwo: React.FC<SignUpStepTwoProps> = ({
   });
 
   useEffect(() => {
-    console.log(Validation.isValidPassword(stepTwoUserData?.password));
     if (
       Validation.isValidPassword(stepTwoUserData?.password) &&
       Validation.arePasswordsMatching(

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import StepContainer from '@/app/components/sections/auth/sign-up/StepContainer';
 import { createUser } from '@/app/actions/createUser';
 
-const SignUpPage = () => {
+const SignUpPage = async () => {
   return (
     <div className="p-sides font-exo">
       <nav className="flex justify-between items-center py-8 max-w-wide w-full mx-auto">

@@ -43,7 +43,6 @@ const SignUpStepOne: React.FC<SignUpStepOneProps> = ({
   };
 
   useEffect(() => {
-    console.log(emailError);
     if (
       userStepOneData?.civility &&
       Validation.isValidName(userStepOneData?.firstName) &&
