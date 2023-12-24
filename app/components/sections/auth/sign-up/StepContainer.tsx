@@ -6,6 +6,7 @@ import SignUpStepTwo from './SignUpStepTwo';
 
 import { AntiFormBtn, SubmitButton } from '@/app/components';
 import Link from 'next/link';
+import { useFormStatus } from 'react-dom';
 
 enum SignUpStep {
   STEP_ONE = 'step-one',
@@ -14,6 +15,8 @@ enum SignUpStep {
 }
 
 const StepContainer = () => {
+  const { pending } = useFormStatus();
+
   const [step, setStep] = useState<'step-one' | 'step-two' | 'submit'>(
     SignUpStep.STEP_ONE
   );
@@ -49,6 +52,7 @@ const StepContainer = () => {
           <SubmitButton
             type="submit"
             label="Inscription"
+            ariaDisabled={pending}
             disabled={step === SignUpStep.SUBMIT ? false : true}
             className="w-full mb-3"
           />

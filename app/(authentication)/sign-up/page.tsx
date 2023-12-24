@@ -1,14 +1,31 @@
+'use client';
+
 import { signUp } from '@/app/constants';
 import { Logo } from '@/app/components';
 import Link from 'next/link';
 import StepContainer from '@/app/components/sections/auth/sign-up/StepContainer';
 import { createUser } from '@/app/actions/createUser';
-
-const initialState = {
-  message: null,
-};
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 const SignUpPage = () => {
+  const router = useRouter();
+
+  async function clientAction(formData: FormData) {
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    const civility = formData.get('civility') as string;
+
+    console.log(email, password, civility);
+    const result = await createUser(formData);
+    if (result?.error) {
+      console.error(result.error);
+    } else {
+      signIn('credentials', { email, password });
+      router.push('/sign-in');
+    }
+  }
+
   return (
     <div className="p-sides font-exo">
       <nav className="flex justify-between items-center py-8 max-w-wide w-full mx-auto">
@@ -29,7 +46,7 @@ const SignUpPage = () => {
             </p>
           </div>
 
-          <form className="">
+          <form action={clientAction} className="">
             <StepContainer />
           </form>
         </div>

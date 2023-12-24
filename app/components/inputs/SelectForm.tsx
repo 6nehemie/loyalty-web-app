@@ -33,7 +33,13 @@ const SelectForm: React.FC<SelectFormProps> = ({ ref, setCurrentValue }) => {
 
   return (
     <div className="relative h-20 mb-2 font-exo z-[20]">
-      <input ref={ref} type="text" className="hidden" defaultValue={input} />
+      <input
+        ref={ref}
+        name="civility"
+        type="text"
+        className="hidden"
+        defaultValue={input}
+      />
 
       <p className="mb-2">Civilité *</p>
       <div

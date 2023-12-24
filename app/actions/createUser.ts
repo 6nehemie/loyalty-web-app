@@ -4,11 +4,11 @@ import prisma from '../utils/prisma';
 import { ErrorMessages } from '../enums/errorMessages';
 import { hashPassword } from '../utils/encryptedData';
 import { Validation } from '../utils/validation';
-import { redirect } from 'next/navigation';
 
-export const createUser = async (prevState: any, formData: FormData) => {
+export const createUser = async (formData: FormData) => {
   const errors = [];
 
+  const civility = formData.get('civility');
   const firstName = formData.get('firstName');
   const lastName = formData.get('lastName');
   const email = formData.get('email');
@@ -50,6 +50,7 @@ export const createUser = async (prevState: any, formData: FormData) => {
 
     await prisma.user.create({
       data: {
+        civility: civility as string,
         firstName: firstName as string,
         lastName: lastName as string,
         email: email as string,
@@ -61,7 +62,9 @@ export const createUser = async (prevState: any, formData: FormData) => {
     });
   } catch (error) {
     console.error(error);
-    return { status: 500 };
+    return {
+      error: errors,
+    };
   }
 
   return {

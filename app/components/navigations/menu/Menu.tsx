@@ -8,6 +8,7 @@ import MenuCollection from './MenuCollection';
 import MenuAccount from './MenuAccount';
 import MenuNotifications from './MenuNotifications';
 import Link from 'next/link';
+import useFetchUserData from '@/app/hooks/useFetchUserData';
 
 export const menuNavigation = [{ label: 'À propos de nous', link: '/about' }];
 
@@ -19,6 +20,7 @@ interface MenuProps {
 type MenuContentType = 'fleet' | 'journal' | 'notifications' | 'account';
 
 const Menu: React.FC<MenuProps> = ({ isMenuOpen, setIsMenuOpen }) => {
+  const user = useFetchUserData();
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [menuContent, setMenuContent] =
     React.useState<MenuContentType>('fleet');
@@ -81,13 +83,15 @@ const Menu: React.FC<MenuProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                   <ArrowRightIcon className="h-4 w-4" />
                 </button>
 
-                <button
-                  onClick={handleOpenNotifications}
-                  className={navigationStyle}
-                >
-                  <span>Notifications</span>
-                  <ArrowRightIcon className="h-4 w-4" />
-                </button>
+                {user && (
+                  <button
+                    onClick={handleOpenNotifications}
+                    className={navigationStyle}
+                  >
+                    <span>Notifications</span>
+                    <ArrowRightIcon className="h-4 w-4" />
+                  </button>
+                )}
 
                 <Link href={'/about'} className={navigationStyle}>
                   <span>À propos de nous</span>
@@ -96,7 +100,9 @@ const Menu: React.FC<MenuProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                 <button onClick={handleOpenAccount} className={navigationStyle}>
                   <div className="flex flex-col items-start gap-1">
                     <span className="">Mon compte</span>
-                    <span className="text-sm">Nehemie Mombanga</span>
+                    <span className="text-sm">
+                      {user?.firstName} {user?.lastName}
+                    </span>
                   </div>
                   <ArrowRightIcon className="h-4 w-4" />
                 </button>
@@ -112,7 +118,12 @@ const Menu: React.FC<MenuProps> = ({ isMenuOpen, setIsMenuOpen }) => {
             )}
             {menuContent === 'notifications' && <MenuNotifications />}
             {menuContent === 'account' && (
-              <MenuAccount closeMenu={() => setIsMenuOpen(false)} />
+              <>
+                <MenuAccount
+                  closeMenu={() => setIsMenuOpen(false)}
+                  isLoggedIn={user ? true : false}
+                />
+              </>
             )}
           </div>
         </div>
