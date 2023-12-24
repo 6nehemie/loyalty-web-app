@@ -5,7 +5,7 @@ interface MyProfilCardProps {
   children: React.ReactNode;
   btnLabel?: string;
   displayBtn?: boolean;
-  btnAction: () => void;
+  btnAction?: () => void;
 }
 
 const MyProfilCard: React.FC<MyProfilCardProps> = ({

@@ -5,6 +5,8 @@ import {
   ArrowRightOnRectangleIcon,
   ArrowTopRightOnSquareIcon,
 } from '@heroicons/react/24/outline';
+import { signOut } from 'next-auth/react';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -17,6 +19,10 @@ const AccountSideBar = () => {
 
   const handleCurrentPathIcon = (link: string) => {
     return pathname === link ? 'bg-light-gray' : '';
+  };
+
+  const handleSignOut = () => {
+    signOut();
   };
   return (
     <nav className="w-[300px] pt-[104px] font-exo">
@@ -39,7 +45,10 @@ const AccountSideBar = () => {
             <span>{item.label}</span>
           </Link>
         ))}
-        <button className="flex items-center gap-4 hover:text-black transition-colors duration-200">
+        <button
+          onClick={handleSignOut}
+          className="flex items-center gap-4 hover:text-black transition-colors duration-200"
+        >
           <span className="p-1.5">
             <ArrowRightOnRectangleIcon className="h-5 w-5" strokeWidth={2} />
           </span>

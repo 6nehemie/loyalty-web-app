@@ -17,3 +17,9 @@ export { default as AccountSideBar } from './navigations/account/AccountSideBar'
 export { default as AddInfoBtn } from './buttons/AddInfoBtn';
 export { default as OrderHistoryCard } from './cards/dashboardCards/OrderHistoryCard';
 export { default as MenuAccountSignOut } from './buttons/Button1';
+export { default as Name } from './sections/account/profile/Name';
+export { default as Address } from './sections/account/profile/Address';
+export { default as PhoneNumber } from './sections/account/profile/PhoneNumber';
+export { default as Email } from './sections/account/profile/Email';
+export { default as Password } from './sections/account/profile/Password';
+export { default as DeleteAccount } from './sections/account/profile/DeleteAccount';

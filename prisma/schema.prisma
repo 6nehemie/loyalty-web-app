@@ -25,7 +25,7 @@ model User {
   addressLine1 String?
   addressLine2 String?
   city         String?
-  Postcode     String?
+  postalCode   String?
   password     String
   role         String   @default("USER")
   createdAt    DateTime @default(now())

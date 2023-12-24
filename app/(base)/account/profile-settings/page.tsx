@@ -1,98 +1,59 @@
-'use client';
+import {
+  Address,
+  DeleteAccount,
+  Email,
+  Name,
+  Password,
+  PhoneNumber,
+} from '@/app/components';
+import prisma from '@/app/utils/prisma';
+import { getServerSession } from 'next-auth';
 
-import { AddInfoBtn, MyProfilCard } from '@/app/components';
-import { userInfos } from '@/app/constants';
+const ProfilePage = async () => {
+  const session = await getServerSession();
+  const userEmail = session!.user!.email as string;
 
-const page = () => {
-  const handleNameEdit = () => {};
-  const handleAddNumber = () => {};
+  const user = await prisma.user.findUnique({
+    where: { email: userEmail },
+    select: {
+      civility: true,
+      firstName: true,
+      lastName: true,
+      phoneNumber: true,
+      email: true,
+      addressLine1: true,
+      addressLine2: true,
+      postalCode: true,
+      city: true,
+      country: true,
+    },
+  });
+
   return (
     <div className="w-full">
       <h1 className="dashboard-heading">Mon Profil Loyalty</h1>
       {/* PROFILE SETTINGS */}
       <div className="account-grid w-full mb-16">
-        {/* NAME */}
-        <MyProfilCard
-          title="Nom Complet"
-          btnAction={handleNameEdit}
-          btnLabel="Éditer"
-          displayBtn={userInfos.firstName && userInfos.lastName ? true : false}
-        >
-          <div>
-            <p>
-              {userInfos.firstName} {userInfos.lastName}
-            </p>
-          </div>
-        </MyProfilCard>
-
-        {/* ADDRESS */}
-        <MyProfilCard
-          title="Addresse"
-          btnAction={handleNameEdit}
-          btnLabel="Éditer"
-          displayBtn={userInfos.address ? true : false}
-        >
-          <div className="">
-            <p>{userInfos.address.street}</p>
-            <p>
-              {userInfos.address.city}, {userInfos.address.zip}
-            </p>
-            <p>{userInfos.address.country}</p>
-          </div>
-        </MyProfilCard>
-
-        {/* PHONE NUMBER */}
-        <MyProfilCard
-          title="Numéro de téléphone"
-          btnAction={handleNameEdit}
-          btnLabel="Éditer"
-          displayBtn={!userInfos.phone ? true : false}
-        >
-          <div>
-            {!userInfos.phone ? (
-              <p>{userInfos.phone}</p>
-            ) : (
-              <AddInfoBtn
-                btnLabel="Ajouter nouveau"
-                btnAction={handleAddNumber}
-              />
-            )}
-          </div>
-        </MyProfilCard>
+        <Name firstName={user!.firstName} lastName={user!.lastName} />
+        <Address
+          addressLine1={user?.addressLine1}
+          addressLine2={user?.addressLine2}
+          postalCode={user?.postalCode}
+          city={user?.city}
+          country={user?.country}
+        />
+        <PhoneNumber number={user?.phoneNumber} />
       </div>
       {/* SECURITY SETTINGS */}
       <h3 className="heading-4">Sécurité</h3>
 
       <div className="account-grid w-full mb-16">
-        {/* EMAIL */}
-        <MyProfilCard
-          title="E-mail"
-          btnAction={handleNameEdit}
-          btnLabel="Éditer"
-          displayBtn={userInfos.email ? true : false}
-        >
-          <div>
-            <p>
-              {userInfos.firstName} {userInfos.lastName}
-            </p>
-          </div>
-        </MyProfilCard>
-
-        {/* PASSWORD */}
-        <MyProfilCard
-          title="Mot de passe"
-          btnAction={handleNameEdit}
-          btnLabel="Rénitialiser"
-          displayBtn={userInfos.address ? true : false}
-        >
-          <p>* * * * * * * * * * * *</p>
-        </MyProfilCard>
+        <Email />
+        <Password />
       </div>
 
-      <button className="font-exo font-light underline">
-        Supprimer mon compte Loyalty.RC
-      </button>
+      <DeleteAccount />
     </div>
   );
 };
-export default page;
+export default ProfilePage;
