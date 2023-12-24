@@ -2,17 +2,15 @@
 
 import { navbarNavigation } from '@/app/constants';
 import { Logo } from '..';
-import {
-  Bars2Icon,
-  UserCircleIcon,
-  UserIcon,
-} from '@heroicons/react/24/outline';
+import { Bars2Icon, UserIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import Menu from './menu/Menu';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 const Navbar = () => {
+  const session = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -53,7 +51,11 @@ const Navbar = () => {
           {/* CONNECTION */}
           <div className="col-start-3 justify-end flex items-center gap-5 text-sm">
             <Link
-              href={'/sign-in'}
+              href={`${
+                session.data?.user?.email !== undefined
+                  ? '/account'
+                  : '/sign-in'
+              }`}
               className="flex items-center gap-2 bg-dark-gray text-white px-4 py-2 rounded-md transition-colors duration-200"
             >
               <UserIcon className="h-4 max-md:h-5" />

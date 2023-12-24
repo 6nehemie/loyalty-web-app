@@ -1,16 +1,41 @@
 'use client';
 
-import { InputFrom, SubmitButton } from '@/app/components';
+import { InputFrom, Logo, SubmitButton } from '@/app/components';
 import { signIn as login } from '@/app/constants';
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
+import { set } from 'mongoose';
 import { signIn } from 'next-auth/react';
+import { redirect } from 'next/dist/server/api-utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const SignInPage = () => {
+  const router = useRouter();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
   async function clientAction(formData: FormData) {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
-    signIn('credentials', { email, password });
+
+    try {
+      const response = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (response?.error) {
+        setErrorMsg(response.error);
+        throw new Error(response.error);
+      }
+    } catch (error) {
+      return console.error(error);
+    }
+
+    setErrorMsg(null);
+    router.push('/');
   }
 
   return (
@@ -26,14 +51,31 @@ const SignInPage = () => {
         />
       </div>
 
-      <div className="flex items-center justify-center p-5">
+      <div className="flex flex-col items-center justify-center p-5">
         <form
           action={clientAction}
           className="max-w-[361px] w-full flex flex-col gap-6"
         >
           <h1 className="heading-4">Bienvenue</h1>
-          <InputFrom label="Email" type="email" name="email" />
-          <InputFrom label="Mot de passe" type="password" name="password" />
+          <InputFrom
+            label="Email"
+            type="email"
+            name="email"
+            error={errorMsg ? true : false}
+          />
+          <InputFrom
+            label="Mot de passe"
+            type="password"
+            name="password"
+            error={errorMsg ? true : false}
+          />
+
+          {errorMsg && (
+            <div className="flex gap-2 text-red-500 text-sm -mt-3">
+              <ExclamationCircleIcon className="h-4 w-4 block mt-0.5" />
+              <p>{errorMsg}</p>
+            </div>
+          )}
 
           <SubmitButton label="Connexion" className="w-full" />
           <p className="font-light text-sm">
