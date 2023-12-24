@@ -3,7 +3,11 @@
 import { MyProfilCard } from '@/app/components';
 import { userInfos } from '@/app/constants';
 
-const Email = () => {
+interface IEmailProps {
+  email?: string | null | undefined;
+}
+
+const Email: React.FC<IEmailProps> = ({ email }) => {
   const handleNameEdit = () => {};
   return (
     <div>
@@ -11,12 +15,10 @@ const Email = () => {
         title="E-mail"
         btnAction={handleNameEdit}
         btnLabel="Éditer"
-        displayBtn={userInfos.email ? true : false}
+        displayBtn={email ? true : false}
       >
         <div>
-          <p>
-            {userInfos.firstName} {userInfos.lastName}
-          </p>
+          <p>{email}</p>
         </div>
       </MyProfilCard>
     </div>

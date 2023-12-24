@@ -48,7 +48,7 @@ const ProfilePage = async () => {
       <h3 className="heading-4">Sécurité</h3>
 
       <div className="account-grid w-full mb-16">
-        <Email />
+        <Email email={user!.email} />
         <Password />
       </div>
 
