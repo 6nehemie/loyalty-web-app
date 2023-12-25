@@ -3,9 +3,7 @@
 import { InputFrom, Logo, SubmitButton } from '@/app/components';
 import { signIn as login } from '@/app/constants';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
-import { set } from 'mongoose';
 import { signIn } from 'next-auth/react';
-import { redirect } from 'next/dist/server/api-utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
