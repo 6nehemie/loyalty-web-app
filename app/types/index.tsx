@@ -20,3 +20,16 @@ export interface User {
   firstName: string;
   lastName: string;
 }
+
+export interface INameUpdateValidation {
+  firstName: string;
+  lastName: string;
+}
+
+export interface IAddressUpdateValidation {
+  country: string;
+  address1: string;
+  address2: string;
+  city: string;
+  postalCode: string;
+}

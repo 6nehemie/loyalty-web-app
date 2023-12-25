@@ -7,9 +7,12 @@ import {
   MyProfilCard,
   SubmitButton,
 } from '@/app/components';
+import { INameUpdateValidation } from '@/app/types';
+import { nameUpdateValidation } from '@/app/utils/updateValitaion';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useFormStatus } from 'react-dom';
 
 interface INameProps {
   firstName: string;
@@ -19,15 +22,25 @@ interface INameProps {
 const Name: React.FC<INameProps> = ({ firstName, lastName }) => {
   const router = useRouter();
   const session = useSession();
+  const { pending } = useFormStatus();
   const email = session!.data!.user!.email as string;
+
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [error, setError] = useState<INameUpdateValidation>({
+    firstName: '',
+    lastName: '',
+  });
 
   async function clientAction(formData: FormData) {
     const result = await updateName(formData, email);
     if (result?.error) {
-      console.error(result.error);
+      if (Array.isArray(result.error))
+        nameUpdateValidation(result.error, setError);
+    } else {
+      nameUpdateValidation([], setError); // reset error
+      setIsEditing(false);
+      router.refresh();
     }
-    router.refresh();
   }
 
   return (
@@ -52,22 +65,27 @@ const Name: React.FC<INameProps> = ({ firstName, lastName }) => {
         <form action={clientAction}>
           <div className="grid grid-cols-2 gap-4">
             <InputFrom
-              label="Prénom"
+              label="Prénom *"
               name="firstName"
               type="text"
               defaultValue={firstName}
-              required
+              error={error.firstName ? true : false}
+              errorMessage={error.firstName}
+              // required
             />
             <InputFrom
-              label="Nom"
+              label="Nom *"
               name="lastName"
               type="text"
               defaultValue={lastName}
-              required
+              error={error.lastName ? true : false}
+              errorMessage={error.lastName}
+              // required
             />
             <SubmitButton
               type="submit"
               label="Enregistrer"
+              ariaDisabled={pending}
               className="w-max text-sm"
             />
           </div>
