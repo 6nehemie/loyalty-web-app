@@ -12,6 +12,7 @@ interface InputFromProps {
   setCurrentValue?: any;
   error?: boolean | null;
   errorMessage?: string;
+  defaultValue?: string;
   ref?: LegacyRef<HTMLInputElement> | undefined;
 }
 
@@ -21,6 +22,7 @@ const InputFrom: React.FC<InputFromProps> = ({
   type = 'text',
   required,
   placeholder,
+  defaultValue,
   setCurrentValue,
   ref,
   error,
@@ -46,8 +48,9 @@ const InputFrom: React.FC<InputFromProps> = ({
           id={name}
           ref={ref}
           required={required}
+          defaultValue={defaultValue}
           onChange={(e) => setCurrentValue && setCurrentValue(e.target.value)}
-          className={`h-[54px] border-2 bg-light-gray rounded-md px-4 outline-none font-exo w-full ${
+          className={`h-[48px] border-2 bg-light-gray rounded-md px-4 outline-sky-300 font-exo w-full ${
             error && 'border-red-500'
           }`}
         />

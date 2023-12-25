@@ -23,3 +23,4 @@ export { default as PhoneNumber } from './sections/account/profile/PhoneNumber';
 export { default as Email } from './sections/account/profile/Email';
 export { default as Password } from './sections/account/profile/Password';
 export { default as DeleteAccount } from './sections/account/profile/DeleteAccount';
+export { default as EditCard } from './cards/dashboardCards/EditCard';

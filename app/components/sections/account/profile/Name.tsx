@@ -1,6 +1,15 @@
 'use client';
 
-import { Backdrop, InputFrom, MyProfilCard } from '@/app/components';
+import { updateName } from '@/app/actions/updateProfil';
+import {
+  EditCard,
+  InputFrom,
+  MyProfilCard,
+  SubmitButton,
+} from '@/app/components';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface INameProps {
   firstName: string;
@@ -8,14 +17,25 @@ interface INameProps {
 }
 
 const Name: React.FC<INameProps> = ({ firstName, lastName }) => {
-  const handleNameEdit = () => {};
+  const router = useRouter();
+  const session = useSession();
+  const email = session!.data!.user!.email as string;
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  async function clientAction(formData: FormData) {
+    const result = await updateName(formData, email);
+    if (result?.error) {
+      console.error(result.error);
+    }
+    router.refresh();
+  }
 
   return (
     <>
       <div>
         <MyProfilCard
           title="Nom Complet"
-          btnAction={handleNameEdit}
+          btnAction={() => setIsEditing(true)}
           btnLabel="Éditer"
           displayBtn={firstName && lastName ? true : false}
         >
@@ -26,20 +46,33 @@ const Name: React.FC<INameProps> = ({ firstName, lastName }) => {
           </div>
         </MyProfilCard>
       </div>
-      <>
-        <Backdrop isActive={true} />
-        <div className="z-[1000] fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-          <div className={`max-w-[772px] w-full bg-white p-10 rounded-lg`}>
-            <h1 className="heading-4 mb-4">Modifier votre nom</h1>
-            <form>
-              <div className="grid grid-cols-2 gap-4">
-                <InputFrom label="Prénom" name="firstName" type="text" />
-                <InputFrom label="Nom" name="lastName" type="text" />
-              </div>
-            </form>
+
+      <EditCard isEditing={isEditing} setIsEditing={setIsEditing}>
+        <h1 className="heading-4 mb-6">Modifier votre nom</h1>
+        <form action={clientAction}>
+          <div className="grid grid-cols-2 gap-4">
+            <InputFrom
+              label="Prénom"
+              name="firstName"
+              type="text"
+              defaultValue={firstName}
+              required
+            />
+            <InputFrom
+              label="Nom"
+              name="lastName"
+              type="text"
+              defaultValue={lastName}
+              required
+            />
+            <SubmitButton
+              type="submit"
+              label="Enregistrer"
+              className="w-max text-sm"
+            />
           </div>
-        </div>
-      </>
+        </form>
+      </EditCard>
     </>
   );
 };

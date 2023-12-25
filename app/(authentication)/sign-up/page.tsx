@@ -16,7 +16,6 @@ const SignUpPage = () => {
     const password = formData.get('password') as string;
     const civility = formData.get('civility') as string;
 
-    console.log(email, password, civility);
     const result = await createUser(formData);
     if (result?.error) {
       console.error(result.error);
