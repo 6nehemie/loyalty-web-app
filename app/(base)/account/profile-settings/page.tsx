@@ -16,7 +16,6 @@ const ProfilePage = async () => {
   const user = await prisma.user.findUnique({
     where: { email: userEmail },
     select: {
-      civility: true,
       firstName: true,
       lastName: true,
       phoneNumber: true,
