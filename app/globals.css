@@ -116,4 +116,10 @@ html {
     padding: 0 20px;
     padding-top: 128px;
   }
+
+  .hide-number-input-arrows {
+    --tw-empty-content: '';
+    appearance: none;
+    margin: 0;
+  }
 }

@@ -29,7 +29,7 @@ export interface INameUpdateValidation {
 export interface IAddressUpdateValidation {
   country: string;
   address1: string;
-  address2: string;
+  address2?: string;
   city: string;
   postalCode: string;
 }

@@ -50,7 +50,7 @@ const InputFrom: React.FC<InputFromProps> = ({
           required={required}
           defaultValue={defaultValue}
           onChange={(e) => setCurrentValue && setCurrentValue(e.target.value)}
-          className={`h-[48px] border-2 bg-light-gray rounded-md px-4 outline-sky-300 font-exo w-full ${
+          className={`h-[48px] border-2 bg-light-gray rounded-md px-4  outline-cool-gray-1 font-exo w-full ${
             error && 'border-red-500'
           }`}
         />

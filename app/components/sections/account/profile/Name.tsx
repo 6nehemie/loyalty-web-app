@@ -21,8 +21,8 @@ interface INameProps {
 
 const Name: React.FC<INameProps> = ({ firstName, lastName }) => {
   const router = useRouter();
-  const session = useSession();
   const { pending } = useFormStatus();
+  const session = useSession();
   const email = session!.data!.user!.email as string;
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
