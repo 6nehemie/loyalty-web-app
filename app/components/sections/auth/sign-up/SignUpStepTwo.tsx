@@ -1,67 +1,29 @@
-'use client';
-
 import { CheckboxForm, InputFrom } from '@/app/components';
-import { UserStepTwoData } from '@/app/types';
-import { Validation } from '@/app/utils/validation';
-import { useEffect, useState } from 'react';
+import { IstepTwo } from '@/app/types';
 
 interface SignUpStepTwoProps {
-  setIsAllowedToSubmit: (isAllowed: boolean) => void;
+  stepTwoError: IstepTwo;
 }
 
-const SignUpStepTwo: React.FC<SignUpStepTwoProps> = ({
-  setIsAllowedToSubmit,
-}) => {
-  const [stepTwoUserData, setStepTwoUserData] = useState<UserStepTwoData>({
-    password: '',
-    confirmPassword: '',
-    newsletter: false,
-  });
-
-  useEffect(() => {
-    if (
-      Validation.isValidPassword(stepTwoUserData?.password) &&
-      Validation.arePasswordsMatching(
-        stepTwoUserData?.password,
-        stepTwoUserData?.confirmPassword
-      )
-    ) {
-      setIsAllowedToSubmit(true);
-    } else setIsAllowedToSubmit(false);
-  }, [stepTwoUserData, setIsAllowedToSubmit]);
-
-  const handlePasswordChange = (password: string) => {
-    setStepTwoUserData((prev) => ({ ...prev, password }));
-  };
-
-  const handleConfirmPasswordChange = (confirmPassword: string) => {
-    setStepTwoUserData((prev) => ({ ...prev, confirmPassword }));
-  };
-
-  const handleSubscribeToNewsletter = (newsletter: boolean) => {
-    setStepTwoUserData((prev) => ({ ...prev, newsletter }));
-  };
-
+const SignUpStepTwo: React.FC<SignUpStepTwoProps> = ({ stepTwoError }) => {
+  console.log(stepTwoError);
   return (
     <div className="flex flex-col gap-6">
       <InputFrom
         label="Mot de passe *"
         type="password"
         name="password"
-        setCurrentValue={handlePasswordChange}
-        required
+        error={stepTwoError.password ? true : false}
+        errorMessage={stepTwoError.password}
       />
       <InputFrom
         label="Confirmez le mot de passe *"
         type="password"
-        setCurrentValue={handleConfirmPasswordChange}
+        error={stepTwoError.confirmPassword ? true : false}
+        errorMessage={stepTwoError.confirmPassword}
         name="confirmPassword"
-        required
       />
-      <CheckboxForm
-        setCurrentValue={handleSubscribeToNewsletter}
-        name="newsletter"
-      >
+      <CheckboxForm name="newsletter">
         <p>Recevoir les news Loylaty.RC .</p>
       </CheckboxForm>
     </div>

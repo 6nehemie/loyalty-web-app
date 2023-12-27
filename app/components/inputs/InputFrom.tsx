@@ -62,13 +62,13 @@ const InputFrom: React.FC<InputFromProps> = ({
             {showPassword === 'password' ? 'montrer' : 'cacher'}
           </div>
         )}
-        {errorMessage && (
-          <div className="flex gap-2 text-red-500 text-sm mt-2">
-            <ExclamationCircleIcon className="h-4 w-4 block mt-0.5" />
-            <p>{errorMessage}</p>
-          </div>
-        )}
       </div>
+      {errorMessage && (
+        <div className="flex gap-2 text-red-500 text-sm mt-2">
+          <ExclamationCircleIcon className="h-4 w-4 block mt-0.5" />
+          <p>{errorMessage}</p>
+        </div>
+      )}
     </div>
   );
 };

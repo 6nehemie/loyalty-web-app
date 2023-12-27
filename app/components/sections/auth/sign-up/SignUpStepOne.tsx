@@ -1,96 +1,53 @@
-'use client';
-
 import { CheckboxForm, InputFrom, SelectForm } from '@/app/components';
-import { ChoiceType, UserStepOneDataType } from '@/app/types';
-import { ErrorMessage, Validation } from '@/app/utils/validation';
+import { IstepOne } from '@/app/types';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 interface SignUpStepOneProps {
-  setIsNextStepAllowed: React.Dispatch<React.SetStateAction<boolean>>;
+  stepOneError: IstepOne;
 }
 
-const SignUpStepOne: React.FC<SignUpStepOneProps> = ({
-  setIsNextStepAllowed,
-}) => {
-  const [emailError, setEmailError] = useState<string>('');
-  const [userStepOneData, setUserStepOneData] = useState<UserStepOneDataType>({
-    civility: undefined,
-    firstName: '',
-    lastName: '',
-    email: '',
-    generalConditions: false,
-    privacy: false,
-  });
-
-  const handleCivilityChange = (civility: ChoiceType) => {
-    setUserStepOneData((prev) => ({ ...prev, civility }));
-  };
-  const handleFirstNameChange = (firstName: string) => {
-    setUserStepOneData((prev) => ({ ...prev, firstName }));
-  };
-  const handleLastNameChange = (lastName: string) => {
-    setUserStepOneData((prev) => ({ ...prev, lastName }));
-  };
-  const handleEmailChange = (email: string) => {
-    setUserStepOneData((prev) => ({ ...prev, email }));
-  };
-  const handleGeneralConditionsChange = (generalConditions: boolean) => {
-    setUserStepOneData((prev) => ({ ...prev, generalConditions }));
-  };
-  const handlePrivacyChange = (privacy: boolean) => {
-    setUserStepOneData((prev) => ({ ...prev, privacy }));
-  };
-
-  useEffect(() => {
-    if (
-      userStepOneData?.civility &&
-      Validation.isValidName(userStepOneData?.firstName) &&
-      Validation.isValidName(userStepOneData?.lastName) &&
-      Validation.isEmailValid(userStepOneData?.email) &&
-      userStepOneData?.generalConditions &&
-      userStepOneData?.privacy
-    ) {
-      setIsNextStepAllowed(true);
-    } else {
-      setIsNextStepAllowed(false);
-    }
-  }, [userStepOneData, setIsNextStepAllowed, emailError]);
-
+const SignUpStepOne: React.FC<SignUpStepOneProps> = ({ stepOneError }) => {
   return (
     <div className="flex flex-col gap-4">
-      <SelectForm setCurrentValue={handleCivilityChange} />
+      <SelectForm
+        label="Civilité *"
+        name="civility"
+        options={['Monsieur', 'Madame']}
+        error={stepOneError.civility ? true : false}
+        errorMessage={stepOneError.civility}
+      />
 
       {/* INPUT */}
       <div className="grid grid-cols-2 gap-6 w-full">
         <InputFrom
-          setCurrentValue={handleFirstNameChange}
           label="Prénom *"
           type="text"
           name="firstName"
-          required
+          error={stepOneError.firstName ? true : false}
+          errorMessage={stepOneError.firstName}
         />
         <InputFrom
-          setCurrentValue={handleLastNameChange}
           label="Nom *"
           type="text"
           name="lastName"
-          required
+          error={stepOneError.lastName ? true : false}
+          errorMessage={stepOneError.lastName}
         />
       </div>
       <InputFrom
-        setCurrentValue={handleEmailChange}
         label="Email *"
         type="email"
         name="email"
-        required
+        error={stepOneError.email ? true : false}
+        errorMessage={stepOneError.email}
       />
 
       {/* CHECK BOX */}
       <div className="flex flex-col gap-2 mt-2 w-full">
         <CheckboxForm
-          setCurrentValue={handleGeneralConditionsChange}
           name="generalConditions"
+          error={stepOneError.generalConditions ? true : false}
+          errorMessage={stepOneError.generalConditions}
           required
         >
           <p>
@@ -103,8 +60,9 @@ const SignUpStepOne: React.FC<SignUpStepOneProps> = ({
         </CheckboxForm>
 
         <CheckboxForm
-          setCurrentValue={handlePrivacyChange}
           name="privacy"
+          error={stepOneError.privacy ? true : false}
+          errorMessage={stepOneError.privacy}
           required
         >
           <p>

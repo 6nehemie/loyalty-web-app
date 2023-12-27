@@ -8,9 +8,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useFormStatus } from 'react-dom';
 
 const SignInPage = () => {
   const router = useRouter();
+  const { pending } = useFormStatus();
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   async function clientAction(formData: FormData) {
@@ -75,7 +77,11 @@ const SignInPage = () => {
             </div>
           )}
 
-          <SubmitButton label="Connexion" className="w-full" />
+          <SubmitButton
+            label="Connexion"
+            className="w-full"
+            ariaDisabled={pending}
+          />
           <p className="font-light text-sm">
             <span>Vous n&apos;avez pas de compte ?</span>{' '}
             <Link href={'/sign-up'} className="underline">

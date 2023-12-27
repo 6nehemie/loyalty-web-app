@@ -14,7 +14,16 @@ enum SignUpStep {
   SUBMIT = 'submit',
 }
 
-const StepContainer = () => {
+enum step {
+  ONE = 1,
+  TWO = 2,
+}
+
+interface IStepContainerProps {
+  setCurrentStep: (step: step) => void;
+}
+
+const StepContainer: React.FC<IStepContainerProps> = ({ setCurrentStep }) => {
   const { pending } = useFormStatus();
 
   const [step, setStep] = useState<'step-one' | 'step-two' | 'submit'>(
@@ -25,6 +34,7 @@ const StepContainer = () => {
   const handleNextStep = () => {
     if (!isNextStepAllowed) return;
     setStep(SignUpStep.STEP_TWO);
+    setCurrentStep(2);
   };
 
   const handleAllowSubmit = (isAllowed: boolean) => {
@@ -42,7 +52,7 @@ const StepContainer = () => {
       </div>
 
       <div className="font-light">
-        {step === SignUpStep.STEP_ONE ? (
+        {/* {step === SignUpStep.STEP_ONE ? (
           <AntiFormBtn
             label="Continuer"
             onClick={handleNextStep}
@@ -56,14 +66,14 @@ const StepContainer = () => {
             disabled={step === SignUpStep.SUBMIT ? false : true}
             className="w-full mb-3"
           />
-        )}
-
+        )} */}
+        {/* 
         <p>
           Avez-vous déjà un compte ?{' '}
           <Link href={'/sign-in'} className="underline">
             Connexion
           </Link>
-        </p>
+        </p> */}
       </div>
     </div>
   );

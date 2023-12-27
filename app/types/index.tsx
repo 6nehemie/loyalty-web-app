@@ -33,3 +33,17 @@ export interface IAddressUpdateValidation {
   city: string;
   postalCode: string;
 }
+
+export interface IstepOne {
+  civility: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  generalConditions: string;
+  privacy: string;
+}
+export interface IstepTwo {
+  password: string;
+  confirmPassword: string;
+  newsletter?: string;
+}

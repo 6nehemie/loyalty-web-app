@@ -1,12 +1,14 @@
 'use client';
 
-import { CheckIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import React, { Children, LegacyRef, useState } from 'react';
 
 interface CheckboxFormProps {
   label?: string;
   name: string;
   required?: boolean;
+  error?: boolean;
+  errorMessage?: string;
   children?: React.ReactNode;
   setCurrentValue?: any;
 }
@@ -14,6 +16,8 @@ interface CheckboxFormProps {
 const CheckboxForm: React.FC<CheckboxFormProps> = ({
   label,
   name,
+  error,
+  errorMessage,
   required,
   children,
   setCurrentValue,
@@ -29,7 +33,7 @@ const CheckboxForm: React.FC<CheckboxFormProps> = ({
       >
         <div
           className={`flex items-center justify-center h-7 w-7 aspect-square border-2 rounded-md border-dark-gray transition-all duration-200
-        ${isChecked && 'bg-dark-gray'}
+        ${isChecked && 'bg-dark-gray'} ${error && 'border-red-500'}
         `}
         >
           {isChecked && <CheckIcon className="h-5 w-5 text-white" />}
@@ -46,6 +50,12 @@ const CheckboxForm: React.FC<CheckboxFormProps> = ({
           setCurrentValue && setCurrentValue(event.target.checked)
         }
       />
+      {errorMessage && (
+        <div className="flex gap-2 text-red-500 text-sm mt-2">
+          <ExclamationCircleIcon className="h-4 w-4 block mt-0.5" />
+          <p>{errorMessage}</p>
+        </div>
+      )}
     </div>
   );
 };
