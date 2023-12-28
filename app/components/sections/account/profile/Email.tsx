@@ -11,7 +11,7 @@ interface IEmailProps {
 const Email: React.FC<IEmailProps> = ({ email }) => {
   const resetEmail = async () => {
     try {
-      const result = await axios.post('/api/send');
+      const result = await axios.post('/api/welcome');
       if (result.data.error) throw new Error(result.data.error.message);
     } catch (error) {
       console.error(error);

@@ -1,6 +1,6 @@
 'use client';
 
-import { InputFrom, Logo, SubmitButton } from '@/app/components';
+import { InputFrom, SubmitButton } from '@/app/components';
 import { signIn as login } from '@/app/constants';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { signIn } from 'next-auth/react';

@@ -10,7 +10,6 @@ import {
 } from '@/app/components';
 import Link from 'next/link';
 import { createUser } from '@/app/actions/createUser';
-import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useRef, useState } from 'react';
 import {
@@ -23,6 +22,7 @@ import {
   stepTwoValidation,
 } from '@/app/utils/authValidation';
 import { useFormStatus } from 'react-dom';
+import axios from 'axios';
 
 enum step {
   ONE = 1,
@@ -54,7 +54,6 @@ const SignUpPage = () => {
 
     try {
       const response = await validateStepTwoSignUp(formData);
-      console.log(response);
       if (response?.error) {
         if (Array.isArray(response.error)) {
           stepTwoValidation(response.error, setStepTwoError);
@@ -68,6 +67,7 @@ const SignUpPage = () => {
         console.error(result.error);
       } else {
         signIn('credentials', { email, password });
+        await axios.post('/api/welcome');
       }
     } catch (error) {
       console.error(error);
