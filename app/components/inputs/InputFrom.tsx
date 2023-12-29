@@ -12,6 +12,7 @@ interface InputFromProps {
   setCurrentValue?: any;
   error?: boolean | null;
   errorMessage?: string;
+  className?: string;
   defaultValue?: string;
   ref?: LegacyRef<HTMLInputElement> | undefined;
 }
@@ -23,6 +24,7 @@ const InputFrom: React.FC<InputFromProps> = ({
   required,
   placeholder,
   defaultValue,
+  className,
   setCurrentValue,
   ref,
   error,

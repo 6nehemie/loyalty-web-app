@@ -1,4 +1,3 @@
-import { WelcomEmail } from '@/app/components/emails/WelcomEmail';
 import { Resend } from 'resend';
 import * as React from 'react';
 import { getServerSession } from 'next-auth';
