@@ -3,33 +3,21 @@ import { Resend } from 'resend';
 import * as React from 'react';
 import { getServerSession } from 'next-auth';
 import prisma from '@/app/utils/prisma';
+import { NextRequest, NextResponse } from 'next/server';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const body = await request.text();
+  const { email, firstName, lastName } = JSON.parse(body);
+
   try {
-    const user = await getServerSession();
-    if (!user?.user) return Response.json({ error: 'Must be authenticated' });
-    const userEmail = user?.user?.email as string;
-
-    const userData = await prisma.user.findUnique({
-      where: {
-        email: userEmail,
-      },
-      select: {
-        firstName: true,
-        lastName: true,
-      },
-    });
-
-    const fullName = `${userData?.firstName} ${userData?.lastName}`;
-
     const { data, error } = await resend.emails.send({
       from: 'Loylaty RC <team@loyalty-rc.com>',
-      to: [userEmail],
+      to: [email],
       subject: 'Bienvenue chez Loyalty RC',
       react: WelcomEmail({
-        fullName: fullName,
+        fullName: `${firstName} ${lastName}`,
       }) as React.ReactElement,
     });
 

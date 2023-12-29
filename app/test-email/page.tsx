@@ -1,9 +1,9 @@
-import SampleEmail from '../components/emails/WelcomEmail';
+import EmailResetTemplate from '../components/emails/EmailResetTemplate';
 
 const page = () => {
   return (
     <div>
-      <SampleEmail />
+      <EmailResetTemplate />
     </div>
   );
 };

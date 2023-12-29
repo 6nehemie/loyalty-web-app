@@ -12,22 +12,24 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  civility     String
-  firstName    String
-  lastName     String
-  conditions   Boolean?
-  privacy      Boolean?
-  newsletter   Boolean?
-  phoneNumber  String?
-  country      String?
-  addressLine1 String?
-  addressLine2 String?
-  city         String?
-  postalCode   String?
-  password     String
-  role         String   @default("USER")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt // Updtate automatically when an update is made
+  id                String   @id @default(cuid())
+  email             String   @unique
+  civility          String
+  firstName         String
+  lastName          String
+  conditions        Boolean?
+  privacy           Boolean?
+  newsletter        Boolean?
+  phoneNumber       String?
+  country           String?
+  addressLine1      String?
+  addressLine2      String?
+  city              String?
+  postalCode        String?
+  password          String
+  role              String   @default("USER")
+  emailCodeReset    String?
+  passwordCodeReset String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt // Updtate automatically when an update is made
 }

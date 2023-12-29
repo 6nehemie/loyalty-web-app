@@ -4,9 +4,11 @@ import prisma from '../utils/prisma';
 import { ErrorMessages } from '../enums/errorMessages';
 import { hashPassword } from '../utils/encryptedData';
 import { Validation } from '../utils/validation';
+import axios from 'axios';
 
 export const createUser = async (formData: FormData) => {
   const errors = [];
+  const route = await import('@/app/api/send/welcome/route');
 
   const civility = formData.get('civility');
   const firstName = formData.get('firstName');
@@ -59,6 +61,12 @@ export const createUser = async (formData: FormData) => {
         privacy: privacy === 'on' ? true : false,
         newsletter: newsletter === 'on' ? true : false,
       },
+    });
+
+    await axios.post('api/send/welcome', {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
     });
   } catch (error) {
     console.error(error);

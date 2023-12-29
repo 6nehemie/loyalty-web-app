@@ -34,7 +34,7 @@ export const WelcomEmail = ({
       <Head />
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="bg-light-gray my-auto mx-auto font-exo">
+        <Body className="bg-[#F4F4F4] my-auto mx-auto font-exo">
           <Container className="border bg-white border-solid border-[#eaeaea] rounded my-[40px] mx-auto max-w-[565px] w-full">
             <Heading className="font-exo text-dm text-black text-[24px] font-normal text-center p-0 mt-5 mx-0">
               <Text className="text-lg font-light">Loyalty RC</Text>
