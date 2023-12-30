@@ -3,6 +3,7 @@
 import { ErrorMessages } from '../enums/errorMessages';
 import prisma from '../utils/prisma';
 import { Validation } from '../utils/validation';
+import bcrypt from 'bcryptjs';
 
 export const updateName = async (formData: FormData, email: string) => {
   const errors = [];
@@ -78,6 +79,110 @@ export const updatePhoneNumber = async (formData: FormData, email: string) => {
     });
 
     return { data: 'User updated successfully' };
+  } catch (error) {
+    console.error(error);
+    return { error };
+  }
+};
+
+export const updateEmail = async (formData: FormData, email: string) => {
+  const errors = [];
+  const newEmail = formData.get('newEmail') as string;
+  const resetCode = formData.get('resetCode') as string;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email },
+      select: { emailCodeReset: true },
+    });
+
+    // ? Check if reset code is valid
+    if (!resetCode) errors.push(ErrorMessages.VERIFICATION_CODE_EMPTY_ERROR);
+    else if (
+      resetCode &&
+      !(await bcrypt.compare(resetCode, user?.emailCodeReset as string))
+    ) {
+      errors.push(ErrorMessages.VERIFICATION_CODE_INVALID_ERROR);
+    }
+
+    // ? Check if email is valid
+    if (!newEmail) errors.push(ErrorMessages.EMAIL_ERROR);
+    else if (newEmail && !Validation.isEmailValid(newEmail))
+      errors.push(ErrorMessages.EMAIL_ERROR_MESSAGE);
+
+    try {
+      if (newEmail && Validation.isEmailValid(newEmail)) {
+        const user = await prisma.user.findUnique({
+          where: { email: newEmail },
+        });
+        if (user) errors.push(ErrorMessages.USER_ALREADY_EXIST_ERROR);
+      }
+    } catch (error) {}
+
+    if (errors.length > 0) return { error: errors };
+
+    await prisma.user.update({
+      where: { email },
+      data: { email: newEmail },
+    });
+
+    return { data: 'User updated successfully' };
+  } catch (error) {
+    console.error(error);
+    return { error };
+  }
+};
+
+export const updatePassword = async (formData: FormData, email: string) => {
+  const errors = [];
+  const password = formData.get('password') as string;
+  const newPassword = formData.get('newPassword') as string;
+  const passwordConfirm = formData.get('passwordConfirm') as string;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email },
+      select: { password: true },
+    });
+
+    if (!user) return { error: 'User not found' };
+
+    // ? PASSWORD
+    if (!password) errors.push(ErrorMessages.PASSWORD_ERROR);
+    else if (password && !(await bcrypt.compare(password, user.password)))
+      errors.push(ErrorMessages.PASSWORD_MISMATCH_ERROR);
+
+    // ? NEW PASSWORD
+    if (!newPassword) errors.push(ErrorMessages.NEW_PASSWORD_EMPTY_ERROR);
+    else if (!Validation.isValidPassword(newPassword))
+      errors.push(ErrorMessages.PASSWORD_CRITERIA_ERROR);
+    else if (newPassword === password)
+      errors.push(ErrorMessages.SAME_PASSWORD_ERROR);
+
+    if (!passwordConfirm) errors.push(ErrorMessages.CONFIRM_PASSWORD_ERROR);
+    else if (newPassword !== passwordConfirm)
+      errors.push(ErrorMessages.PASSWORDS_NOT_MATCH_ERROR);
+
+    if (errors.length > 0) return { error: errors };
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await prisma.user.update({
+      where: { email },
+      data: { password: hashedPassword },
+    });
+
+    return { data: 'User updated successfully' };
+  } catch (error) {
+    console.error(error);
+    return { error };
+  }
+};
+
+export const deleteAccount = async (email: string) => {
+  try {
+    await prisma.user.delete({ where: { email } });
+    return { data: 'User deleted successfully' };
   } catch (error) {
     console.error(error);
     return { error };

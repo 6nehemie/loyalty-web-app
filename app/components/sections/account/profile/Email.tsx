@@ -1,19 +1,23 @@
 'use client';
 
+import { updateEmail } from '@/app/actions/updateProfil';
 import {
   EditCard,
   InputFrom,
   MyProfilCard,
   SubmitButton,
 } from '@/app/components';
+import { IEmailUpdateValidation } from '@/app/types';
+import { emailUpdateValidation } from '@/app/utils/updateValitaion';
 import axios from 'axios';
+import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 interface IEmailProps {
-  email?: string | null | undefined;
-  resetCode?: string | null | undefined;
+  email?: string;
+  resetCode?: string;
 }
 
 const Email: React.FC<IEmailProps> = ({ email }) => {
@@ -21,10 +25,21 @@ const Email: React.FC<IEmailProps> = ({ email }) => {
   const { pending } = useFormStatus();
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [error, setError] = useState<IEmailProps>({
+  const [error, setError] = useState<IEmailUpdateValidation>({
     email: '',
     resetCode: '',
   });
+
+  console.log(error);
+
+  const SendResetCode = async () => {
+    try {
+      const result = await axios.post('/api/send/email/reset');
+      if (result.data.error) throw new Error(result.data.error.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleOpenModalAndSendCode = async () => {
     setIsEditing(true);
@@ -37,15 +52,16 @@ const Email: React.FC<IEmailProps> = ({ email }) => {
   };
 
   async function clientAction(formData: FormData) {
-    // const result = await updateEmail(formData, email);
-    // if (result?.error) {
-    //   if (Array.isArray(result.error))
-    //     nameUpdateValidation(result.error, setError);
-    // } else {
-    //   nameUpdateValidation([], setError); // reset error
-    //   setIsEditing(false);
-    //   router.refresh();
-    // }
+    const result = await updateEmail(formData, email as string);
+    if (result?.error) {
+      if (Array.isArray(result.error))
+        emailUpdateValidation(result.error, setError);
+    } else {
+      emailUpdateValidation([], setError); // reset error
+      setIsEditing(false);
+      router.refresh();
+      signOut();
+    }
   }
 
   return (
@@ -65,24 +81,29 @@ const Email: React.FC<IEmailProps> = ({ email }) => {
         <h1 className="heading-4 mb-6">Modifier votre nom</h1>
         <form action={clientAction}>
           <div className="grid grid-cols-2 gap-4">
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col gap-2 ">
               <InputFrom
                 label="Code de vérification *"
-                name="firstName"
+                name="resetCode"
                 type="text"
-                error={error.email ? true : false}
-                // errorMessage={error.email}
+                error={error.resetCode ? true : false}
+                errorMessage={error.resetCode}
                 // required
               />
-              <button>Renvoyer</button>
+              <button
+                onClick={SendResetCode}
+                className="self-end pb-3.5 text-blue"
+              >
+                Renvoyer
+              </button>
             </div>
             <div className="col-span-2">
               <InputFrom
                 label="Nouvelle adresse e-mail *"
-                name="firstName"
-                type="text"
+                name="newEmail"
+                type="email"
                 error={error.email ? true : false}
-                // errorMessage={error.email}
+                errorMessage={error.email!}
                 // required
               />
             </div>

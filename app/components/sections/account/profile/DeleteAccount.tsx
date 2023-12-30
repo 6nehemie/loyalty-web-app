@@ -1,8 +1,20 @@
 'use client';
 
-const DeleteAccount = () => {
+import { deleteAccount } from '@/app/actions/updateProfil';
+import { signOut } from 'next-auth/react';
+
+const DeleteAccount = ({ email }: { email: string }) => {
+  const clientAction = async () => {
+    try {
+      await deleteAccount(email);
+      signOut();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <button className="font-exo font-light underline">
+    <button onClick={clientAction} className="font-exo font-light underline">
       Supprimer mon compte Loyalty.RC
     </button>
   );

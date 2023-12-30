@@ -47,3 +47,14 @@ export interface IstepTwo {
   confirmPassword: string;
   newsletter?: string;
 }
+
+export interface IEmailUpdateValidation {
+  email: string;
+  resetCode: string;
+}
+
+export interface IPasswordUpdateValidation {
+  password: string;
+  newPassword: string;
+  passwordConfirm: string;
+}

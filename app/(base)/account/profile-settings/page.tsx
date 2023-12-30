@@ -52,7 +52,7 @@ const ProfilePage = async () => {
         <Password />
       </div>
 
-      <DeleteAccount />
+      <DeleteAccount email={user!.email} />
     </div>
   );
 };
