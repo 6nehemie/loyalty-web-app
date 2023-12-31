@@ -1,6 +1,7 @@
 'use client';
 
 import { InputFrom, SubmitButton } from '@/app/components';
+import ForgotPassword from '@/app/components/sections/auth/sign-in/ForgotPassword';
 import { signIn as login } from '@/app/constants';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { signIn } from 'next-auth/react';
@@ -14,6 +15,9 @@ const SignInPage = () => {
   const router = useRouter();
   const { pending } = useFormStatus();
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  // ? Forgot password - open modal
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   async function clientAction(formData: FormData) {
     const email = formData.get('email') as string;
@@ -69,6 +73,12 @@ const SignInPage = () => {
             name="password"
             error={errorMsg ? true : false}
           />
+          <p
+            onClick={() => setIsEditing(true)}
+            className="underline font-light w-max cursor-pointer"
+          >
+            Mot de passe oublié ?
+          </p>
 
           {errorMsg && (
             <div className="flex gap-2 text-red-500 text-sm -mt-3">
@@ -90,6 +100,7 @@ const SignInPage = () => {
           </p>
         </form>
       </div>
+      <ForgotPassword setIsEditing={setIsEditing} isEditing={isEditing} />
     </div>
   );
 };

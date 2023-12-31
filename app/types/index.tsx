@@ -58,3 +58,7 @@ export interface IPasswordUpdateValidation {
   newPassword: string;
   passwordConfirm: string;
 }
+
+export interface IResetPasswordValidation {
+  email: string;
+}

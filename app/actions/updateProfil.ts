@@ -1,6 +1,8 @@
 'use server';
 
+import axios from 'axios';
 import { ErrorMessages } from '../enums/errorMessages';
+import { generatePassword } from '../utils/generatePassword';
 import prisma from '../utils/prisma';
 import { Validation } from '../utils/validation';
 import bcrypt from 'bcryptjs';
@@ -186,5 +188,31 @@ export const deleteAccount = async (email: string) => {
   } catch (error) {
     console.error(error);
     return { error };
+  }
+};
+
+export const resetPassword = async (formData: FormData) => {
+  const email = formData.get('email') as string;
+  const randomPassword = generatePassword();
+  try {
+    const hashedPassword = await bcrypt.hash(randomPassword, 10);
+
+    const user = await prisma.user.update({
+      where: { email },
+      data: { password: hashedPassword },
+    });
+
+    if (!user) return { error: 'User not found' };
+
+    // ? Sending the new password to the user email
+    await axios.post(`${process.env.URL}/api/send/password/reset`, {
+      email,
+      password: randomPassword,
+    });
+
+    return { data: 'Password was successfully reset' };
+  } catch (error) {
+    // console.error(error);
+    return 'User not found';
   }
 };

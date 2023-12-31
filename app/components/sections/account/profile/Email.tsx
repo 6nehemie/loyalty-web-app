@@ -30,8 +30,6 @@ const Email: React.FC<IEmailProps> = ({ email }) => {
     resetCode: '',
   });
 
-  console.log(error);
-
   const SendResetCode = async () => {
     try {
       const result = await axios.post('/api/send/email/reset');
@@ -78,7 +76,7 @@ const Email: React.FC<IEmailProps> = ({ email }) => {
       </MyProfilCard>
 
       <EditCard isEditing={isEditing} setIsEditing={setIsEditing}>
-        <h1 className="heading-4 mb-6">Modifier votre nom</h1>
+        <h1 className="heading-4 mb-6">Modifier votre addresse email</h1>
         <form action={clientAction}>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-2 ">
@@ -90,12 +88,14 @@ const Email: React.FC<IEmailProps> = ({ email }) => {
                 errorMessage={error.resetCode}
                 // required
               />
-              <button
-                onClick={SendResetCode}
-                className="self-end pb-3.5 text-blue"
-              >
-                Renvoyer
-              </button>
+              <p>
+                <button
+                  onClick={SendResetCode}
+                  className="self-end pb-3.5 text-blue"
+                >
+                  Renvoyer
+                </button>
+              </p>
             </div>
             <div className="col-span-2">
               <InputFrom

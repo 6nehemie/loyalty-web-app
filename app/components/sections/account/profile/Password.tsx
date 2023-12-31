@@ -53,7 +53,7 @@ const Password = () => {
         <p>* * * * * * * * * * * *</p>
       </MyProfilCard>
       <EditCard isEditing={isEditing} setIsEditing={setIsEditing}>
-        <h1 className="heading-4 mb-6">Modifier votre nom</h1>
+        <h1 className="heading-4 mb-6">Modifier votre mot de passe</h1>
         <form action={clientAction}>
           <div className="flex flex-col gap-6">
             <InputFrom

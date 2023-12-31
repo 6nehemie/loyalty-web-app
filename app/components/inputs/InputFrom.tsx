@@ -1,6 +1,7 @@
 'use client';
 
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 import { LegacyRef, useState } from 'react';
 
 interface InputFromProps {
@@ -43,6 +44,7 @@ const InputFrom: React.FC<InputFromProps> = ({
       <label htmlFor={name} className="font-exo">
         {label}
       </label>
+
       <div className="relative w-full">
         <input
           type={type === 'password' ? showPassword : type}

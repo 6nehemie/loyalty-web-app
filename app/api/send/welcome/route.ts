@@ -1,9 +1,7 @@
 import { WelcomEmail } from '@/app/components/emails/WelcomEmail';
 import { Resend } from 'resend';
 import * as React from 'react';
-import { getServerSession } from 'next-auth';
-import prisma from '@/app/utils/prisma';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

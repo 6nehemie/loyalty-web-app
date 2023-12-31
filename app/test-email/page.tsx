@@ -1,9 +1,9 @@
-import EmailResetTemplate from '../components/emails/EmailResetTemplate';
+import ResetPasswordTemplate from '../components/emails/ResetPasswordTemplate';
 
 const page = () => {
   return (
     <div>
-      <EmailResetTemplate />
+      <ResetPasswordTemplate />
     </div>
   );
 };
