@@ -24,3 +24,5 @@ export { default as Email } from './sections/account/profile/Email';
 export { default as Password } from './sections/account/profile/Password';
 export { default as DeleteAccount } from './sections/account/profile/DeleteAccount';
 export { default as EditCard } from './cards/dashboardCards/EditCard';
+export { default as Sidebar } from './navigations/admin/Sidebar';
+export { default as AdminUserInfo } from './sections/admin/AdminUserInfo';

@@ -23,6 +23,7 @@ const config: Config = {
       },
       fontFamily: {
         exo: ['"Exo 2"', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
       },
     },
   },

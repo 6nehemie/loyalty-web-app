@@ -62,3 +62,5 @@ export interface IPasswordUpdateValidation {
 export interface IResetPasswordValidation {
   email: string;
 }
+
+export type RoleType = 'ADMIN' | 'USER';
