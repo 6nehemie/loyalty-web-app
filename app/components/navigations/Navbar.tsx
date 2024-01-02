@@ -14,7 +14,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const isHomePage = pathname === '/';
+  const isHomePage = pathname === '/' || pathname.split('/')[1] === 'fleet';
   return (
     <>
       <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />

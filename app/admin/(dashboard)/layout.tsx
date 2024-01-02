@@ -15,10 +15,12 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex bg-zinc-900 min-h-screen font-montserrat text-white">
-      <Sidebar />
-      <section className="px-10 py-8 font-light w-full">
+      <div className="relative w-20">
+        <Sidebar />
+      </div>
+      <section className="px-10 py-8 font-light w-full overflow-hidden">
         <AdminUserInfo />
-        {children}
+        <div className="overflow-y-scroll overflow-x-hidden">{children}</div>
       </section>
     </div>
   );

@@ -39,7 +39,7 @@ const SignInPage = () => {
     }
 
     setErrorMsg(null);
-    router.push('/');
+    router.refresh();
   }
 
   return (

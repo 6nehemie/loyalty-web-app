@@ -15,6 +15,8 @@ import { usePathname } from 'next/navigation';
 
 const Sidebar = () => {
   const pathname = usePathname();
+  console.log(pathname);
+
   const adminNavigation = [
     {
       title: 'Dashboard',
@@ -49,7 +51,7 @@ const Sidebar = () => {
     'hover:bg-zinc-900 rounded-md border border-transparent hover:border-zinc-800 p-2 aspect-square transition-all duration-200 text-neutral-400 hover:text-white';
 
   return (
-    <div className="relative bg-zinc-950 bg-opacity-40 h-screen px-5 py-8">
+    <div className="fixed bg-zinc-950 bg-opacity-40 h-screen px-5 py-8">
       <Link href="/" className="">
         <div className={`${btnActionStyle} rotate-90`}>
           <ArrowDownTrayIcon className="h-4 w-4" />
@@ -62,7 +64,7 @@ const Sidebar = () => {
             <div
               className={`${basicNavigationStyle}
 			 ${
-         pathname === item.href
+         pathname.split('/')[2] === item.href.split('/')[2]
            ? 'bg-zinc-900 border-zinc-800 text-white'
            : 'border-transparent text-neutral-400'
        } 

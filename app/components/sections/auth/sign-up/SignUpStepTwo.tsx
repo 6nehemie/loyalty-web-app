@@ -17,7 +17,7 @@ const SignUpStepTwo: React.FC<SignUpStepTwoProps> = ({ stepTwoError }) => {
         errorMessage={stepTwoError.password}
       />
       <InputFrom
-        label="Confirmez le mot de passe *"
+        label="Confirmer le mot de passe *"
         type="password"
         error={stepTwoError.confirmPassword ? true : false}
         errorMessage={stepTwoError.confirmPassword}

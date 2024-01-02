@@ -106,6 +106,12 @@ const Menu: React.FC<MenuProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                   </div>
                   <ArrowRightIcon className="h-4 w-4" />
                 </button>
+
+                {user?.role === 'ADMIN' && (
+                  <Link href={'/admin'} className={navigationStyle}>
+                    <span>Admin Dashboard</span>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

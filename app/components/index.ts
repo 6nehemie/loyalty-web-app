@@ -26,3 +26,11 @@ export { default as DeleteAccount } from './sections/account/profile/DeleteAccou
 export { default as EditCard } from './cards/dashboardCards/EditCard';
 export { default as Sidebar } from './navigations/admin/Sidebar';
 export { default as AdminUserInfo } from './sections/admin/AdminUserInfo';
+export { default as FleetNav } from './navigations/admin/flotte/FleetNav';
+export { default as Input } from './admin-input/Input';
+export { default as FileInput } from './admin-input/FileInput';
+export { default as Submit } from './buttons/admin/Submit';
+export { default as AdminCarCard } from './cards/adminCards/AdminCarCard';
+export { default as BookingStep2 } from './sections/reservation/BookingStep2';
+export { default as BookingStep3 } from './sections/reservation/BookingStep3';
+// export { default as BookCarCard } from './cards/reservationCards/BookCarCard';

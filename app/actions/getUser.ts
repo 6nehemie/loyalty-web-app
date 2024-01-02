@@ -11,6 +11,7 @@ export const getUser = async (email: string) => {
         email: true,
         firstName: true,
         lastName: true,
+        role: true,
       },
     });
 

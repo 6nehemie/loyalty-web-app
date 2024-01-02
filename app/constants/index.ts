@@ -29,6 +29,7 @@ export const fleet = {
   latest: [
     {
       title: 'VW Golf 8R',
+      id: 1,
       subtitle: 'La compact sportive',
       image:
         'https://utfs.io/f/dbbb881f-64d1-49fe-babf-a2308b3b3f79-eknbh8.png',
@@ -37,6 +38,7 @@ export const fleet = {
     },
     {
       title: 'Audi RS3',
+      id: 2,
       subtitle: 'La compact sportive',
       image:
         'https://utfs.io/f/5525718d-aff4-4c1d-b5e7-d4997404cf29-g3vg1q.png',
@@ -45,6 +47,7 @@ export const fleet = {
     },
     {
       title: 'Audi RS6',
+      id: 3,
       subtitle: 'Du jamais vu dans la gamme Audi',
       image:
         'https://utfs.io/f/306a9ff3-56e0-49bd-a821-f1ca80558278-g3vg1t.png',
@@ -55,6 +58,7 @@ export const fleet = {
   collection: [
     {
       title: 'VW Golf 8R',
+      id: 1,
       subtitle: 'La compact sportive',
       image:
         'https://utfs.io/f/dbbb881f-64d1-49fe-babf-a2308b3b3f79-eknbh8.png',
@@ -63,6 +67,7 @@ export const fleet = {
     },
     {
       title: 'Audi RS3',
+      id: 2,
       subtitle: 'La compact sportive',
       image:
         'https://utfs.io/f/5525718d-aff4-4c1d-b5e7-d4997404cf29-g3vg1q.png',
@@ -71,6 +76,7 @@ export const fleet = {
     },
     {
       title: 'Audi RS6',
+      id: 3,
       subtitle: 'Du jamais vu dans la gamme Audi',
       image:
         'https://utfs.io/f/306a9ff3-56e0-49bd-a821-f1ca80558278-g3vg1t.png',
@@ -79,6 +85,7 @@ export const fleet = {
     },
     {
       title: 'Audi RSQ3',
+      id: 4,
       subtitle: 'Le SUV sportif iconique',
       image:
         'https://utfs.io/f/83b5e2b8-68d1-4dfe-969a-b293a18f5029-24ah6f.png',
@@ -87,6 +94,7 @@ export const fleet = {
     },
     {
       title: 'VW Golf 8R',
+      id: 5,
       subtitle: 'La compact sportive',
       image:
         'https://utfs.io/f/dbbb881f-64d1-49fe-babf-a2308b3b3f79-eknbh8.png',
@@ -95,6 +103,7 @@ export const fleet = {
     },
     {
       title: 'VW Golf 8R',
+      id: 6,
       subtitle: 'La compact sportive',
       image:
         'https://utfs.io/f/dbbb881f-64d1-49fe-babf-a2308b3b3f79-eknbh8.png',
@@ -179,4 +188,14 @@ export const contact = {
       hours: '9:00 - 18:00',
     },
   ],
+};
+
+export const carPage = {
+  title: 'Audi RS3',
+  wallpaper:
+    'https://utfs.io/f/3b27db93-783c-4d64-9d8e-7941ade3b1a7-eh3yri.webp',
+  image: 'https://utfs.io/f/3b27db93-783c-4d64-9d8e-7941ade3b1a7-eh3yri.webp',
+  date: '17 oct 2023 - 25 oct 2023',
+  duration: 8,
+  price: '1350',
 };
