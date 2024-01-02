@@ -3,12 +3,13 @@ import { CarCard } from '../..';
 import prisma from '@/app/utils/prisma';
 
 const Latest = async () => {
-  const latestCars = await prisma.car.findMany({
-    orderBy: {
-      createdAt: 'desc',
-    },
-    take: 3,
-  });
+  const latestCars =
+    (await prisma.car.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: 3,
+    })) || [];
 
   return (
     <section className="max-w-wide py-20 w-full mx-auto">
