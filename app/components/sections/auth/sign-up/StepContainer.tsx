@@ -45,10 +45,10 @@ const StepContainer: React.FC<IStepContainerProps> = ({ setCurrentStep }) => {
   return (
     <div className="flex flex-col gap-12">
       <div className={`${step === SignUpStep.STEP_ONE ? 'visible' : 'hidden'}`}>
-        <SignUpStepOne setIsNextStepAllowed={setIsNextStepAllowed} />
+        {/* <SignUpStepOne setIsNextStepAllowed={setIsNextStepAllowed} /> */}
       </div>
       <div className={`${step !== SignUpStep.STEP_ONE ? 'visible' : 'hidden'}`}>
-        <SignUpStepTwo setIsAllowedToSubmit={handleAllowSubmit} />
+        {/* <SignUpStepTwo setIsAllowedToSubmit={handleAllowSubmit} /> */}
       </div>
 
       <div className="font-light">

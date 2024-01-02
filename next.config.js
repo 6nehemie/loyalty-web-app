@@ -1,9 +1,3 @@
-const withTM = require('next-transpile-modules')([
-  '@react-email/render',
-  'html-to-text',
-  'entities',
-]);
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -11,4 +5,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withTM(nextConfig);
+module.exports = nextConfig;

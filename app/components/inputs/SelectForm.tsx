@@ -34,6 +34,8 @@ const SelectForm: React.FC<SelectFormProps> = ({
   const [input, setInput] = useState<ChoiceType>();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  console.log(input);
+
   useClickOutside(choiceRef, () => setIsDropdownOpen(false));
 
   const handleChoice = (choice: ChoiceType) => {
@@ -42,7 +44,7 @@ const SelectForm: React.FC<SelectFormProps> = ({
   };
 
   //? Prevents useEffect from re-rendering (infinite loop)
-  const stableSetCurrentValue = useCallback(setCurrentValue, []);
+  const stableSetCurrentValue = useCallback(setCurrentValue, [setCurrentValue]);
 
   useEffect(() => {
     stableSetCurrentValue && stableSetCurrentValue(input);
