@@ -1,11 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import SignUpStepOne from './SignUpStepOne';
-import SignUpStepTwo from './SignUpStepTwo';
-
-import { AntiFormBtn, SubmitButton } from '@/app/components';
-import Link from 'next/link';
 import { useFormStatus } from 'react-dom';
 
 enum SignUpStep {
