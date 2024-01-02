@@ -1,5 +1,6 @@
 'use client';
 
+import { deleteProduct } from '@/app/actions/fleetAction';
 import { useClickOutside } from '@/app/hooks';
 import {
   EllipsisHorizontalCircleIcon,
@@ -8,28 +9,36 @@ import {
 } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { use, useRef, useState } from 'react';
 
 interface AdminCarCardProps {
   title: string;
   available: boolean;
   price: string;
+  createdAt: Date;
   image: string;
-  href: string;
+  carId: string;
 }
 
 const AdminCarCard: React.FC<AdminCarCardProps> = ({
   image,
   price,
+  carId,
   available,
+  createdAt,
   title,
-  href,
 }) => {
-  const date = new Date(Date.now()).toDateString();
+  const router = useRouter();
   const menuRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useClickOutside(menuRef, () => setIsMenuOpen(false));
+
+  const handleDelete = async () => {
+    await deleteProduct(carId);
+    router.refresh();
+  };
 
   return (
     <div className="relative bg-zinc-800  p-5 flex flex-col justify-between gap-6">
@@ -57,9 +66,9 @@ const AdminCarCard: React.FC<AdminCarCardProps> = ({
 
       <div className="flex justify-between">
         <p className="bg-zinc-900 py-1.5 px-3.5 rounded-full w-max text-xs text-neutral-200">
-          {date}
+          {createdAt.toDateString()}
         </p>
-        <p className="text-sm">{price}€/j</p>
+        <p className="text-sm">{price}€/jour</p>
       </div>
 
       {isMenuOpen && (
@@ -68,14 +77,17 @@ const AdminCarCard: React.FC<AdminCarCardProps> = ({
           className="absolute flex flex-col gap-1 top-2 right-2 bg-zinc-900 text-sm w-1/2 p-1"
         >
           <Link
-            href={`/id`}
+            href={`/admin/fleet/${carId}`}
             className="text-sm flex gap-2 items-center py-1.5 px-3.5 text-neutral-400 w-full hover:text-white hover:bg-zinc-800 transition-colors duration-200 rounded-md"
           >
             <WrenchScrewdriverIcon className="h-4 w-4 " />
             <p>Éditer</p>
           </Link>
 
-          <button className="flex gap-2 items-center py-1.5 px-3.5 text-red-600 hover:text-red-500 w-full hover:bg-zinc-800 transition-colors duration-200 rounded-md">
+          <button
+            onClick={handleDelete}
+            className="flex gap-2 items-center py-1.5 px-3.5 text-red-600 hover:text-red-500 w-full hover:bg-zinc-800 transition-colors duration-200 rounded-md"
+          >
             <TrashIcon className="h-4 w-4 " />
             <p>Supprimer</p>
           </button>

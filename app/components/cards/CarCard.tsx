@@ -12,7 +12,7 @@ import Link from 'next/link';
 interface CarCardProps {
   title: string;
   subtitle: string;
-  price: number;
+  price: string;
   image: string;
   href: string;
 }

@@ -38,14 +38,14 @@ model Car {
   id                String   @id @default(cuid())
   brand             String
   model             String
-  year              String
+  year              String?
   wallpaper         String?
   shortDescription  String?
   wallpaperPublicId String?
   carImage          String?
   carImagePublicId  String?
   minAge            String?
-  price             Int
+  price             String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt // Updtate automatically when an update is made
 }

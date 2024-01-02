@@ -1,13 +1,20 @@
 import { Button1 } from '@/app/components';
 import { carPage } from '@/app/constants';
+import prisma from '@/app/utils/prisma';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 
-const CarPage = () => {
+const CarPage = async ({ params }: { params: { carId: string } }) => {
+  // const params = useParams();
+  const carData = await prisma.car.findUnique({
+    where: { id: params.carId as string },
+  });
+
   return (
     <section>
       <div className="h-screen flex flex-col justify-between">
         <Image
-          src={carPage.wallpaper}
+          src={carData?.wallpaper || carPage.image}
           alt="hero image"
           width={2560}
           height={1440}
@@ -19,19 +26,19 @@ const CarPage = () => {
           <div className="flex justify-between gap-9 max-md:gap-6 max-w-wide w-full mx-auto pb-11 text-white">
             <div>
               <h1 className="heading-2 leading-[100%]">
-                Louez une {carPage.title}
+                Louez une {carData?.brand} {carData?.model}
               </h1>
             </div>
 
             <div className="flex items-center gap-6 font-light">
               <p className="max-md:w-full justify-center text-sm">
-                À partir de {carPage.price}€/jour
+                À partir de {carData?.price}€/jour
               </p>
 
               <Button1
                 link="/reservation"
                 light
-                className="max-md:hidden bg-blue text-white text-sm "
+                className="max-md:hidden text-sm "
               >
                 Réservez maintenant
               </Button1>

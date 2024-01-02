@@ -22,6 +22,15 @@ export interface User {
   role: string;
 }
 
+export interface Car {
+  id: string;
+  brand: string;
+  model: string;
+  price: string;
+  carImage: string;
+  createdAt: Date;
+}
+
 export interface INameUpdateValidation {
   firstName: string;
   lastName: string;
@@ -65,3 +74,25 @@ export interface IResetPasswordValidation {
 }
 
 export type RoleType = 'ADMIN' | 'USER';
+
+export interface IUploadResponse {
+  // include other properties as needed
+
+  asset_id: string;
+  public_id: string;
+  version: number;
+  version_id: string;
+  signature: string;
+  width: number;
+  height: number;
+  format: string;
+  resource_type: string;
+  created_at: string;
+  tags: string[];
+  bytes: number;
+  type: string;
+  etag: string;
+  placeholder: boolean;
+  url: string;
+  secure_url: string;
+}

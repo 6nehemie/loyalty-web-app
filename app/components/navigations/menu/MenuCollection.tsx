@@ -1,4 +1,4 @@
-import { fleet } from '@/app/constants';
+import useFetchCollection from '@/app/hooks/useFetchCollection';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -11,28 +11,33 @@ const MenuCollection: React.FC<MenuCollectionProps> = ({
   closeMenu,
   showMenu,
 }) => {
+  const collection = useFetchCollection() || [];
+
   return (
     <div className={`menu-content`}>
-      <div className="flex flex-col gap-2 max-w-[239px] w-full mx-auto">
-        {fleet.collection.map((car, index) => {
-          if (index < 4)
-            return (
-              <Link
-                href={`${car.link}`}
-                key={index}
-                onClick={closeMenu}
-                className="flex flex-col gap-3 items-center rounded-md py-3 px-4 transition-colors duration-300 hover:bg-white"
-              >
-                <Image
-                  src={car.image}
-                  alt={car.title}
-                  width={239}
-                  height={130}
-                />
-                <p>{car.title}</p>
-              </Link>
-            );
-        })}
+      <div className="flex flex-col gap-1 max-w-[239px] w-full mx-auto">
+        {collection.length > 0 &&
+          collection!.map((car, index) => {
+            if (index < 4)
+              return (
+                <Link
+                  href={`/fleet/${car.id}`}
+                  key={index}
+                  onClick={closeMenu}
+                  className="flex flex-col gap-3 items-center rounded-md py-3 px-4 transition-colors duration-300 hover:bg-white"
+                >
+                  <Image
+                    src={car.carImage!}
+                    alt={`${car.brand} ${car.model} image`}
+                    width={239}
+                    height={130}
+                  />
+                  <p>
+                    {car.brand} {car.model}
+                  </p>
+                </Link>
+              );
+          })}
       </div>
     </div>
   );

@@ -8,12 +8,14 @@ interface FileInputProps {
   name: string;
   ref?: LegacyRef<HTMLInputElement> | undefined;
   currentFile?: string;
+  defaultValue?: string;
 }
 
 const FileInput: React.FC<FileInputProps> = ({
   label,
   name,
   ref,
+  defaultValue,
   currentFile,
 }) => {
   const [file, setFile] = useState<File | null>(null);
@@ -25,13 +27,13 @@ const FileInput: React.FC<FileInputProps> = ({
         htmlFor={name}
         className="flex justify-center items-center text-sm font-medium bg-neutral-800 hover:bg-neutral-900 border border-neutral-800  transition-colors duration-200 h-[90px] w-[158px] cursor-pointer rounded-md overflow-hidden"
       >
-        {!file && (
+        {!file && !defaultValue && (
           <PlusIcon className="h-10 w-10 text-neutral-400" strokeWidth={1} />
         )}
         <div className="relative">
-          {file && (
+          {(file || defaultValue) && (
             <Image
-              src={URL.createObjectURL(file)}
+              src={file ? URL.createObjectURL(file) : defaultValue!}
               alt=""
               width={158}
               height={90}
