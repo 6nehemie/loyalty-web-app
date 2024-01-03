@@ -9,6 +9,10 @@ import { createReservation } from '../actions/bookAction';
 import { DatePickerWithRange } from '../components/ui/DatePickerWithRange';
 import { DateRange } from 'react-day-picker';
 import { addDays } from 'date-fns';
+import { getStripeProducts } from '../actions/getStripeProducts';
+import useFetchStripeProducts from '../hooks/useFetchStripeProducts';
+import { useRouter } from 'next/navigation';
+import { Currency } from 'lucide-react';
 
 enum ReservationStep {
   ONE,
@@ -18,23 +22,30 @@ enum ReservationStep {
 }
 
 const ReservationPage = () => {
-  // const date = new Date(Date.now()).toDateString();
+  const router = useRouter();
+  const productCollection = useFetchStripeProducts() as any;
+
   const [step, setStep] = useState<ReservationStep>(ReservationStep.ONE);
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(Date.now()),
     to: addDays(new Date(Date.now()), 5),
   });
+
   const [carChoice, setCarChoice] = useState({
     car: '',
     id: '',
+    currency: '',
+    name: '',
+    unit_amount: 0,
   });
 
   async function clientAction(formData: FormData) {
-    const result = await createReservation(formData);
+    const response = await createReservation(formData, carChoice);
 
-    if (result?.error) {
+    if (response?.error) {
+      console.error(response.error);
     } else {
-      console.error(result.error);
+      router.push(response.session?.url as string);
     }
   }
 
@@ -106,21 +117,24 @@ const ReservationPage = () => {
               step === ReservationStep.TWO ? 'visible' : 'hidden'
             } grid grid-cols-3 gap-5`}
           >
-            {fleet.collection.map((car) => (
+            {productCollection.map((car: any) => (
               <div
                 onClick={() =>
                   setCarChoice((prev) => ({
-                    car: car.title,
+                    car: car.product.name,
                     id: String(car.id),
+                    currency: car.currency,
+                    name: car.product.name,
+                    unit_amount: car.unit_amount || 0, // Provide a default value
                   }))
                 }
                 key={car.id}
               >
                 <BookingStep2
                   htmlFor={String(car.id)}
-                  carImage={car.image}
-                  carName={car.title}
-                  price={car.price}
+                  carImage={car.product.images[0]}
+                  carName={car.product.name}
+                  price={`${car.unit_amount! / 100}`}
                   isChecked={carChoice.id === String(car.id)}
                   name="car"
                 />

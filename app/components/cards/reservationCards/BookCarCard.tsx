@@ -31,9 +31,9 @@ const BookCarCard: React.FC<BookCarCardProps> = ({
         <Image
           src={carImage}
           alt={''}
-          width={300}
-          height={200}
-          className="mx-auto"
+          width={237}
+          height={101}
+          className="mx-auto h-[101px] w-[237px] object-cover"
         />
 
         <div className=" mt-4">
