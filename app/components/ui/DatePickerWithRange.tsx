@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { CalendarIcon } from '@radix-ui/react-icons';
-import { addDays, format } from 'date-fns';
+import { format, startOfDay } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 
 import { cn } from '@/utils';
@@ -14,6 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/app/components/ui/popover';
+import { InformationCircleIcon } from '@heroicons/react/24/outline';
 
 interface DatePickerWithRangeProps {
   date?: DateRange;
@@ -34,11 +35,17 @@ export const DatePickerWithRange: React.FC<DatePickerWithRangeProps> = ({
       if (fromRef.current) fromRef.current.value = String(date.from);
       if (toRef.current) toRef.current.value = String(date.to);
     }
-    console.log(fromRef.current?.value, toRef.current?.value);
   }, [date]);
 
   return (
     <>
+      <p className="mb-8 text-neutral-400">
+        Veuillez noter que la récupération du véhicule peut être effectuée à
+        partir de 13h, et le véhicule doit être rendu avant 13h. Nous serons en
+        contact avec vous pour discuter des détails de la prise du véhicule.
+        Pour toute information concernant d&apos;éventuels retards, veuillez
+        consulter nos termes et conditions.
+      </p>
       <div>
         <label htmlFor="from"></label>
         <input
@@ -82,7 +89,7 @@ export const DatePickerWithRange: React.FC<DatePickerWithRangeProps> = ({
                   format(date.from, 'LLL dd, y')
                 )
               ) : (
-                <span>Pick a date</span>
+                <span>Choisissez vos dates</span>
               )}
             </Button>
           </PopoverTrigger>

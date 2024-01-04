@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { fleet } from '@/app/constants';
 import { CheckIcon } from '@heroicons/react/24/outline';
+import HoverBookInfo from './HoverBookInfo';
 
 interface BookCarCardProps {
   isChecked: boolean;
@@ -20,7 +21,10 @@ const BookCarCard: React.FC<BookCarCardProps> = ({
       <div className="relative bg-zinc-800 cursor-pointer hover:bg-zinc-900 transition-colors duration-200 px-5 py-3.5 rounded-md overflow-hidden flex flex-col justify-between gap-4">
         <div className="flex justify-between">
           <div>
-            <h3>{carName}</h3>
+            <div className="flex items-center gap-2">
+              <h3>{carName}</h3>
+              <HoverBookInfo />
+            </div>
             <div className="flex items-center gap-2">
               <div className="h-1 w-1 rounded-full bg-green-500"></div>
               <p className="text-sm text-neutral-400">Disponible</p>

@@ -1,16 +1,24 @@
 'use server';
 
+import { longFormatFrDate } from '../utils/dates';
+import { computesDays } from '../utils/function';
 import stripe from '../utils/stripe';
 
 export const createReservation = async (formData: FormData, carChoice: any) => {
+  //! need to be converted to Date to be used in the calculation
   const dateFromString = formData.get('from') as string;
   const dateToString = formData.get('to') as string;
   const dateFrom = new Date(dateFromString);
   const dateTo = new Date(dateToString);
 
-  const differenceInTime = dateTo.getTime() - dateFrom.getTime();
-  const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-  console.log(differenceInDays);
+  const rentingPrice = carChoice.unit_amount * computesDays(dateFrom, dateTo);
+
+  const reservation = {
+    car: carChoice.id,
+    from: dateFromString,
+    to: dateToString,
+    price: rentingPrice,
+  };
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -22,11 +30,13 @@ export const createReservation = async (formData: FormData, carChoice: any) => {
           price_data: {
             currency: carChoice.currency,
             product_data: {
-              name: carChoice.name,
+              name: `Location: ${carChoice.name}, Date: ${longFormatFrDate(
+                dateFrom
+              )} à ${longFormatFrDate(dateTo)}`,
             },
-            unit_amount: carChoice.unit_amount,
+            unit_amount: rentingPrice,
           },
-          quantity: differenceInDays,
+          quantity: 1,
         },
       ],
       mode: 'payment',

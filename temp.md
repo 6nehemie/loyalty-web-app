@@ -2,16 +2,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// generator client {
-//   provider = "prisma-client-js"
-// }
-
-// datasource db {
-//   provider     = "mysql"
-//   url          = env("DATABASE_URL")
-//   relationMode = "prisma"
-// }
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -22,8 +12,8 @@ datasource db {
 }
 
 model User {
-  id                String   @id @default(cuid())
-  email             String   @unique
+  id                String        @id @default(cuid())
+  email             String        @unique
   civility          String
   firstName         String
   lastName          String
@@ -37,15 +27,18 @@ model User {
   city              String?
   postalCode        String?
   password          String
-  role              String   @default("USER")
+  role              String        @default("USER")
   emailCodeReset    String?
   passwordCodeReset String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt // Updtate automatically when an update is made
+  reservations      Reservation[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt // Updtate automatically when an update is made
+
+  Document Document?
 }
 
 model Car {
-  id                String   @id @default(cuid())
+  id                String        @id @default(cuid())
   brand             String
   model             String
   year              String?
@@ -56,7 +49,37 @@ model Car {
   carImagePublicId  String?
   minAge            String?
   price             String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt // Updtate automatically when an update is made
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt // Updtate automatically when an update is made
+  Reservation       Reservation[]
 }
+
+model Reservation {
+  id                    String    @id @default(cuid())
+  user                  User      @relation(fields: [userId], references: [id])
+  userId                String
+  car                   Car?      @relation(fields: [carId], references: [id])
+  carId                 String?
+  startDate             DateTime?
+  endDate               DateTime?
+  rentalDays            Int?
+  rentalPrice           Int?
+  additionalDriverPrice Int?
+  additionalDriver      Boolean   @default(false)
+  fufilled              Boolean   @default(false)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt // Updtate automatically when an update is made
+
+  @@unique([carId])
+  @@index([userId])
+}
+
+model Document {
+  id     String @id @default(cuid())
+  author User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@unique([userId])
+}
+
 ```

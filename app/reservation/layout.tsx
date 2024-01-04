@@ -1,17 +1,21 @@
 import React from 'react';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { getStripeProducts } from '../actions/getStripeProducts';
+import prisma from '../utils/prisma';
 
 export default async function DashboardLayout({
+  params,
   children, // will be a page or nested layout
 }: {
+  params: { reservationId: string };
   children: React.ReactNode;
 }) {
   const session = await getServerSession();
   if (!session || !session.user) redirect('/sign-in');
+  // if (!params.reservationId) redirect('/reservation');
 
-  const products = await getStripeProducts();
+  // const newReservation = await prisma
+
   // console.log(products);
 
   return (

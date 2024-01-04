@@ -2,17 +2,16 @@
 
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BookingStep2, BookingStep3 } from '../components';
-import { fleet } from '../constants';
 import { createReservation } from '../actions/bookAction';
 import { DatePickerWithRange } from '../components/ui/DatePickerWithRange';
 import { DateRange } from 'react-day-picker';
-import { addDays } from 'date-fns';
-import { getStripeProducts } from '../actions/getStripeProducts';
 import useFetchStripeProducts from '../hooks/useFetchStripeProducts';
 import { useRouter } from 'next/navigation';
-import { Currency } from 'lucide-react';
+import ReservationDataCard from '../components/cards/reservationCards/ReservationDataCard';
+import { longFormatFrDate } from '../utils/dates';
+import { calculateTotalPrice, computesDays } from '../utils/function';
 
 enum ReservationStep {
   ONE,
@@ -26,9 +25,12 @@ const ReservationPage = () => {
   const productCollection = useFetchStripeProducts() as any;
 
   const [step, setStep] = useState<ReservationStep>(ReservationStep.ONE);
+  const [totalPrice, setTotalPrice] = useState<number>(0); // [1
   const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(Date.now()),
-    to: addDays(new Date(Date.now()), 5),
+    from: undefined,
+    to: undefined,
+    // from: new Date(Date.now()),
+    // to: addDays(new Date(Date.now()), 5),
   });
 
   const [carChoice, setCarChoice] = useState({
@@ -37,7 +39,20 @@ const ReservationPage = () => {
     currency: '',
     name: '',
     unit_amount: 0,
+    totalPrice: 0,
   });
+
+  useEffect(() => {
+    if (carChoice.unit_amount && date?.from && date?.to) {
+      const newTotalPrice =
+        (carChoice.unit_amount * computesDays(date.from, date.to)) / 100;
+      setCarChoice((prev) => ({ ...prev, totalPrice: newTotalPrice }));
+    }
+  }, [carChoice.unit_amount, date?.from, date?.to]);
+
+  useEffect(() => {
+    setTotalPrice(calculateTotalPrice(carChoice.totalPrice * 100));
+  }, [carChoice]);
 
   async function clientAction(formData: FormData) {
     const response = await createReservation(formData, carChoice);
@@ -70,6 +85,7 @@ const ReservationPage = () => {
 
   const handleStepBtn = () => {
     if (step === ReservationStep.ONE) {
+      if (!date?.from || !date?.to) return;
       setStep(ReservationStep.TWO);
     } else if (step === ReservationStep.TWO) {
       if (carChoice.id === '') return;
@@ -121,6 +137,7 @@ const ReservationPage = () => {
               <div
                 onClick={() =>
                   setCarChoice((prev) => ({
+                    ...prev,
                     car: car.product.name,
                     id: String(car.id),
                     currency: car.currency,
@@ -159,31 +176,54 @@ const ReservationPage = () => {
         <div>
           <h3 className="heading-4 mb-8">Votre Réservation</h3>
 
-          <div className="flex flex-col gap-5">
-            <div className="bg-zinc-800 p-5 text-sm flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <ReservationDataCard>
               <div className="text-sm">
                 <h4 className="text-sm text-neutral-400">
                   Retrait du véhicule
                 </h4>
-                <p>{date?.from?.toDateString()}</p>
+                <p>{longFormatFrDate(date?.from as Date) || '-'}</p>
               </div>
               <div className="text-sm">
                 <h4 className="text-sm text-neutral-400">
                   Restitution du véhicule
                 </h4>
-                <p>{date?.to?.toDateString()}</p>
+                <p>{longFormatFrDate(date?.to as Date) || '-'}</p>
               </div>
-            </div>
+            </ReservationDataCard>
 
             {carChoice.car && (
-              <div className="bg-zinc-800 p-5 text-sm flex flex-col gap-4">
+              <ReservationDataCard>
                 <div className="text-sm">
                   <h4 className="text-sm text-neutral-400">
                     Véhicule sélectionné:
                   </h4>
                   <p>{carChoice.car}</p>
                 </div>
-              </div>
+              </ReservationDataCard>
+            )}
+
+            {totalPrice > 0 && (
+              <ReservationDataCard>
+                {carChoice.unit_amount !== 0 && (
+                  <div className="flex justify-between">
+                    <p>Location du véhicule:</p>
+                    <p>{carChoice.totalPrice}€</p>
+                  </div>
+                )}
+
+                {/* <div className="flex justify-between">
+                  <p>Location de véhicule:</p>
+                  <p>450€</p>
+                </div> */}
+
+                <div
+                  className={`flex items-center justify-between text-lg pt-4 mt-1 border-t border-t-neutral-600`}
+                >
+                  <h3>Total</h3>
+                  <p>{totalPrice / 100}€</p>
+                </div>
+              </ReservationDataCard>
             )}
 
             {step !== ReservationStep.THREE && (
