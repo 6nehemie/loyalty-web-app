@@ -13,8 +13,6 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
-// prisma generate
-
 interface IPhoneNumberProps {
   number?: string | null | undefined;
 }

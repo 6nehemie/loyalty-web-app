@@ -26,9 +26,14 @@ export interface Car {
   id: string;
   brand: string;
   model: string;
-  price: string;
+  year: string;
+  wallpaper: string;
+  shortDescription: string;
+  wallpaperPublicId: string;
   carImage: string;
-  createdAt: Date;
+  carImagePublicId: string;
+  minAge: string;
+  price: string;
 }
 
 export interface INameUpdateValidation {
@@ -95,4 +100,26 @@ export interface IUploadResponse {
   placeholder: boolean;
   url: string;
   secure_url: string;
+}
+
+export interface IReservation {
+  id: string | undefined;
+  userId: string | undefined;
+  carId: string | undefined;
+  car: Car | null;
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+  rentalDays: number | undefined;
+  rentalPrice: number | undefined;
+  additionalDriverPrice: number | undefined;
+  additionalDriver: boolean | undefined;
+  fufilled: boolean | undefined;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
+  identityCard: String | null;
+  identityCardPublicId: String | null;
+  driverLicense: String | null;
+  driverLicensePublicId: String | null;
+  homeCertificate: String | null;
+  homeCertificatePublicId: String | null;
 }

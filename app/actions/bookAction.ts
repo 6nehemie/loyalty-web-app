@@ -1,26 +1,21 @@
 'use server';
 
 import { longFormatFrDate } from '../utils/dates';
-import { computesDays } from '../utils/function';
+import prisma from '../utils/prisma';
 import stripe from '../utils/stripe';
 
-export const createReservation = async (formData: FormData, carChoice: any) => {
-  //! need to be converted to Date to be used in the calculation
-  const dateFromString = formData.get('from') as string;
-  const dateToString = formData.get('to') as string;
-  const dateFrom = new Date(dateFromString);
-  const dateTo = new Date(dateToString);
-
-  const rentingPrice = carChoice.unit_amount * computesDays(dateFrom, dateTo);
-
-  const reservation = {
-    car: carChoice.id,
-    from: dateFromString,
-    to: dateToString,
-    price: rentingPrice,
-  };
-
+export const createReservation = async (reservationId: string) => {
   try {
+    const reservation = await prisma.reservation.findUnique({
+      where: { id: reservationId },
+      include: {
+        car: true,
+      },
+    });
+
+    const totalRentingPrice = (Number(reservation?.car?.price) *
+      reservation?.rentalDays!) as number;
+
     const session = await stripe.checkout.sessions.create({
       success_url: 'http://localhost:3000/success',
       cancel_url: 'http://localhost:3000/cancel',
@@ -28,13 +23,15 @@ export const createReservation = async (formData: FormData, carChoice: any) => {
       line_items: [
         {
           price_data: {
-            currency: carChoice.currency,
+            currency: 'eur',
             product_data: {
-              name: `Location: ${carChoice.name}, Date: ${longFormatFrDate(
-                dateFrom
-              )} à ${longFormatFrDate(dateTo)}`,
+              name: `Location: ${reservation?.car?.brand} ${
+                reservation?.car?.model
+              }, Date: ${longFormatFrDate(
+                reservation?.startDate as Date
+              )} à ${longFormatFrDate(reservation?.endDate as Date)}`,
             },
-            unit_amount: rentingPrice,
+            unit_amount: totalRentingPrice * 100,
           },
           quantity: 1,
         },

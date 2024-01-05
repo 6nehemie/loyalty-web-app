@@ -12,11 +12,6 @@ export default async function DashboardLayout({
 }) {
   const session = await getServerSession();
   if (!session || !session.user) redirect('/sign-in');
-  // if (!params.reservationId) redirect('/reservation');
-
-  // const newReservation = await prisma
-
-  // console.log(products);
 
   return (
     <div className="bg-zinc-900 min-h-screen px-10 py-8 font-exo text-white">

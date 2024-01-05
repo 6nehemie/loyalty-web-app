@@ -31,8 +31,6 @@ model User {
   reservations       Reservation[]
   createdAt          DateTime      @default(now())
   updatedAt          DateTime      @updatedAt // Updtate automatically when an update is made
-
-  Document Document?
 }
 
 model Car {
@@ -53,29 +51,28 @@ model Car {
 }
 
 model Reservation {
-  id                    String    @id @default(cuid())
-  user                  User      @relation(fields: [userId], references: [id])
-  userId                String
-  car                   Car?      @relation(fields: [carId], references: [id])
-  carId                 String?
-  startDate             DateTime?
-  endDate               DateTime?
-  rentalDays            Int?
-  rentalPrice           Int?
-  additionalDriverPrice Int?
-  additionalDriver      Boolean   @default(false)
-  fufilled              Boolean   @default(false)
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt // Updtate automatically when an update is made
+  id                      String    @id @default(cuid())
+  user                    User      @relation(fields: [userId], references: [id])
+  userId                  String
+  car                     Car?      @relation(fields: [carId], references: [id])
+  carId                   String?
+  startDate               DateTime?
+  endDate                 DateTime?
+  rentalDays              Int?
+  rentalPrice             Int?
+  additionalDriverPrice   Int?
+  additionalDriver        Boolean   @default(false)
+  fufilled                Boolean   @default(false)
+  identityCard            String?
+  identityCardPublicId    String?
+  driverLicense           String?
+  driverLicensePublicId   String?
+  totalPrice              Int?
+  homeCertificate         String?
+  homeCertificatePublicId String?
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt // Updtate automatically when an update is made
 
   @@unique([carId])
   @@index([userId])
-}
-
-model Document {
-  id     String @id @default(cuid())
-  author User   @relation(fields: [userId], references: [id])
-  userId String
-
-  @@unique([userId])
 }
