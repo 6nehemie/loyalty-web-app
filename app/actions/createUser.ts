@@ -8,12 +8,11 @@ import axios from 'axios';
 
 export const createUser = async (formData: FormData) => {
   const errors = [];
-  const route = await import('@/app/api/send/welcome/route');
 
   const civility = formData.get('civility');
   const firstName = formData.get('firstName');
   const lastName = formData.get('lastName');
-  const email = formData.get('email');
+  const email = formData.get('email') as string;
   const conditions = formData.get('generalConditions');
   const privacy = formData.get('privacy');
   const password = formData.get('password');
@@ -27,7 +26,10 @@ export const createUser = async (formData: FormData) => {
     if (!lastName || !Validation.isValidName(lastName as string))
       errors.push(ErrorMessages.LAST_NAME_ERROR);
 
-    if (!email || !Validation.isEmailValid(email as string))
+    if (
+      !email.toLowerCase() ||
+      !Validation.isEmailValid(email.toLowerCase() as string)
+    )
       errors.push(ErrorMessages.EMAIL_ERROR);
 
     if (!conditions) errors.push(ErrorMessages.CONDITIONS_ERROR);
@@ -43,7 +45,7 @@ export const createUser = async (formData: FormData) => {
       errors.push(ErrorMessages.PASSWORDS_NOT_MATCH_ERROR);
 
     const existingUser = await prisma.user.findUnique({
-      where: { email: email as string },
+      where: { email: email.toLowerCase() as string },
     });
 
     if (existingUser) errors.push(ErrorMessages.USER_ALREADY_EXIST_ERROR);
@@ -55,7 +57,7 @@ export const createUser = async (formData: FormData) => {
         civility: civility as string,
         firstName: firstName as string,
         lastName: lastName as string,
-        email: email as string,
+        email: email.toLowerCase() as string,
         password: await hashPassword(password as string),
         conditions: conditions === 'on' ? true : false,
         privacy: privacy === 'on' ? true : false,
@@ -63,11 +65,11 @@ export const createUser = async (formData: FormData) => {
       },
     });
 
-    await axios.post('api/send/welcome', {
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-    });
+    // await axios.post('api/send/welcome', {
+    //   email: email,
+    //   firstName: firstName,
+    //   lastName: lastName,
+    // });
   } catch (error) {
     console.error(error);
     return {

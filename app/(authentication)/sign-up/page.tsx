@@ -23,6 +23,7 @@ import {
 } from '@/app/utils/authValidation';
 import { useFormStatus } from 'react-dom';
 import axios from 'axios';
+import { welcomeEmail } from '@/app/actions/emailAction';
 
 enum step {
   ONE = 1,
@@ -51,6 +52,8 @@ const SignUpPage = () => {
   async function clientAction(formData: FormData) {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
+    const firstName = formData.get('firstName') as string;
+    const lastName = formData.get('lastName') as string;
 
     try {
       const response = await validateStepTwoSignUp(formData);
@@ -66,6 +69,7 @@ const SignUpPage = () => {
       if (result?.error) {
         console.error(result.error);
       } else {
+        welcomeEmail(email, firstName, lastName);
         signIn('credentials', { email, password });
         await axios.post('/api/welcome');
       }

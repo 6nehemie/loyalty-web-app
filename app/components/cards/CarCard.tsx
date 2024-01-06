@@ -49,14 +49,17 @@ const CarCard: React.FC<CarCardProps> = ({
 
       <div className="cardArrow absolute top-1/2 left-1/2 z-[50]">
         <div className="-translate-x-[50%] -translate-y-[50%]">
-          <button className="flex font-exo items-center gap-2 text-white">
+          <Link
+            href={href}
+            className="flex font-exo items-center gap-2 text-white"
+          >
             <span>En savoir plus</span>
             <ArrowSmallRightIcon
               className="h-5"
               aria-hidden="true"
               strokeWidth={2}
             />
-          </button>
+          </Link>
         </div>
       </div>
 

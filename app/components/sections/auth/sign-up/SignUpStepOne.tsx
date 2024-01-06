@@ -38,6 +38,7 @@ const SignUpStepOne: React.FC<SignUpStepOneProps> = ({ stepOneError }) => {
         label="Email *"
         type="email"
         name="email"
+        lowerCase
         error={stepOneError.email ? true : false}
         errorMessage={stepOneError.email}
       />

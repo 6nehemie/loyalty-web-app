@@ -15,6 +15,7 @@ interface InputFromProps {
   errorMessage?: string;
   className?: string;
   defaultValue?: string;
+  lowerCase?: boolean;
   ref?: LegacyRef<HTMLInputElement> | undefined;
 }
 
@@ -29,6 +30,7 @@ const InputFrom: React.FC<InputFromProps> = ({
   setCurrentValue,
   ref,
   error,
+  lowerCase,
   errorMessage,
 }) => {
   const [showPassword, setShowPassword] = useState<'password' | 'text'>(
@@ -55,8 +57,8 @@ const InputFrom: React.FC<InputFromProps> = ({
           defaultValue={defaultValue}
           onChange={(e) => setCurrentValue && setCurrentValue(e.target.value)}
           className={`h-[48px] border-2 bg-light-gray rounded-md px-4  outline-cool-gray-1 font-exo w-full ${
-            error && 'border-red-500'
-          }`}
+            lowerCase && 'lowercase'
+          } ${error && 'border-red-500'}`}
         />
         {type === 'password' && (
           <div
