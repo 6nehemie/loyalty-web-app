@@ -1,5 +1,4 @@
-import { BookCarCard, OrderHistoryCard } from '@/app/components';
-import { orderHistory } from '@/app/constants';
+import { OrderHistoryCard } from '@/app/components';
 import prisma from '@/app/utils/prisma';
 import { getServerSession } from 'next-auth';
 
@@ -13,12 +12,13 @@ const page = async () => {
       },
       paymentStatus: 'Completed',
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
     include: {
       car: true,
     },
   });
-
-  console.log(orders);
 
   return (
     <div className="w-full">

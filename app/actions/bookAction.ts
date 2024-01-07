@@ -35,6 +35,14 @@ export const createReservation = async (reservationId: string) => {
       },
     });
 
+    const description = `${reservation?.car?.brand} ${
+      reservation?.car?.model
+    } réservée du ${longFormatFrDate(
+      reservation?.startDate as Date
+    )} au ${longFormatFrDate(
+      reservation?.endDate as Date
+    )}. Nous sommes ravis de vous servir. Pour toute question, contactez-nous. Bonne conduite !`;
+
     const session = await stripe.checkout.sessions.create({
       success_url: `${domain}/success`,
       cancel_url: `${domain}/cancel`,
@@ -56,11 +64,9 @@ export const createReservation = async (reservationId: string) => {
           price_data: {
             currency: 'eur',
             product_data: {
-              name: `Location: ${reservation?.car?.brand} ${
-                reservation?.car?.model
-              }, Date: ${longFormatFrDate(
-                reservation?.startDate as Date
-              )} à ${longFormatFrDate(reservation?.endDate as Date)}`,
+              name: `Location d'une ${reservation?.car?.brand} ${reservation?.car?.model}`,
+              images: [reservation?.car?.carImage as string],
+              description: description,
             },
             unit_amount: totalRentingPrice * 100,
           },
