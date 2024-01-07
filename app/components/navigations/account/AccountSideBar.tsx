@@ -1,9 +1,10 @@
 'use client';
 
 import { accountNavigation } from '@/app/constants/components';
+import useFetchUserData from '@/app/hooks/useFetchUserData';
 import {
   ArrowRightOnRectangleIcon,
-  ArrowTopRightOnSquareIcon,
+  ShieldCheckIcon,
 } from '@heroicons/react/24/outline';
 import { signOut } from 'next-auth/react';
 
@@ -12,6 +13,7 @@ import { usePathname } from 'next/navigation';
 
 const AccountSideBar = () => {
   const pathname = usePathname();
+  const user = useFetchUserData();
 
   const handleCurrentPath = (link: string) => {
     return pathname === link ? 'text-dark-gray font-medium' : '';
@@ -45,6 +47,19 @@ const AccountSideBar = () => {
             <span>{item.label}</span>
           </Link>
         ))}
+
+        {user?.role === 'ADMIN' && (
+          <Link
+            href={'/admin'}
+            className="flex items-center gap-4 hover:text-black transition-colors duration-200"
+          >
+            <span className="p-1.5">
+              <ShieldCheckIcon className="h-5 w-5" strokeWidth={2} />
+            </span>
+            <span>Admin</span>
+          </Link>
+        )}
+
         <button
           onClick={handleSignOut}
           className="flex items-center gap-4 hover:text-black transition-colors duration-200"

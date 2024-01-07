@@ -21,11 +21,11 @@ const FileInput: React.FC<FileInputProps> = ({
   const [file, setFile] = useState<File | null>(null);
 
   return (
-    <div className="flex flex-col gap-2 m-1.5">
+    <div className="flex flex-col gap-2">
       <p className="text-sm font-medium">{label}</p>
       <label
         htmlFor={name}
-        className="flex justify-center items-center text-sm font-medium bg-neutral-800 hover:bg-neutral-900 border border-neutral-800  transition-colors duration-200 h-[90px] w-[158px] cursor-pointer rounded-md overflow-hidden"
+        className="flex justify-center items-center text-sm font-medium bg-neutral-900 hover:bg-neutral-800 border border-neutral-700  transition-colors duration-200 h-[60px] w-[128px] cursor-pointer rounded-md overflow-hidden"
       >
         {!file && !defaultValue && (
           <PlusIcon className="h-10 w-10 text-neutral-400" strokeWidth={1} />

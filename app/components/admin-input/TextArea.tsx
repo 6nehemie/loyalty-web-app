@@ -2,29 +2,29 @@
 
 import { LegacyRef } from 'react';
 
-interface InputProps {
+interface TextAreaProps {
   label: string;
   name: string;
-  type: 'text' | 'number' | 'email' | 'password';
+  rows?: number;
   error?: boolean;
   errorMessage?: string;
   className?: string;
   required?: boolean;
   setCurrentValue?: any;
+  subLabel?: string;
   ref?: LegacyRef<HTMLInputElement> | undefined;
   placeholder?: string;
-  subLabel?: string;
   defaultValue?: string;
 }
 
-const Input: React.FC<InputProps> = ({
+const TextArea: React.FC<TextAreaProps> = ({
   label,
-  type = 'text',
   defaultValue,
   name,
-  ref,
-  required,
   subLabel,
+  ref,
+  rows = 3,
+  required,
   error,
   setCurrentValue,
   errorMessage,
@@ -32,21 +32,23 @@ const Input: React.FC<InputProps> = ({
   placeholder,
 }) => {
   return (
-    <div className="flex flex-col">
-      <div className="mb-2">
+    <div className="flex flex-col gap-2">
+      <div className="mb-1.5">
         <label htmlFor={name} className="text-sm font-semibold">
           {label}
         </label>
         {subLabel && <p className="text-xs font-light">{subLabel}</p>}
       </div>
-      <input
+
+      <textarea
         name={name}
         id={name}
-        type={type}
         defaultValue={defaultValue}
+        rows={rows}
+        placeholder={placeholder}
         onChange={(e) => setCurrentValue && setCurrentValue(e.target.value)}
         required={required}
-        className={`py-1 px-3 rounded-md bg-transparent border border-neutral-700 outline-none focus:border-neutral-400 transition-colors duration-200 ${className}`}
+        className={`py-1 px-3 rounded-md bg-transparent border border-neutral-700 outline-none focus:border-neutral-400 transition-colors duration-200 placeholder:text-neutral-700 ${className}`}
       />
       {errorMessage && (
         <div className="flex gap-2 text-red-500 text-sm mt-2">
@@ -56,4 +58,4 @@ const Input: React.FC<InputProps> = ({
     </div>
   );
 };
-export default Input;
+export default TextArea;
