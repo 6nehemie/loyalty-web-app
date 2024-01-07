@@ -4,7 +4,20 @@ import { longFormatFrDate } from '../utils/dates';
 import prisma from '../utils/prisma';
 import stripe from '../utils/stripe';
 
-export const createReservation = async (reservationId: string) => {
+export const createReservation = async (
+  reservationId: string,
+  formData: FormData
+) => {
+  const identityCard = formData.get('identityCard') as File;
+  const homeCertificate = formData.get('homeCertificate') as File;
+  const driverLicense = formData.get('driverLicense') as File;
+
+  // if no file selected return error message
+  if (!identityCard || !homeCertificate || !driverLicense)
+    return {
+      error: 'Veuillez sélectionner les fichiers requis avant de poursuivre.',
+    };
+
   // to be checked
   const domain =
     process.env.NODE_ENV === 'development'

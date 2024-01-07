@@ -33,7 +33,10 @@ const Reservation: React.FC<IReservationProps> = ({
   });
 
   async function clientAction(formData: FormData) {
-    const response = await createReservation(params.reservationId as string);
+    const response = await createReservation(
+      params.reservationId as string,
+      formData
+    );
     if (response?.error) {
       console.error(response.error);
     } else {

@@ -167,7 +167,7 @@ const BookingSummary: React.FC<IBookingSummaryProps> = ({
             type="submit"
             className="bg-white text-dark-gray text-center py-2.5 hover:bg-neutral-200 duration-200 transition-colors cursor-pointer"
           >
-            Continuer
+            Reserver
           </button>
         )}
       </div>
