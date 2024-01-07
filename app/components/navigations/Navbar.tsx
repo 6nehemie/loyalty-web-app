@@ -14,13 +14,17 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const isHomePage = pathname === '/' || pathname.split('/')[1] === 'fleet';
+  const isHomePage =
+    pathname === '/' ||
+    (pathname.split('/')[1] === 'fleet' &&
+      pathname.split('/')[2] !== undefined);
+
   return (
     <>
       <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <nav
         className={`p-sides  w-full  z-[100]
-        ${isHomePage ? 'text-white fixed' : 'text-black sticky top-0 bg-white'}
+        ${isHomePage ? 'text-white fixed' : 'text-black fixed top-0 bg-white'}
       `}
       >
         <div className="navbar mx-auto max-w-wide w-full">

@@ -1,4 +1,3 @@
-import { fleet } from '@/app/constants';
 import { CarCard } from '../..';
 import prisma from '@/app/utils/prisma';
 

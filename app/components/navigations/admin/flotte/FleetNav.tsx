@@ -57,7 +57,7 @@ const FleetNav = () => {
           <div>
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="flex items-center gap-1 bg-blue text-white text-sm rounded-md py-1.5 px-3 hover:brightness-90 transition-all duration-200"
+              className="flex items-center gap-1 bg-white text-dark-gray text-sm rounded-md py-1.5 px-3 hover:brightness-90 transition-all duration-200"
             >
               <PlusIcon className="h-4 w-4" />
               <span>Ajouter un véhicule</span>
