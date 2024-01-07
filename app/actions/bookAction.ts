@@ -5,6 +5,7 @@ import prisma from '../utils/prisma';
 import stripe from '../utils/stripe';
 
 export const createReservation = async (reservationId: string) => {
+  // to be checked
   const domain =
     process.env.NODE_ENV === 'development'
       ? process.env.URL
