@@ -23,7 +23,6 @@ const Reservation: React.FC<IReservationProps> = ({
   collection,
 }) => {
   const params = useParams();
-  console.log(params);
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [step, setStep] = useState<ReservationStep>(ReservationStep.ONE);

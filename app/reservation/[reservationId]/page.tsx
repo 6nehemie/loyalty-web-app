@@ -20,7 +20,6 @@ const ReservationPage: React.FC<IReservationProps> = async ({ params }) => {
 
   const response = await fetchBookingInfo(params.reservationId);
   const bookingInfo = response?.data;
-  console.log(bookingInfo, response.totalCost);
 
   const collection = await prisma.car.findMany();
 

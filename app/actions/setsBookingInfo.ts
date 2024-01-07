@@ -63,6 +63,8 @@ export const setBookingCarChoice = async (
   carId: string,
   reservationId: string
 ) => {
+  // console.log(carId, reservationId);
+
   try {
     await prisma.reservation.update({
       where: {

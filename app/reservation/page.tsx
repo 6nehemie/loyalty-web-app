@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import prisma from '../utils/prisma';
 import { getServerSession } from 'next-auth';
+import { PaymentStatus } from '../enums';
 
 const page = async () => {
   const session = await getServerSession();
@@ -23,15 +24,14 @@ const page = async () => {
       },
     });
 
-    if (!previousReservation?.fufilled) {
-      await prisma.reservation.update({
+    if (previousReservation?.paymentStatus === PaymentStatus.Pending) {
+      const booking = await prisma.reservation.update({
         where: {
           id: user.currentReservation,
         },
         data: {
           additionalDriver: false,
-          car: undefined,
-          carId: undefined,
+          // carId: undefined,
           additionalDriverPrice: 0,
           rentalDays: 0,
           startDate: undefined,
@@ -40,7 +40,26 @@ const page = async () => {
         },
       });
 
+      console.log(booking);
+
       redirect(`/reservation/${user.currentReservation}`);
+    } else {
+      const reservation = await prisma.reservation.create({
+        data: {
+          userId: user?.id,
+        },
+      });
+
+      await prisma.user.update({
+        where: {
+          id: user.id as string,
+        },
+        data: {
+          currentReservation: reservation.id,
+        },
+      });
+
+      redirect(`/reservation/${reservation.id}`);
     }
   } else {
     const reservation = await prisma.reservation.create({

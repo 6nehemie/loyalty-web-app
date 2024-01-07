@@ -50,19 +50,28 @@ model Car {
   Reservation       Reservation[]
 }
 
+enum PaymentStatus {
+  Pending
+  Processing
+  Completed
+  Failed
+}
+
 model Reservation {
-  id                      String    @id @default(cuid())
-  user                    User      @relation(fields: [userId], references: [id])
+  id                      String        @id @default(cuid())
+  user                    User          @relation(fields: [userId], references: [id])
   userId                  String
-  car                     Car?      @relation(fields: [carId], references: [id])
+  car                     Car?          @relation(fields: [carId], references: [id])
   carId                   String?
   startDate               DateTime?
   endDate                 DateTime?
+  checkoutSessionId       String?
   rentalDays              Int?
   rentalPrice             Int?
   additionalDriverPrice   Int?
-  additionalDriver        Boolean   @default(false)
-  fufilled                Boolean   @default(false)
+  additionalDriver        Boolean       @default(false)
+  fufilled                Boolean       @default(false)
+  paymentStatus           PaymentStatus @default(Pending)
   identityCard            String?
   identityCardPublicId    String?
   driverLicense           String?
@@ -70,9 +79,8 @@ model Reservation {
   totalPrice              Int?
   homeCertificate         String?
   homeCertificatePublicId String?
-  createdAt               DateTime  @default(now())
-  updatedAt               DateTime  @updatedAt // Updtate automatically when an update is made
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt // Updtate automatically when an update is made
 
-  @@unique([carId])
-  @@index([userId])
+  @@index([userId, carId])
 }

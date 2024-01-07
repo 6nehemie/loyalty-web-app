@@ -1,6 +1,5 @@
 import { hero } from '@/app/constants';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Button1 } from '../..';
 
 const Hero = () => {
@@ -26,7 +25,10 @@ const Hero = () => {
           </div>
 
           <div className="flex  items-center gap-6 font-light">
-            <Button1 link="/" className="max-md:w-full justify-center">
+            <Button1
+              link="/reservation"
+              className="max-md:w-full justify-center"
+            >
               Réservez maintenant
             </Button1>
             <Button1 link="/" light className="max-md:hidden">
