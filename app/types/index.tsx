@@ -123,3 +123,18 @@ export interface IReservation {
   homeCertificate: String | null;
   homeCertificatePublicId: String | null;
 }
+
+export interface IProductsValidation {}
+export interface IProductsValidationErrors {
+  title: string;
+  brand: string;
+  model: string;
+  shortDescription: string;
+  description: string;
+  embedData: string;
+  carImage: string;
+  wallpaper: string;
+  pricePerDay: string;
+  caution: string;
+  driverMinimumAge: string;
+}

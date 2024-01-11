@@ -1,8 +1,13 @@
 'use client';
 
+import { createProduct } from '@/app/actions/products/createProduct';
 import { FileInput, Input } from '@/app/components';
 import TextArea from '@/app/components/admin-input/TextArea';
+import { IProductsValidationErrors } from '@/app/types';
+import { productsValidation } from '@/app/utils/products/productsValidation';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface NewProductProps {
   isMenuOpen: boolean;
@@ -13,8 +18,42 @@ const NewProduct: React.FC<NewProductProps> = ({
   isMenuOpen,
   setIsMenuOpen,
 }) => {
+  const router = useRouter();
+
+  const [errors, setErrors] = useState<IProductsValidationErrors>({
+    title: '',
+    brand: '',
+    model: '',
+    shortDescription: '',
+    description: '',
+    embedData: '',
+    carImage: '',
+    wallpaper: '',
+    pricePerDay: '',
+    caution: '',
+    driverMinimumAge: '',
+  });
+
+  const clientAction = async (fromData: FormData) => {
+    try {
+      const response = await createProduct(fromData);
+      if (response?.errors) {
+        // Handle errors
+        productsValidation(response.errors, setErrors);
+        console.error(response.errors);
+      } else {
+        productsValidation([], setErrors);
+        router.refresh();
+        setIsMenuOpen();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <form
+      action={clientAction}
       className={`${
         isMenuOpen ? 'translate-x-0' : 'translate-x-[100%]'
       } transition-transform duration-300 fixed z-[200] rounded rounded-l-lg flex flex-col top-0 right-0 w-1/3 bg-zinc-800 h-screen`}
@@ -23,7 +62,10 @@ const NewProduct: React.FC<NewProductProps> = ({
         <h3>Ajouter un véhicule</h3>
 
         <div
-          onClick={setIsMenuOpen}
+          onClick={() => {
+            productsValidation([], setErrors);
+            setIsMenuOpen();
+          }}
           className="cursor-pointer hover:bg-zinc-700 transition-colors duration-200 p-1 rounded-md"
         >
           <XMarkIcon className="h-5 w-5" />
@@ -36,31 +78,48 @@ const NewProduct: React.FC<NewProductProps> = ({
             label="Titre *"
             name="title"
             type="text"
+            error={!!errors?.title}
+            errorMessage={errors?.title}
             subLabel="e.g. Marque suivis du modèle du véhicule"
             className="bg-zinc-900"
           />
 
-          <div className="grid grid-cols-2 gap-2">
-            <Input
-              label="Marque *"
-              name="brand"
-              type="text"
-              subLabel='e.g. "Audi"'
-              className="bg-zinc-900"
-            />
-            <Input
-              label="Modèle *"
-              name="model"
-              type="text"
-              subLabel='e.g. "RS3"'
-              className="bg-zinc-900"
-            />
+          <div>
+            <div className="grid grid-cols-2 gap-2">
+              <Input
+                label="Marque *"
+                name="brand"
+                type="text"
+                error={!!errors?.brand}
+                errorMessage={errors?.brand}
+                subLabel='e.g. "Audi"'
+                className="bg-zinc-900"
+              />
+              <Input
+                label="Modèle *"
+                name="model"
+                type="text"
+                error={!!errors?.model}
+                errorMessage={errors?.model}
+                subLabel='e.g. "RS3"'
+                className="bg-zinc-900"
+              />
+            </div>
+            <div>
+              {(errors.carImage || errors.wallpaper) && (
+                <div className="flex gap-2 text-red-500 text-sm mt-2">
+                  <p>Veuillez sélectionner les images demandé</p>
+                </div>
+              )}
+            </div>
           </div>
 
           <Input
             label="Description courte *"
             name="shortDescription"
             type="text"
+            error={!!errors?.shortDescription}
+            errorMessage={errors?.shortDescription}
             subLabel='e.g. "La compacte sportive par excellence"'
             className="bg-zinc-900"
           />
@@ -68,6 +127,8 @@ const NewProduct: React.FC<NewProductProps> = ({
           <TextArea
             label="Description"
             name="description"
+            error={!!errors?.description}
+            errorMessage={errors?.description}
             subLabel="Affiché dans les détails du véhicule."
             className="bg-zinc-900"
           />
@@ -76,6 +137,8 @@ const NewProduct: React.FC<NewProductProps> = ({
             label="Embed Youtube"
             name="embedData"
             rows={5}
+            error={!!errors?.embedData}
+            errorMessage={errors?.embedData}
             placeholder='<iframe width="560" height="315" src="https://www.youtube.com/embed/9XaS93WMRQQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
             subLabel="Intégrer une Vidéo YouTube."
             className="bg-zinc-900"
@@ -93,12 +156,16 @@ const NewProduct: React.FC<NewProductProps> = ({
             label="Prix par jour *"
             name="pricePerDay"
             type="number"
+            error={!!errors?.pricePerDay}
+            errorMessage={errors?.pricePerDay}
             className="bg-zinc-900"
           />
           <Input
             label="Caution *"
             name="caution"
             type="number"
+            error={!!errors?.caution}
+            errorMessage={errors?.caution}
             subLabel="Caution de Réservation"
             className="bg-zinc-900"
           />
@@ -106,10 +173,13 @@ const NewProduct: React.FC<NewProductProps> = ({
             label="Age minimum du conducteur *"
             name="driverMinimumAge"
             type="number"
+            error={!!errors?.driverMinimumAge}
+            errorMessage={errors?.driverMinimumAge}
             subLabel="Caution de Réservation"
             className="bg-zinc-900"
           />
         </div>
+
         <div></div>
       </div>
 

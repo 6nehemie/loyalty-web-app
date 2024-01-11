@@ -50,6 +50,27 @@ model Car {
   Reservation       Reservation[]
 }
 
+model Vehicule {
+  id                String @id @default(cuid())
+  productId         String
+  title             String
+  make              String
+  model             String
+  shortDescription  String
+  description       String
+  embeddedVideo     String
+  carImage          String
+  carImagePublicId  String
+  wallpaper         String
+  wallpaperPublicId String
+  dailyPrice        Int
+  weeklyPrice       Int?
+  weekendPrice      Int?
+  monthlyPrice      Int?
+  caution           Int
+  minimumAge        Int
+}
+
 enum PaymentStatus {
   Pending
   Processing

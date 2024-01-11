@@ -2,8 +2,11 @@
 
 import { deleteAccount } from '@/app/actions/updateProfil';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const DeleteAccount = ({ email }: { email: string }) => {
+  const router = useRouter();
+
   const clientAction = async () => {
     try {
       await deleteAccount(email);
@@ -11,6 +14,7 @@ const DeleteAccount = ({ email }: { email: string }) => {
     } catch (error) {
       console.error(error);
     }
+    router.refresh();
   };
 
   return (

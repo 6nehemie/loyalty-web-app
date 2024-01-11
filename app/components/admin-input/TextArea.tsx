@@ -48,7 +48,9 @@ const TextArea: React.FC<TextAreaProps> = ({
         placeholder={placeholder}
         onChange={(e) => setCurrentValue && setCurrentValue(e.target.value)}
         required={required}
-        className={`py-1 px-3 rounded-md bg-transparent border border-neutral-700 outline-none focus:border-neutral-400 transition-colors duration-200 placeholder:text-neutral-700 ${className}`}
+        className={`py-1 px-3 rounded-md bg-transparent border border-neutral-700 outline-none focus:border-neutral-400 transition-colors duration-200 placeholder:text-neutral-700 ${className} ${
+          errorMessage && 'border-red-500'
+        }`}
       />
       {errorMessage && (
         <div className="flex gap-2 text-red-500 text-sm mt-2">

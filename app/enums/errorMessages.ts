@@ -40,4 +40,18 @@ export enum ErrorMessages {
 
   //? Phone Number
   PHONE_NUMBER_EMPTY_ERROR = 'Veuillez saisir votre numéro de téléphone.',
+
+  //? Product
+  //? Vehicle
+  VEHICLE_TITLE_ERROR = 'Veuillez saisir le titre du véhicule.',
+  VEHICLE_BRAND_ERROR = 'Veuillez saisir la marque du véhicule.',
+  VEHICLE_MODEL_ERROR = 'Veuillez saisir le modèle du véhicule.',
+  VEHICLE_SHORT_DESCRIPTION_ERROR = 'Veuillez saisir une brève description du véhicule.',
+  VEHICLE_DESCRIPTION_ERROR = 'Veuillez saisir une description détaillée du véhicule.',
+  VEHICLE_EMBED_DATA_ERROR = "Veuillez saisir les données d'intégration YouTube du véhicule.",
+  VEHICLE_CAR_IMAGE_ERROR = 'Veuillez sélectionner une image du véhicule.',
+  VEHICLE_WALLPAPER_ERROR = "Veuillez sélectionner un fond d'écran du véhicule.",
+  VEHICLE_PRICE_PER_DAY_ERROR = 'Veuillez saisir un prix par jour valide pour le véhicule.',
+  VEHICLE_CAUTION_ERROR = 'Veuillez saisir un montant de caution valide pour le véhicule.',
+  VEHICLE_DRIVER_MINIMUM_AGE_ERROR = 'Veuillez saisir un âge minimum du conducteur valide pour le véhicule.',
 }
