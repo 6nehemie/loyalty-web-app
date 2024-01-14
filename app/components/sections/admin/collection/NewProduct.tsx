@@ -19,7 +19,7 @@ const NewProduct: React.FC<NewProductProps> = ({
   setIsMenuOpen,
 }) => {
   const router = useRouter();
-
+  const [isPending, setIsPending] = useState(false);
   const [errors, setErrors] = useState<IProductsValidationErrors>({
     title: '',
     brand: '',
@@ -35,6 +35,7 @@ const NewProduct: React.FC<NewProductProps> = ({
   });
 
   const clientAction = async (fromData: FormData) => {
+    setIsPending(true);
     try {
       const response = await createProduct(fromData);
       if (response?.errors) {
@@ -43,12 +44,14 @@ const NewProduct: React.FC<NewProductProps> = ({
         console.error(response.errors);
       } else {
         productsValidation([], setErrors);
-        router.refresh();
         setIsMenuOpen();
+        router.push('.');
+        router.refresh();
       }
     } catch (error) {
       console.error(error);
     }
+    setIsPending(false);
   };
 
   return (
@@ -187,7 +190,12 @@ const NewProduct: React.FC<NewProductProps> = ({
         <p className="text-sm cursor-pointer text-white bg-zinc-900 py-1.5 px-3 rounded-md hover:bg-zinc-950 transition-colors duration-200">
           Annuler
         </p>
-        <button className="text-sm text-dark-gray bg-white py-1.5 px-3 rounded-md hover:bg-neutral-300 transition-colors duration-200">
+        <button
+          disabled={isPending}
+          className={`text-sm text-dark-gray bg-white py-1.5 px-3 rounded-md hover:bg-neutral-300 transition-colors duration-200 ${
+            isPending && 'bg-neutral-400 cursor-not-allowed'
+          }`}
+        >
           Ajouter véhicule
         </button>
       </div>

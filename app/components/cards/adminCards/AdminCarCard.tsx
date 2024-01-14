@@ -4,6 +4,7 @@ import { deleteProduct } from '@/app/actions/fleetAction';
 import { useClickOutside } from '@/app/hooks';
 import {
   EllipsisHorizontalCircleIcon,
+  EllipsisHorizontalIcon,
   TrashIcon,
   WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline';
@@ -41,18 +42,21 @@ const AdminCarCard: React.FC<AdminCarCardProps> = ({
   };
 
   return (
-    <div className="relative bg-zinc-800  p-5 flex flex-col justify-between gap-6">
+    <div className="relative bg-transparent hover:bg-zinc-800 transition-colors duration-200 border border-zinc-700 rounded-lg cursor-pointer p-4 px-5 flex flex-col justify-between gap-2 ">
       <div className="flex justify-between">
-        <div>
-          <h3>{title}</h3>
+        <div className="flex items-center gap-2">
+          <h3 className="text-sm">{title}</h3>
           <div className="flex items-center gap-2">
             <div className="h-1 w-1 rounded-full bg-green-500"></div>
             <p className="text-sm text-neutral-400">Disponible</p>
           </div>
         </div>
 
-        <button onClick={() => setIsMenuOpen(true)} className="h-max w-max">
-          <EllipsisHorizontalCircleIcon className="h-6 w-6 text-neutral-400" />
+        <button
+          onClick={() => setIsMenuOpen(true)}
+          className="absolute right-5 h-max px-1 w-max hover:bg-zinc-500 rounded-md transition-colors duration-100 text-neutral-400 hover:text-white"
+        >
+          <EllipsisHorizontalIcon className="h-5 w-5 " />
         </button>
       </div>
 
@@ -64,11 +68,9 @@ const AdminCarCard: React.FC<AdminCarCardProps> = ({
         className="mx-auto"
       />
 
-      <div className="flex justify-between">
-        <p className="bg-zinc-900 py-1.5 px-3.5 rounded-full w-max text-xs text-neutral-200">
-          {createdAt.toDateString()}
-        </p>
-        <p className="text-sm">{price}€/jour</p>
+      <div className="text-sm text-neutral-400">
+        <p className=" ">{createdAt.toDateString()}</p>
+        <p className=" text-neutral-200 font-medium">{price}€</p>
       </div>
 
       {isMenuOpen && (

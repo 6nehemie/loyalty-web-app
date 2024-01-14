@@ -22,8 +22,6 @@ export const createProduct = async (formData: FormData) => {
   const caution = Number(formData.get('caution')) as number;
   const driverMinimumAge = Number(formData.get('driverMinimumAge')) as number;
 
-  console.log(formData);
-
   if (!title) errors.push(ErrorMessages.VEHICLE_TITLE_ERROR);
   if (!brand) errors.push(ErrorMessages.VEHICLE_BRAND_ERROR);
   if (!model) errors.push(ErrorMessages.VEHICLE_MODEL_ERROR);

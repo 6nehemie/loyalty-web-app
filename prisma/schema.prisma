@@ -51,14 +51,14 @@ model Car {
 }
 
 model Vehicule {
-  id                String @id @default(cuid())
+  id                String   @id @default(cuid())
   productId         String
   title             String
   make              String
   model             String
-  shortDescription  String
-  description       String
-  embeddedVideo     String
+  shortDescription  String   @db.Text
+  description       String   @db.Text
+  embeddedVideo     String   @db.Text
   carImage          String
   carImagePublicId  String
   wallpaper         String
@@ -69,6 +69,8 @@ model Vehicule {
   monthlyPrice      Int?
   caution           Int
   minimumAge        Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt // Updtate automatically when an update is made
 }
 
 enum PaymentStatus {
