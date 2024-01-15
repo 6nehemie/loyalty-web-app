@@ -2,10 +2,10 @@ import React from 'react';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { isAdmin } from '@/app/utils/adminUtils';
-import { AdminUserInfo, Sidebar } from '@/app/components';
+import { AdminNavbar, Sidebar } from '@/app/components';
 
 export default async function DashboardLayout({
-  children, // will be a page or nested layout
+  children,
 }: {
   children: React.ReactNode;
 }) {
@@ -14,14 +14,16 @@ export default async function DashboardLayout({
   await isAdmin(session.user.email!);
 
   return (
-    <div className="flex bg-zinc-900 min-h-screen font-montserrat text-white">
-      <div className="relative w-20">
+    <div className="bg-neutral-900 w-screen min-h-screen text-white font-montserrat">
+      <AdminNavbar />
+
+      <div className="flex justify-center ">
         <Sidebar />
+
+        <section className="bg-zinc-900 max-w-wide px-10 py-8 font-light w-full overflow-hidden">
+          {children}
+        </section>
       </div>
-      <section className="px-10 py-8 font-light w-full overflow-hidden">
-        <AdminUserInfo />
-        <div className="overflow-y-scroll overflow-x-hidden">{children}</div>
-      </section>
     </div>
   );
 }

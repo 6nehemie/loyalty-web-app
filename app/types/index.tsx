@@ -138,3 +138,26 @@ export interface IProductsValidationErrors {
   caution: string;
   driverMinimumAge: string;
 }
+
+export interface IVehicule {
+  id: string;
+  productId: string;
+  title: string;
+  make: string;
+  model: string;
+  shortDescription: string;
+  description: string;
+  embeddedVideo: string;
+  carImage: string;
+  carImagePublicId: string;
+  wallpaper: string;
+  wallpaperPublicId: string;
+  dailyPrice: number;
+  weeklyPrice: number | null;
+  weekendPrice: number | null;
+  monthlyPrice: number | null;
+  caution: number;
+  minimumAge: number;
+  createdAt: Date;
+  updatedAt: Date;
+}

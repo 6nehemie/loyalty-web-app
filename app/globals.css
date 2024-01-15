@@ -215,4 +215,17 @@ html {
   input[type='number'] {
     -moz-appearance: textfield;
   }
+
+  .admin-sidebar {
+    height: calc(100vh - 64px);
+    top: 64px;
+    position: sticky;
+    width: 319px;
+  }
+
+  .admin-product-banner {
+    width: 100%;
+
+    padding-top: 20%;
+  }
 }

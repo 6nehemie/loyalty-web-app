@@ -35,3 +35,5 @@ export { default as BookingStep2 } from './sections/reservation/BookingStep2';
 export { default as BookingStep3 } from './sections/reservation/BookingStep3';
 // export { default as BookCarCard } from './cards/reservationCards/BookCarCard';
 export { default as ReservationFileInputs } from './inputs/reservation/ReservationFileInputs';
+export { default as AdminNavbar } from './navigations/admin/AdminNavbar';
+export { default as AdminNavMenu } from './navigations/admin/menu/AdminNavMenu';

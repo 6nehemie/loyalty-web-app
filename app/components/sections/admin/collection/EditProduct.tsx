@@ -3,18 +3,20 @@
 import { createProduct } from '@/app/actions/products/createProduct';
 import { FileInput, Input } from '@/app/components';
 import TextArea from '@/app/components/admin-input/TextArea';
-import { IProductsValidationErrors } from '@/app/types';
+import { IProductsValidationErrors, IVehicule } from '@/app/types';
 import { productsValidation } from '@/app/utils/products/productsValidation';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-interface NewProductProps {
+interface EditProductProps {
+  vehicule: IVehicule;
   isMenuOpen: boolean;
   setIsMenuOpen: () => void;
 }
 
-const NewProduct: React.FC<NewProductProps> = ({
+const EditProduct: React.FC<EditProductProps> = ({
+  vehicule,
   isMenuOpen,
   setIsMenuOpen,
 }) => {
@@ -81,6 +83,7 @@ const NewProduct: React.FC<NewProductProps> = ({
             label="Titre *"
             name="title"
             type="text"
+            defaultValue={vehicule.title}
             error={!!errors?.title}
             errorMessage={errors?.title}
             subLabel="e.g. Marque suivis du modèle du véhicule"
@@ -93,6 +96,7 @@ const NewProduct: React.FC<NewProductProps> = ({
                 label="Marque *"
                 name="brand"
                 type="text"
+                defaultValue={vehicule.make}
                 error={!!errors?.brand}
                 errorMessage={errors?.brand}
                 subLabel='e.g. "Audi"'
@@ -102,6 +106,7 @@ const NewProduct: React.FC<NewProductProps> = ({
                 label="Modèle *"
                 name="model"
                 type="text"
+                defaultValue={vehicule.model}
                 error={!!errors?.model}
                 errorMessage={errors?.model}
                 subLabel='e.g. "RS3"'
@@ -121,6 +126,7 @@ const NewProduct: React.FC<NewProductProps> = ({
             label="Description courte *"
             name="shortDescription"
             type="text"
+            defaultValue={vehicule.shortDescription}
             error={!!errors?.shortDescription}
             errorMessage={errors?.shortDescription}
             subLabel='e.g. "La compacte sportive par excellence"'
@@ -130,28 +136,27 @@ const NewProduct: React.FC<NewProductProps> = ({
           <TextArea
             label="Description"
             name="description"
+            defaultValue={vehicule.description}
             error={!!errors?.description}
             errorMessage={errors?.description}
-            subLabel="Affiché dans les détails du véhicule."
-            className="bg-zinc-900"
-          />
-
-          <TextArea
-            label="Embed Youtube"
-            name="embedData"
             rows={5}
-            error={!!errors?.embedData}
-            errorMessage={errors?.embedData}
-            placeholder='<iframe width="560" height="315" src="https://www.youtube.com/embed/9XaS93WMRQQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-            subLabel="Intégrer une Vidéo YouTube."
+            subLabel="Affiché dans les détails du véhicule."
             className="bg-zinc-900"
           />
 
           <div>
             <h4 className="text-sm font-bold">Images</h4>
             <div className="flex gap-2">
-              <FileInput label="Voiture" name="carImage" />
-              <FileInput label="Wallpaper" name="wallpaper" />
+              <FileInput
+                defaultValue={vehicule.carImage}
+                label="Voiture"
+                name="carImage"
+              />
+              <FileInput
+                defaultValue={vehicule.wallpaper}
+                label="Wallpaper"
+                name="wallpaper"
+              />
             </div>
           </div>
 
@@ -159,6 +164,7 @@ const NewProduct: React.FC<NewProductProps> = ({
             label="Prix par jour *"
             name="pricePerDay"
             type="number"
+            defaultValue={`${vehicule.dailyPrice / 100}`}
             error={!!errors?.pricePerDay}
             errorMessage={errors?.pricePerDay}
             className="bg-zinc-900"
@@ -167,6 +173,7 @@ const NewProduct: React.FC<NewProductProps> = ({
             label="Caution *"
             name="caution"
             type="number"
+            defaultValue={`${vehicule.caution / 100}`}
             error={!!errors?.caution}
             errorMessage={errors?.caution}
             subLabel="Caution de Réservation"
@@ -176,6 +183,7 @@ const NewProduct: React.FC<NewProductProps> = ({
             label="Age minimum du conducteur *"
             name="driverMinimumAge"
             type="number"
+            defaultValue={`${vehicule.minimumAge}`}
             error={!!errors?.driverMinimumAge}
             errorMessage={errors?.driverMinimumAge}
             subLabel="Caution de Réservation"
@@ -199,10 +207,10 @@ const NewProduct: React.FC<NewProductProps> = ({
             isPending && 'bg-neutral-400 cursor-not-allowed'
           }`}
         >
-          Ajouter véhicule
+          Modifier
         </button>
       </div>
     </form>
   );
 };
-export default NewProduct;
+export default EditProduct;

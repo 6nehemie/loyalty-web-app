@@ -1,86 +1,58 @@
 'use client';
 
 import {
-  ArrowDownTrayIcon,
-  ArrowRightOnRectangleIcon,
-  BellIcon,
   ChatBubbleLeftRightIcon,
   CubeIcon,
   Squares2X2Icon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
-import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const Sidebar = () => {
   const pathname = usePathname();
-  console.log(pathname);
 
-  const adminNavigation = [
-    {
-      title: 'Dashboard',
-      href: '/admin',
-      icon: <Squares2X2Icon className="w-4 h-4" strokeWidth={1} />,
-    },
-    {
-      title: 'Fleet',
-      href: '/admin/fleet',
-      icon: <CubeIcon className="w-4 h-4" strokeWidth={1} />,
-    },
-    {
-      title: 'Users',
-      href: '/admin/users',
-      icon: <UsersIcon className="w-4 h-4" strokeWidth={1} />,
-    },
-    {
-      title: 'Messages',
-      href: '/admin/messages',
-      icon: <ChatBubbleLeftRightIcon className="w-4 h-4" strokeWidth={1} />,
-    },
-    {
-      title: 'Notifications',
-      href: '/admin/notifications',
-      icon: <BellIcon className="w-4 h-4" strokeWidth={1} />,
-    },
-  ];
+  const handleActiveBtn = (param: string | undefined) => {
+    if (pathname.split('/')[2] === param) return 'bg-neutral-800 text-white';
+    return '';
+  };
 
   const basicNavigationStyle =
-    'hover:bg-zinc-900 rounded-md border hover:border-zinc-800 p-2 aspect-square transition-all duration-200 hover:text-white ';
-  const btnActionStyle =
-    'hover:bg-zinc-900 rounded-md border border-transparent hover:border-zinc-800 p-2 aspect-square transition-all duration-200 text-neutral-400 hover:text-white';
+    'flex items-center gap-2 w-full h-max block hover:bg-neutral-800 hover:text-white transition-colors duration-200 py-2 px-5 rounded-sm';
 
   return (
-    <div className="fixed bg-zinc-950 bg-opacity-40 h-screen px-5 py-8">
-      <Link href="/" className="">
-        <div className={`${btnActionStyle} rotate-90`}>
-          <ArrowDownTrayIcon className="h-4 w-4" />
-        </div>
+    <div className="admin-sidebar bg-neutral-900 border-r border-r-neutral-800 py-8 px-1 font-light text-sm text-neutral-400">
+      <Link
+        href="/admin"
+        className={`${basicNavigationStyle} ${handleActiveBtn(undefined)}`}
+      >
+        <Squares2X2Icon className="w-4 h-4" strokeWidth={1} />
+        <span>Tableau de bord</span>
       </Link>
 
-      <div className="flex flex-col gap-5 mt-12">
-        {adminNavigation.map((item) => (
-          <Link href={item.href} key={item.title}>
-            <div
-              className={`${basicNavigationStyle}
-			 ${
-         pathname.split('/')[2] === item.href.split('/')[2]
-           ? 'bg-zinc-900 border-zinc-800 text-white'
-           : 'border-transparent text-neutral-400'
-       } 
-			  `}
-            >
-              {item.icon}
-            </div>
-          </Link>
-        ))}
-      </div>
+      <Link
+        href="/admin/collection"
+        className={`${basicNavigationStyle} ${handleActiveBtn('collection')}`}
+      >
+        <CubeIcon className="w-4 h-4" strokeWidth={1} />
+        <span>Collection</span>
+      </Link>
 
-      <button onClick={() => signOut()} className="absolute bottom-8">
-        <div className={`${btnActionStyle}`}>
-          <ArrowRightOnRectangleIcon className="h-4 w-4" />
-        </div>
-      </button>
+      <Link
+        href="/admin/users"
+        className={`${basicNavigationStyle} ${handleActiveBtn('users')}`}
+      >
+        <UsersIcon className="w-4 h-4" strokeWidth={1} />
+        <span>Utilisateurs</span>
+      </Link>
+
+      <Link
+        href="/admin/messages"
+        className={`${basicNavigationStyle} ${handleActiveBtn('messages')}`}
+      >
+        <ChatBubbleLeftRightIcon className="w-4 h-4" strokeWidth={1} />
+        <span>Messages</span>
+      </Link>
     </div>
   );
 };

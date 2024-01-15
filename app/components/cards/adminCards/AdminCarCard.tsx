@@ -42,7 +42,10 @@ const AdminCarCard: React.FC<AdminCarCardProps> = ({
   };
 
   return (
-    <div className="relative bg-transparent hover:bg-zinc-800 transition-colors duration-200 border border-zinc-700 rounded-lg cursor-pointer p-4 px-5 flex flex-col justify-between gap-2 ">
+    <Link
+      href={`/admin/collection/${carId}`}
+      className="relative bg-transparent hover:bg-zinc-800 transition-colors duration-200 border border-zinc-700 rounded-lg cursor-pointer p-4 px-5 flex flex-col justify-between gap-2 "
+    >
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
           <h3 className="text-sm">{title}</h3>
@@ -95,7 +98,7 @@ const AdminCarCard: React.FC<AdminCarCardProps> = ({
           </button>
         </div>
       )}
-    </div>
+    </Link>
   );
 };
 export default AdminCarCard;

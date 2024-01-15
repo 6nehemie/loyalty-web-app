@@ -20,47 +20,19 @@ const FleetNav = () => {
 
   return (
     <>
-      <div className=" w-full border-b-[1px] border-neutral-700 mb-5">
-        <div className="flex justify-between">
+      <div className="w-full mb-5">
+        <div className="flex text-sm justify-between">
           <div className="flex items-center">
-            <Link
-              href="/admin/fleet"
-              className={`${
-                pathname === '/admin/fleet'
-                  ? 'text-white border-b-[1.2px] border-white'
-                  : 'text-neutral-400'
-              } ${navigationStyle}`}
-            >
-              <span className="">
-                <RectangleGroupIcon className={`h-5 w-5`} />
-              </span>
-              Tableau de bord
-            </Link>
-
-            <Link
-              href="/admin/fleet/new"
-              className={`
-		 ${
-       pathname === '/admin/fleet/new'
-         ? 'text-white border-b-[1.2px] border-white'
-         : 'text-neutral-400'
-     } 
-     ${navigationStyle}`}
-            >
-              <span className="">
-                <PlusCircleIcon className={`h-5 w-5`} />
-              </span>
-              Ajouter un véhicule
-            </Link>
+            <h2 className="text-xl font-medium">Collection</h2>
           </div>
 
           <div>
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="flex items-center gap-1 bg-white text-dark-gray text-sm rounded-md py-1.5 px-3 hover:brightness-90 transition-all duration-200"
+              className="flex items-center font-normal gap-1 bg-white text-dark-gray text-sm rounded-md py-2.5 px-3 hover:bg-neutral-400 transition-all duration-200"
             >
-              <PlusIcon className="h-4 w-4" />
-              <span>Ajouter un véhicule</span>
+              <PlusIcon className="h-4 w-4" strokeWidth={2} />
+              <span>Ajouter Nouveau</span>
             </button>
           </div>
         </div>
