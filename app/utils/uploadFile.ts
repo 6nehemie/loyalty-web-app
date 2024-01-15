@@ -20,3 +20,8 @@ export const uploadFile = async (file: File) => {
 
   return response;
 };
+
+export const deleteFile = async (publicId: string) => {
+  const response = await cloudinary.uploader.destroy(publicId);
+  return response;
+};

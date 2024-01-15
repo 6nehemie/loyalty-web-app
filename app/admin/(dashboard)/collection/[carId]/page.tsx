@@ -1,7 +1,8 @@
 import EditProductDropDown from '@/app/components/sections/admin/collection/dropdowns/EditProductDropDown';
 import { longFormatFrDate } from '@/app/utils/dates';
 import prisma from '@/app/utils/prisma';
-import { ArrowLeftIcon } from '@radix-ui/react-icons';
+import { ArrowLeftIcon, ArrowTopRightIcon } from '@radix-ui/react-icons';
+import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -17,7 +18,8 @@ const CarInfoPage: React.FC<CarInfoPage> = async ({ params }) => {
       id: params.carId,
     },
   });
-  console.log(product);
+
+  if (!product) redirect('/admin/collection');
 
   const updatedAt = longFormatFrDate(product?.updatedAt!);
 
@@ -67,7 +69,17 @@ const CarInfoPage: React.FC<CarInfoPage> = async ({ params }) => {
               </div>
             </div>
 
-            {product && <EditProductDropDown vehicule={product} />}
+            <div className="flex items-center gap-4">
+              <Link
+                href={`/fleet/${product?.id}`}
+                target="_blank"
+                className="block hover:text-white transition-colors duration-200"
+              >
+                <span>Vehicule Page</span>{' '}
+                <ArrowTopRightIcon className="w-[18px] h-[18px] inline-block" />
+              </Link>
+              {product && <EditProductDropDown vehicule={product} />}
+            </div>
           </div>
 
           <div className={horizontalBarStyle}></div>

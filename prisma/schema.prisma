@@ -58,7 +58,7 @@ model Vehicule {
   model             String
   shortDescription  String   @db.Text
   description       String   @db.Text
-  embeddedVideo     String   @db.Text
+  embeddedVideo     String?  @db.Text
   carImage          String
   carImagePublicId  String
   wallpaper         String

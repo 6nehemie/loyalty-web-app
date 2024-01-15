@@ -6,6 +6,8 @@ import { useRef, useState } from 'react';
 import EditProduct from '../EditProduct';
 import { Backdrop } from '@/app/components';
 import { IVehicule } from '@/app/types';
+import { deleteVehicule } from '@/app/actions/products/deleteProduct';
+import { useRouter } from 'next/navigation';
 
 interface IEditProductDropDownProps {
   vehicule: IVehicule;
@@ -14,6 +16,7 @@ interface IEditProductDropDownProps {
 const EditProductDropDown: React.FC<IEditProductDropDownProps> = ({
   vehicule,
 }) => {
+  const router = useRouter();
   const dorpDownRef = useRef(null);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isEditProductOpen, setIsEditProductOpen] = useState(false);
@@ -25,8 +28,10 @@ const EditProductDropDown: React.FC<IEditProductDropDownProps> = ({
     setIsEditProductOpen(true);
   };
 
-  const handleDeleteVehicule = () => {
+  const handleDeleteVehicule = async () => {
+    await deleteVehicule(vehicule.id);
     setIsDropDownOpen(false);
+    router.refresh();
   };
 
   const btnStyle =
@@ -54,7 +59,7 @@ const EditProductDropDown: React.FC<IEditProductDropDownProps> = ({
             isDropDownOpen ? 'visible' : 'invisible'
           } transition-all duration-200 absolute right-0 w-[178px] z-[100] border border-neutral-800 bg-neutral-900 rounded-md py-2.5`}
         >
-          <div className="flex flex-col text-neutral-400">
+          <div className="flex flex-col text-neutral-200">
             <button
               onClick={handleEditVehicule}
               className={`${btnStyle} hover:text-white`}
@@ -64,7 +69,7 @@ const EditProductDropDown: React.FC<IEditProductDropDownProps> = ({
 
             <button
               onClick={handleDeleteVehicule}
-              className={`${btnStyle} text-red-800 hover:text-red-500`}
+              className={`${btnStyle} text-red-700 hover:text-red-500`}
             >
               Supprimer
             </button>

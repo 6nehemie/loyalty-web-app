@@ -131,7 +131,7 @@ export interface IProductsValidationErrors {
   model: string;
   shortDescription: string;
   description: string;
-  embedData: string;
+  embedData?: string;
   carImage: string;
   wallpaper: string;
   pricePerDay: string;
@@ -147,7 +147,7 @@ export interface IVehicule {
   model: string;
   shortDescription: string;
   description: string;
-  embeddedVideo: string;
+  embeddedVideo?: string | null;
   carImage: string;
   carImagePublicId: string;
   wallpaper: string;

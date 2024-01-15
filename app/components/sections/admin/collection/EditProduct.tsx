@@ -1,12 +1,12 @@
 'use client';
 
-import { createProduct } from '@/app/actions/products/createProduct';
+import { updateProduct } from '@/app/actions/products/updateProduct';
 import { FileInput, Input } from '@/app/components';
 import TextArea from '@/app/components/admin-input/TextArea';
 import { IProductsValidationErrors, IVehicule } from '@/app/types';
 import { productsValidation } from '@/app/utils/products/productsValidation';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 interface EditProductProps {
@@ -20,6 +20,7 @@ const EditProduct: React.FC<EditProductProps> = ({
   isMenuOpen,
   setIsMenuOpen,
 }) => {
+  const params = useParams() as { carId: string };
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
   const [errors, setErrors] = useState<IProductsValidationErrors>({
@@ -28,7 +29,6 @@ const EditProduct: React.FC<EditProductProps> = ({
     model: '',
     shortDescription: '',
     description: '',
-    embedData: '',
     carImage: '',
     wallpaper: '',
     pricePerDay: '',
@@ -38,22 +38,24 @@ const EditProduct: React.FC<EditProductProps> = ({
 
   const clientAction = async (fromData: FormData) => {
     setIsPending(true);
+
     try {
-      const response = await createProduct(fromData);
+      const response = await updateProduct(fromData, params.carId, vehicule);
       if (response?.errors) {
         // Handle errors
         productsValidation(response.errors, setErrors);
         console.error(response.errors);
+        setIsPending(false);
       } else {
         productsValidation([], setErrors);
         setIsMenuOpen();
-        router.push('.');
         router.refresh();
+        setIsPending(false);
       }
     } catch (error) {
       console.error(error);
+      setIsPending(false);
     }
-    setIsPending(false);
   };
 
   return (
@@ -61,7 +63,7 @@ const EditProduct: React.FC<EditProductProps> = ({
       action={clientAction}
       className={`${
         isMenuOpen ? 'translate-x-0' : 'translate-x-[100%]'
-      } transition-transform duration-300 fixed z-[200] rounded rounded-l-lg flex flex-col top-0 right-0 w-1/3 bg-zinc-800 h-screen`}
+      } transition-transform duration-300 fixed z-[200] rounded rounded-l-lg flex flex-col top-0 right-0 w-1/3 bg-neutral-800 h-screen`}
     >
       <div className="p-5 border-b border-b-zinc-600 flex justify-between items-center">
         <h3>Ajouter un véhicule</h3>
@@ -77,7 +79,7 @@ const EditProduct: React.FC<EditProductProps> = ({
         </div>
       </div>
 
-      <div className="p-5 pb-10 h-max overflow-auto overflow-y-auto">
+      <div className="p-5 pb-10 h-full overflow-auto overflow-y-auto">
         <div className="flex flex-col gap-4">
           <Input
             label="Titre *"
@@ -194,7 +196,7 @@ const EditProduct: React.FC<EditProductProps> = ({
         <div></div>
       </div>
 
-      <div className="px-5 py-3.5 border-t border-t-zinc-600 flex justify-end items-center gap-2">
+      <div className="px-5 py-3.5 border-t h-max border-t-zinc-600 flex justify-end items-center gap-2">
         <p
           onClick={setIsMenuOpen}
           className="text-sm cursor-pointer text-white bg-zinc-900 py-1.5 px-3 rounded-md hover:bg-zinc-950 transition-colors duration-200"

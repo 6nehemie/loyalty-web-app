@@ -45,8 +45,7 @@ const NewProduct: React.FC<NewProductProps> = ({
       } else {
         productsValidation([], setErrors);
         setIsMenuOpen();
-        router.push('.');
-        router.refresh();
+        router.push('/admin/collection');
       }
     } catch (error) {
       console.error(error);
@@ -133,17 +132,6 @@ const NewProduct: React.FC<NewProductProps> = ({
             error={!!errors?.description}
             errorMessage={errors?.description}
             subLabel="Affiché dans les détails du véhicule."
-            className="bg-zinc-900"
-          />
-
-          <TextArea
-            label="Embed Youtube"
-            name="embedData"
-            rows={5}
-            error={!!errors?.embedData}
-            errorMessage={errors?.embedData}
-            placeholder='<iframe width="560" height="315" src="https://www.youtube.com/embed/9XaS93WMRQQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-            subLabel="Intégrer une Vidéo YouTube."
             className="bg-zinc-900"
           />
 

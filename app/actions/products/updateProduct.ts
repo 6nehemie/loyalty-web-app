@@ -1,13 +1,17 @@
 'use server';
 
 import { ErrorMessages } from '@/app/enums/errorMessages';
-import { IUploadResponse } from '@/app/types';
+import { IUploadResponse, IVehicule } from '@/app/types';
 import prisma from '@/app/utils/prisma';
 import stripe from '@/app/utils/stripe';
-import { uploadFile } from '@/app/utils/uploadFile';
+import { deleteFile, uploadFile } from '@/app/utils/uploadFile';
 import { StatusCodes } from 'http-status-codes';
 
-export const createProduct = async (formData: FormData) => {
+export const updateProduct = async (
+  formData: FormData,
+  carId: string,
+  vehiculePrevData: IVehicule
+) => {
   const errors = [];
 
   const title = formData.get('title') as string;
@@ -37,35 +41,37 @@ export const createProduct = async (formData: FormData) => {
   if (errors.length) return { errors };
 
   try {
-    //? upload file to cloudinary
-    const carImgResUpload = (await uploadFile(carImage)) as IUploadResponse;
-    const wallpaperResUpload = (await uploadFile(wallpaper)) as IUploadResponse;
+    //? update files to cloudinary
+    if (carImage.size || wallpaper.size) {
+      if (carImage.size) {
+        await deleteFile(vehiculePrevData.carImagePublicId);
+        const uploadRes = (await uploadFile(carImage)) as IUploadResponse;
+        await prisma.vehicule.update({
+          where: { id: carId },
+          data: {
+            carImage: uploadRes.secure_url,
+            carImagePublicId: uploadRes.public_id,
+          },
+        });
+      }
 
-    //? create product and price on stripe
-    const product = await stripe.products.create({
-      name: title,
-      description: shortDescription,
-      images: [carImgResUpload.secure_url, wallpaperResUpload.secure_url],
-      metadata: {
-        brand,
-        model,
-        driverMinimumAge,
-      },
-    });
+      if (wallpaper.size) {
+        await deleteFile(vehiculePrevData.wallpaperPublicId);
+        const uploadRes = (await uploadFile(wallpaper)) as IUploadResponse;
+        await prisma.vehicule.update({
+          where: { id: carId },
+          data: {
+            wallpaper: uploadRes.secure_url,
+            wallpaperPublicId: uploadRes.public_id,
+          },
+        });
+      }
+    }
 
-    await stripe.prices.create({
-      product: product.id,
-      unit_amount: pricePerDay * 100, // Because Stripe uses cents
-      currency: 'eur',
-      metadata: {
-        caution: caution * 100,
-      },
-    });
-
-    //? create product on prisma (planetScale)
-    await prisma.vehicule.create({
+    //? update product on prisma (planetScale)
+    const vehicule = await prisma.vehicule.update({
+      where: { id: carId },
       data: {
-        productId: product.id,
         title,
         make: brand,
         model,
@@ -74,10 +80,18 @@ export const createProduct = async (formData: FormData) => {
         dailyPrice: pricePerDay * 100,
         caution: caution * 100,
         minimumAge: driverMinimumAge,
-        carImage: carImgResUpload.secure_url,
-        carImagePublicId: carImgResUpload.public_id,
-        wallpaper: wallpaperResUpload.secure_url,
-        wallpaperPublicId: wallpaperResUpload.public_id,
+      },
+    });
+
+    //? update product and price on stripe
+    await stripe.products.update(vehicule.productId, {
+      name: title,
+      description: shortDescription,
+      images: [vehicule.carImage, vehicule.wallpaper],
+      metadata: {
+        brand,
+        model,
+        driverMinimumAge,
       },
     });
 
