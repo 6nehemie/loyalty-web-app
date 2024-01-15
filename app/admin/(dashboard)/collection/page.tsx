@@ -20,6 +20,7 @@ const page = async () => {
               image={car.carImage!}
               price={`${car.dailyPrice! / 100}`}
               createdAt={car.createdAt}
+              vehicule={car}
               key={index}
               available
             />
