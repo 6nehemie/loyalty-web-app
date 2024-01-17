@@ -64,7 +64,7 @@ const CarCard: React.FC<CarCardProps> = ({
       </div>
 
       <div className="flex p-6 pt-12 items-center gap-4 justify-end text-sm">
-        <p>À partir de {price}€/j</p>
+        <p>À partir de €{price}.00 EUR</p>
         <Button1 link={'/reservation'}>Réservez maintenant</Button1>
       </div>
     </div>

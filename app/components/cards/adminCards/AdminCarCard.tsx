@@ -9,6 +9,7 @@ import EditBtn from '../../buttons/edits/EditBtn';
 import EditProduct from '../../sections/admin/collection/EditProduct';
 import { IVehicule } from '@/app/types';
 import { Backdrop } from '../..';
+import { ArrowTopRightIcon } from '@radix-ui/react-icons';
 
 interface AdminCarCardProps {
   title: string;
@@ -80,7 +81,7 @@ const AdminCarCard: React.FC<AdminCarCardProps> = ({
 
           <div className="text-sm text-neutral-400">
             <p className=" ">{createdAt.toDateString()}</p>
-            <p className=" text-neutral-200 font-medium">{price}€</p>
+            <p className=" text-neutral-300 font-medium">{price}€</p>
           </div>
         </Link>
       </div>

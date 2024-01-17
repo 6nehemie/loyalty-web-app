@@ -20,7 +20,9 @@ export const navbarNavigation = [
 
 export const hero = {
   title: 'Voitures de luxe.\nServices premium.',
-  image: 'https://utfs.io/f/58445237-e157-4dec-89f4-124fe397f03d-a96hsg.png',
+  image: 'https://utfs.io/f/220bd99c-5e51-4bde-9623-14f916721e4b-suwc7m.png',
+  video:
+    'https://res.cloudinary.com/dkkykglbb/video/upload/v1705443261/jzjho994bg33rj2ijliw.mov',
 };
 
 export const fleet = {

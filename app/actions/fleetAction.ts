@@ -55,9 +55,9 @@ export const createProduct = async (formData: FormData) => {
 
 export const getCollection = async () => {
   try {
-    const cars = await prisma.car.findMany();
+    const collection = await prisma.vehicule.findMany();
 
-    return { data: cars };
+    return { data: collection };
   } catch (error) {
     console.error(error);
     return { error: 'Something went wrong' };

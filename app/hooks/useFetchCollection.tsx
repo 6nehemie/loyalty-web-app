@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getCollection, getProduct } from '../actions/fleetAction';
+
 import { Car } from '@prisma/client';
+import { IVehicule } from '../types';
+import { getCollection } from '../actions/products/getCollection';
 
 const useFetchCollection = () => {
-  const [product, setProduct] = useState<Car[] | null>(null);
+  const [product, setProduct] = useState<IVehicule[] | null>(null);
 
   useEffect(() => {
     (async () => {

@@ -28,12 +28,12 @@ const MenuCollection: React.FC<MenuCollectionProps> = ({
                 >
                   <Image
                     src={car.carImage!}
-                    alt={`${car.brand} ${car.model} image`}
+                    alt={`${car.make} ${car.model} image`}
                     width={239}
                     height={130}
                   />
                   <p>
-                    {car.brand} {car.model}
+                    {car.make} {car.model}
                   </p>
                 </Link>
               );

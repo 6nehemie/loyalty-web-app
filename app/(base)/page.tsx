@@ -1,10 +1,12 @@
-import { Hero, Latest } from '../components';
+import { Hero, HomeHero, Latest } from '../components';
 
 export default function HomePage() {
   return (
     <div className="">
-      <Hero />
-      <div className="bg-light-gray p-sides">
+      {/* <Hero /> */}
+      <HomeHero />
+
+      <div className="p-sides">
         <Latest />
       </div>
     </div>

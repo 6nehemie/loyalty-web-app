@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 const FleetPage = async () => {
-  const collection = await prisma.car.findMany();
+  const collection = await prisma.vehicule.findMany();
 
   return (
     <div className="bg-light-gray py-10">
@@ -19,11 +19,11 @@ const FleetPage = async () => {
           {collection.map((car) => (
             <CarCard
               key={car.id}
-              title={`${car.brand} ${car.model}`}
+              title={`${car.make} ${car.model}`}
               subtitle={car.shortDescription!}
-              price={car.price!}
+              price={`${car.dailyPrice! / 100}`}
               image={car.carImage!}
-              href={`/fleet/${car.id}`}
+              href={`/collection/${car.id}`}
             />
           ))}
         </div>

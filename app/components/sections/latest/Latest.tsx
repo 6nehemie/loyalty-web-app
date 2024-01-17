@@ -3,7 +3,7 @@ import prisma from '@/app/utils/prisma';
 
 const Latest = async () => {
   const latestCars =
-    (await prisma.car.findMany({
+    (await prisma.vehicule.findMany({
       orderBy: {
         createdAt: 'desc',
       },
@@ -17,11 +17,11 @@ const Latest = async () => {
         {latestCars.map((car) => (
           <CarCard
             key={car.id}
-            title={`${car.brand} ${car.model}`}
+            title={`${car.make} ${car.model}`}
             subtitle={car.shortDescription!}
-            price={car.price!}
+            price={`${car.dailyPrice! / 100}`}
             image={car.carImage!}
-            href={`/fleet/${car.id}`}
+            href={`/collection/${car.id}`}
           />
         ))}
       </div>

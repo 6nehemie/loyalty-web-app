@@ -1,4 +1,5 @@
 import Navbar from '../components/navigations/Navbar';
+import NavbarContainer from '../components/navigations/NavbarContainer';
 
 export default function BaseLayout({
   children,
@@ -7,7 +8,8 @@ export default function BaseLayout({
 }) {
   return (
     <div className="">
-      <Navbar />
+      {/* <Navbar /> */}
+      <NavbarContainer />
       <main className="">{children}</main>
     </div>
   );
