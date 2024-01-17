@@ -54,7 +54,7 @@ const NavbarV2 = () => {
       <nav ref={dropdownRef} className="">
         <div
           className={`${
-            isDropdownOpen ? 'bg-white text-black' : 'text-white'
+            isDropdownOpen ? ' text-black' : 'text-white'
           } fixed p-sides-2 w-full z-[150] font-sans top-0 py-2 transition-all duration-200`}
         >
           <div
@@ -144,14 +144,17 @@ const NavbarV2 = () => {
               )}
             </div>
           </div>
-
-          {/* //? Collection */}
-          <div
-            className={`${
-              isCollectionHovered ? 'visible' : 'hidden'
-            }  h-[400px] transition-all duration-200`}
-          ></div>
         </div>
+        {/* //? Collection */}
+        <div
+          className={`
+          fixed z-[149] top-0 left-0 right-0 h-[500px] transition-all duration-200 bg-white ease-in-out
+          ${
+            isDropdownOpen
+              ? 'visible translate-y-0'
+              : 'invisible bg-white -translate-y-[100%]'
+          }  `}
+        ></div>
       </nav>
     </>
   );
