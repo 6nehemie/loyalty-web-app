@@ -6,10 +6,15 @@ import Link from 'next/link';
 import { Bars2Icon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const NavbarV2 = () => {
   const session = useSession();
   const hasSession = !!session.data?.user?.email;
+
+  const pathname = usePathname();
+  const darkBg =
+    pathname.includes('/collection') || pathname.includes('/account');
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const collectionRef = useRef<HTMLDivElement>(null);
@@ -47,6 +52,19 @@ const NavbarV2 = () => {
 
   const navBtnStyle = `${isDropdownOpen} h-8 px-2.5 font-light rounded-sm flex gap-1 items-center transition-colors duration-200`;
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const checkScroll = () => {
+    setIsScrolled(window.pageYOffset > 30);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', checkScroll);
+    return () => {
+      window.removeEventListener('scroll', checkScroll);
+    };
+  }, []);
+
   return (
     <>
       <Backdrop isActive={isDropdownOpen} />
@@ -54,7 +72,9 @@ const NavbarV2 = () => {
       <nav ref={dropdownRef} className="">
         <div
           className={`${
-            isDropdownOpen ? ' text-black' : 'text-white'
+            isScrolled || isDropdownOpen || darkBg
+              ? 'bg-white text-black'
+              : 'text-white bg-transparent'
           } fixed p-sides-2 w-full z-[150] font-sans top-0 py-2 transition-all duration-200`}
         >
           <div
@@ -111,7 +131,7 @@ const NavbarV2 = () => {
                   <Link
                     href={'/sign-in'}
                     className={`${
-                      isDropdownOpen
+                      isDropdownOpen || isScrolled || darkBg
                         ? 'text-white bg-dark-gray'
                         : 'bg-white text-dark-gray'
                     } ${navBtnStyle} font-normal `}
@@ -132,7 +152,7 @@ const NavbarV2 = () => {
                   <Link
                     href={'/account'}
                     className={` ${
-                      isDropdownOpen
+                      isDropdownOpen || isScrolled || darkBg
                         ? 'text-white bg-dark-gray'
                         : 'bg-white text-dark-gray'
                     } font-normal ${navBtnStyle}`}
