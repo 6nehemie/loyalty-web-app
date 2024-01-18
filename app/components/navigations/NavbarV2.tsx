@@ -73,9 +73,11 @@ const NavbarV2 = () => {
         <div
           className={`${
             isScrolled || isDropdownOpen || darkBg
-              ? 'bg-white text-black'
-              : 'text-white bg-transparent'
-          } fixed p-sides-2 w-full z-[150] font-sans top-0 py-2 transition-all duration-200`}
+              ? 'text-black bg-opacity-100'
+              : 'text-white bg-opacity-0'
+          }  fixed p-sides-2 w-full z-[150] bg-white font-sans top-0 transition-all duration-300 ${
+            !isScrolled && 'py-2'
+          }`}
         >
           <div
             className={`visible lg:hidden flex justify-between items-center h-16 w-full max-[1024px]:h-10`}
@@ -120,10 +122,10 @@ const NavbarV2 = () => {
                   <Link
                     href={'/sign-up'}
                     className={`${
-                      isDropdownOpen
+                      isDropdownOpen || isScrolled
                         ? 'hover:border-neutral-900'
                         : 'hover:border-neutral-100'
-                    } ${navBtnStyle} font-normal border border-neutral-400 `}
+                    } ${navBtnStyle} font-normal border border-neutral-400 transition-none duration-0`}
                   >
                     Créer un compte
                   </Link>
@@ -168,11 +170,11 @@ const NavbarV2 = () => {
         {/* //? Collection */}
         <div
           className={`
-          fixed z-[149] top-0 left-0 right-0 h-[500px] transition-all duration-200 bg-white ease-in-out
+          fixed z-[149] top-0 left-0 right-0 h-[500px] transition-all duration-300 rounded-b-lg bg-white ease-in-out
           ${
             isDropdownOpen
-              ? 'visible translate-y-0'
-              : 'invisible bg-white -translate-y-[100%]'
+              ? 'visible translate-y-0 opacity-100'
+              : 'invisible opacity-40 -translate-y-[100%]'
           }  `}
         ></div>
       </nav>
