@@ -1,9 +1,12 @@
+import prisma from '@/app/utils/prisma';
 import { NavbarV2 } from '..';
 
-const NavbarContainer = () => {
+const NavbarContainer = async () => {
+  const collection = await prisma.vehicule.findMany();
+
   return (
     <div className="">
-      <NavbarV2 />
+      <NavbarV2 collection={collection} />
     </div>
   );
 };

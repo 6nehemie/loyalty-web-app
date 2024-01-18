@@ -1,14 +1,25 @@
 'use client';
 
-import { PersonIcon, TriangleDownIcon } from '@radix-ui/react-icons';
+import {
+  ArrowRightIcon,
+  PersonIcon,
+  TriangleDownIcon,
+} from '@radix-ui/react-icons';
 import { Backdrop, Logo } from '..';
 import Link from 'next/link';
 import { Bars2Icon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { IVehicule } from '@/app/types';
+import Image from 'next/image';
+import Collection from './navbarContent/Collection';
 
-const NavbarV2 = () => {
+interface INavbarV2Props {
+  collection?: IVehicule[];
+}
+
+const NavbarV2: React.FC<INavbarV2Props> = ({ collection }) => {
   const session = useSession();
   const hasSession = !!session.data?.user?.email;
 
@@ -65,6 +76,11 @@ const NavbarV2 = () => {
     };
   }, []);
 
+  const handleCloseDropdown = () => {
+    setIsCollectionHovered(false);
+    setIsOthersHovered(false);
+  };
+
   return (
     <>
       <Backdrop isActive={isDropdownOpen} />
@@ -75,8 +91,8 @@ const NavbarV2 = () => {
             isScrolled || isDropdownOpen || darkBg
               ? 'text-black bg-opacity-100'
               : 'text-white bg-opacity-0'
-          }  fixed p-sides-2 w-full z-[150] bg-white font-sans top-0 transition-all duration-300 ${
-            !isScrolled && 'py-2'
+          }  fixed p-sides-2 w-full z-[150] bg-white font-sans py-2 top-0 transition-all duration-300 ${
+            !isScrolled && ''
           }`}
         >
           <div
@@ -91,7 +107,9 @@ const NavbarV2 = () => {
 
           <div className=" max-lg:hidden">
             <div className="main-gird-layout items-center h-16 max-[1024px]:h-10">
-              <Logo />
+              <div onClick={handleCloseDropdown}>
+                <Logo />
+              </div>
 
               <div className="col-start-4 xl:col-start-3 flex items-center gap-4 text-sm">
                 <div
@@ -144,12 +162,17 @@ const NavbarV2 = () => {
                 </div>
               ) : (
                 <div className="justify-self-end col-start-[-1] row-start-1 col-span-6 flex items-center gap-4 text-sm">
-                  {/* <Link
-                  href={'/sign-up'}
-                  className={`${navBtnStyle}font-normal border border-neutral-400 hover:border-neutral-100`}
-                >
-                  Créer un compte
-                </Link> */}
+                  <Link
+                    href={'/reservation'}
+                    className={`${
+                      isDropdownOpen || isScrolled
+                        ? 'hover:border-neutral-900'
+                        : 'hover:border-neutral-100'
+                    } ${navBtnStyle} font-normal border border-neutral-400 transition-none duration-0`}
+                  >
+                    <span>Reserver un vehicule</span>
+                    <ArrowRightIcon className="h-4" />
+                  </Link>
 
                   <Link
                     href={'/account'}
@@ -168,15 +191,11 @@ const NavbarV2 = () => {
           </div>
         </div>
         {/* //? Collection */}
-        <div
-          className={`
-          fixed z-[149] top-0 left-0 right-0 h-[500px] transition-all duration-300 rounded-b-lg bg-white ease-in-out
-          ${
-            isDropdownOpen
-              ? 'visible translate-y-0 opacity-100'
-              : 'invisible opacity-40 -translate-y-[100%]'
-          }  `}
-        ></div>
+        <Collection
+          collection={collection}
+          isDropdownOpen={isDropdownOpen}
+          closeDropDown={() => handleCloseDropdown()}
+        />
       </nav>
     </>
   );
