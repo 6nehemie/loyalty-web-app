@@ -14,6 +14,7 @@ import { usePathname } from 'next/navigation';
 import { IVehicule } from '@/app/types';
 import Image from 'next/image';
 import Collection from './navbarContent/Collection';
+import Discover from './navbarContent/Discover';
 
 interface INavbarV2Props {
   collection?: IVehicule[];
@@ -34,6 +35,19 @@ const NavbarV2: React.FC<INavbarV2Props> = ({ collection }) => {
   const [isCollectionHovered, setIsCollectionHovered] = useState(false);
   const [isOthersHovered, setIsOthersHovered] = useState(false);
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const checkScroll = () => {
+    setIsScrolled(window.pageYOffset > 30);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', checkScroll);
+    return () => {
+      window.removeEventListener('scroll', checkScroll);
+    };
+  }, []);
+
   useEffect(() => {
     const collection = collectionRef.current;
     const others = othersRef.current;
@@ -42,12 +56,14 @@ const NavbarV2: React.FC<INavbarV2Props> = ({ collection }) => {
     if (collection) {
       collection.addEventListener('mouseenter', () => {
         setIsCollectionHovered(true);
+        setIsOthersHovered(false);
       });
     }
 
     if (others) {
       others.addEventListener('mouseenter', () => {
         setIsOthersHovered(true);
+        setIsCollectionHovered(false);
       });
     }
 
@@ -62,19 +78,6 @@ const NavbarV2: React.FC<INavbarV2Props> = ({ collection }) => {
   const isDropdownOpen = isCollectionHovered || isOthersHovered;
 
   const navBtnStyle = `${isDropdownOpen} h-8 px-2.5 font-light rounded-sm flex gap-1 items-center transition-colors duration-200`;
-
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  const checkScroll = () => {
-    setIsScrolled(window.pageYOffset > 30);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', checkScroll);
-    return () => {
-      window.removeEventListener('scroll', checkScroll);
-    };
-  }, []);
 
   const handleCloseDropdown = () => {
     setIsCollectionHovered(false);
@@ -193,9 +196,11 @@ const NavbarV2: React.FC<INavbarV2Props> = ({ collection }) => {
         {/* //? Collection */}
         <Collection
           collection={collection}
-          isDropdownOpen={isDropdownOpen}
+          isDropdownOpen={isCollectionHovered}
           closeDropDown={() => handleCloseDropdown()}
         />
+
+        <Discover isDropdownOpen={isOthersHovered} />
       </nav>
     </>
   );

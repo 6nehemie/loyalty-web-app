@@ -17,11 +17,9 @@ const Collection: React.FC<INavbarV2Props> = ({
   return (
     <div
       className={`
-	fixed z-[149] top-0 left-0 right-0 py-[126px] transition-all duration-300 rounded-b-lg bg-white ease-in-out
+	fixed z-[149] top-0 left-0 right-0 pt-[126px] pb-[98px]  transition-all duration-300 rounded-b-lg bg-white ease-in-out
 	${
-    isDropdownOpen
-      ? 'visible translate-y-0 opacity-100'
-      : 'invisible opacity-40 -translate-y-[100%]'
+    isDropdownOpen ? 'visible translate-y-0 ' : 'invisible -translate-y-[100%]'
   }  `}
     >
       <div className="main-gird-layout h-full">
