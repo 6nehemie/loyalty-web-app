@@ -17,7 +17,7 @@ const Collection: React.FC<INavbarV2Props> = ({
   return (
     <div
       className={`
-	fixed z-[149] top-0 left-0 right-0 pt-[126px] pb-[98px]  transition-all duration-300 rounded-b-lg bg-white ease-in-out
+	fixed max-lg:hidden z-[149] top-0 left-0 right-0 pt-[126px] pb-[98px]  transition-all duration-300 rounded-b-lg bg-white ease-in-out
 	${
     isDropdownOpen ? 'visible translate-y-0 ' : 'invisible -translate-y-[100%]'
   }  `}
@@ -51,9 +51,12 @@ const Collection: React.FC<INavbarV2Props> = ({
           <Link
             href={'/collection'}
             onClick={closeDropDown}
-            className="flex items-center self-end justify-center text-sm gap-2 h-12 hover:border-neutral-900 transition-colors duration-200 border border-neutral-400 rounded-md"
+            className="flex items-center self-end justify-center text-sm gap-2 h-12 hover:border-neutral-900 transition-colors duration-200 border border-neutral-400 rounded-md px-5"
           >
-            <span>Voir toute la collection</span>
+            <p>
+              <span className="max-[1515px]:hidden">Voir toute la </span>{' '}
+              collection
+            </p>
             <ArrowRightIcon className="h-4" />
           </Link>
         </div>

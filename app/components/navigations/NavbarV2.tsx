@@ -200,7 +200,10 @@ const NavbarV2: React.FC<INavbarV2Props> = ({ collection }) => {
           closeDropDown={() => handleCloseDropdown()}
         />
 
-        <Discover isDropdownOpen={isOthersHovered} />
+        <Discover
+          isDropdownOpen={isOthersHovered}
+          closeDropDown={() => handleCloseDropdown()}
+        />
       </nav>
     </>
   );
