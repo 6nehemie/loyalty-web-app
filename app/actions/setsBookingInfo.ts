@@ -10,12 +10,12 @@ export const fetchBookingInfo = async (reservationId: string) => {
         id: reservationId,
       },
       include: {
-        car: true,
+        vehicule: true,
       },
     });
 
     // Calculate the renting price
-    const carRentingPrice = response?.car?.price || 0;
+    const carRentingPrice = response?.vehicule?.dailyPrice || 0;
     const dateFrom = response?.startDate || new Date();
     const dateTo = response?.endDate || new Date();
     const rentingPrice =
@@ -63,15 +63,13 @@ export const setBookingCarChoice = async (
   carId: string,
   reservationId: string
 ) => {
-  // console.log(carId, reservationId);
-
   try {
     await prisma.reservation.update({
       where: {
         id: reservationId,
       },
       data: {
-        carId: carId,
+        vehiculeId: carId,
       },
     });
 

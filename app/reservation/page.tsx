@@ -40,8 +40,6 @@ const page = async () => {
         },
       });
 
-      console.log(booking);
-
       redirect(`/reservation/${user.currentReservation}`);
     } else {
       const reservation = await prisma.reservation.create({

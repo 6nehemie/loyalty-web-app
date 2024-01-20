@@ -26,7 +26,8 @@ const BookingSummary: React.FC<IBookingSummaryProps> = ({
   const params = useParams();
   const router = useRouter();
   const totalRentalCarPrice =
-    (Number(bookingInfo.car?.price) || 0) * (bookingInfo?.rentalDays || 0);
+    (Number(bookingInfo.vehicule?.dailyPrice! / 100) || 0) *
+    (bookingInfo?.rentalDays || 0);
 
   const bookingTotalPrice = calculateTotalPrice(
     totalRentalCarPrice,
@@ -93,7 +94,7 @@ const BookingSummary: React.FC<IBookingSummaryProps> = ({
           </ReservationDataCard>
         )}
 
-        {bookingInfo.car &&
+        {bookingInfo.vehicule &&
           step !== ReservationStep.ONE &&
           step !== ReservationStep.TWO && (
             <ReservationDataCard>
@@ -101,9 +102,7 @@ const BookingSummary: React.FC<IBookingSummaryProps> = ({
                 <h4 className="text-sm text-neutral-400">
                   Véhicule sélectionné:
                 </h4>
-                <p>
-                  {bookingInfo.car?.brand} {bookingInfo.car?.model}
-                </p>
+                <p>{bookingInfo.vehicule?.title}</p>
               </div>
             </ReservationDataCard>
           )}
@@ -131,7 +130,7 @@ const BookingSummary: React.FC<IBookingSummaryProps> = ({
           step !== ReservationStep.ONE &&
           step !== ReservationStep.TWO && (
             <ReservationDataCard>
-              {bookingInfo.car?.price && (
+              {bookingInfo.vehicule?.dailyPrice && (
                 <div className="flex justify-between">
                   <p>Location de véhicule</p>
                   <p>{totalRentalCarPrice}€</p>

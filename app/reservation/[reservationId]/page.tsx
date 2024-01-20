@@ -21,7 +21,7 @@ const ReservationPage: React.FC<IReservationProps> = async ({ params }) => {
   const response = await fetchBookingInfo(params.reservationId);
   const bookingInfo = response?.data;
 
-  const collection = await prisma.car.findMany();
+  const collection = await prisma.vehicule.findMany();
 
   return (
     <section>

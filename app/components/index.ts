@@ -39,3 +39,4 @@ export { default as AdminNavbar } from './navigations/admin/AdminNavbar';
 export { default as AdminNavMenu } from './navigations/admin/menu/AdminNavMenu';
 export { default as NavbarV2 } from './navigations/NavbarV2';
 export { default as HomeHero } from './sections/hero/HomeHero';
+export { default as HowItWorks } from './sections/howItWorks/HowItWorks';

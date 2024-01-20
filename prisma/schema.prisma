@@ -51,14 +51,14 @@ model Car {
 }
 
 model Vehicule {
-  id                String   @id @default(cuid())
+  id                String        @id @default(cuid())
   productId         String
   title             String
   make              String
   model             String
-  shortDescription  String   @db.Text
-  description       String   @db.Text
-  embeddedVideo     String?  @db.Text
+  shortDescription  String        @db.Text
+  description       String        @db.Text
+  embeddedVideo     String?       @db.Text
   carImage          String
   carImagePublicId  String
   wallpaper         String
@@ -69,8 +69,9 @@ model Vehicule {
   monthlyPrice      Int?
   caution           Int
   minimumAge        Int
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt // Updtate automatically when an update is made
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt // Updtate automatically when an update is made
+  Reservation       Reservation[]
 }
 
 enum PaymentStatus {
@@ -84,8 +85,10 @@ model Reservation {
   id                      String        @id @default(cuid())
   user                    User          @relation(fields: [userId], references: [id])
   userId                  String
-  car                     Car?          @relation(fields: [carId], references: [id])
-  carId                   String?
+  // car                     Car?          @relation(fields: [carId], references: [id])
+  // carId                   String?
+  vehicule                Vehicule?     @relation(fields: [vehiculeId], references: [id])
+  vehiculeId              String?
   startDate               DateTime?
   endDate                 DateTime?
   checkoutSessionId       String?
@@ -104,6 +107,8 @@ model Reservation {
   homeCertificatePublicId String?
   createdAt               DateTime      @default(now())
   updatedAt               DateTime      @updatedAt // Updtate automatically when an update is made
+  Car                     Car?          @relation(fields: [carId], references: [id])
+  carId                   String?
 
-  @@index([userId, carId])
+  @@index([userId, vehiculeId])
 }

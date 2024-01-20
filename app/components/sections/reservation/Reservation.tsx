@@ -8,14 +8,14 @@ import { DatePickerWithRange } from '@/app/components/ui/DatePickerWithRange';
 import { DateRange } from 'react-day-picker';
 import BookingSummary from './BookingSummary';
 import { ReservationStep } from '@/app/enums';
-import { Car, IReservation } from '@/app/types';
+import { Car, IReservation, IVehicule } from '@/app/types';
 import BookingStep4 from './BookingStep4';
 import { useParams, useRouter } from 'next/navigation';
 import { createReservation } from '@/app/actions/bookAction';
 
 interface IReservationProps {
   bookingInfo: IReservation | any;
-  collection: Car[] | any;
+  collection: IVehicule[] | any;
 }
 
 const Reservation: React.FC<IReservationProps> = ({
@@ -107,13 +107,13 @@ const Reservation: React.FC<IReservationProps> = ({
               step === ReservationStep.TWO ? 'visible' : 'hidden'
             } grid grid-cols-3 gap-5`}
           >
-            {collection.map((car: Car) => (
+            {collection.map((car: IVehicule) => (
               <div onClick={() => setCarChoiceId(car.id)} key={car.id}>
                 <BookingStep2
                   htmlFor={String(car.id)}
                   carImage={car.carImage}
-                  carName={`${car.brand} ${car.model}`}
-                  price={car.price}
+                  carName={`${car.make} ${car.model}`}
+                  price={String(car.dailyPrice / 100)}
                   isChecked={carChoiceId === String(car.id)}
                   name="car"
                 />

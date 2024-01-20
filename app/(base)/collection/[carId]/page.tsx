@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 
 const CarPage = async ({ params }: { params: { carId: string } }) => {
   // const params = useParams();
-  const carData = await prisma.car.findUnique({
+  const carData = await prisma.vehicule.findUnique({
     where: { id: params.carId as string },
   });
 
@@ -26,13 +26,13 @@ const CarPage = async ({ params }: { params: { carId: string } }) => {
           <div className="flex justify-between gap-9 max-md:gap-6 max-w-wide w-full mx-auto pb-11 text-white">
             <div>
               <h1 className="heading-2 leading-[100%]">
-                Louez une {carData?.brand} {carData?.model}
+                Louez une {carData?.make} {carData?.model}
               </h1>
             </div>
 
             <div className="flex items-center gap-6 font-light">
               <p className="max-md:w-full justify-center text-sm">
-                À partir de {carData?.price}€/jour
+                À partir de {carData?.dailyPrice! / 100}€/jour
               </p>
 
               <Button1

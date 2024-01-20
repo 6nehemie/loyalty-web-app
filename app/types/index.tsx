@@ -105,8 +105,8 @@ export interface IUploadResponse {
 export interface IReservation {
   id: string | undefined;
   userId: string | undefined;
-  carId: string | undefined;
-  car: Car | null;
+  vehiculeId: string | undefined;
+  vehicule: IVehicule | null;
   startDate: Date | undefined;
   endDate: Date | undefined;
   rentalDays: number | undefined;

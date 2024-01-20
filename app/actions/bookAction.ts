@@ -28,12 +28,12 @@ export const createReservation = async (
     const reservation = await prisma.reservation.findUnique({
       where: { id: reservationId },
       include: {
-        car: true,
+        vehicule: true,
         user: true,
       },
     });
 
-    const totalRentingPrice = (Number(reservation?.car?.price) *
+    const totalRentingPrice = (Number(reservation?.vehicule?.dailyPrice) *
       reservation?.rentalDays!) as number;
 
     const customer = await stripe.customers.create({
@@ -48,8 +48,8 @@ export const createReservation = async (
       },
     });
 
-    const description = `${reservation?.car?.brand} ${
-      reservation?.car?.model
+    const description = `${reservation?.vehicule?.make} ${
+      reservation?.vehicule?.model
     } réservée du ${longFormatFrDate(
       reservation?.startDate as Date
     )} au ${longFormatFrDate(
@@ -77,11 +77,11 @@ export const createReservation = async (
           price_data: {
             currency: 'eur',
             product_data: {
-              name: `Location d'une ${reservation?.car?.brand} ${reservation?.car?.model}`,
-              images: [reservation?.car?.carImage as string],
+              name: `Location d'une ${reservation?.vehicule?.make} ${reservation?.vehicule?.model}`,
+              images: [reservation?.vehicule?.carImage as string],
               description: description,
             },
-            unit_amount: totalRentingPrice * 100,
+            unit_amount: totalRentingPrice,
           },
           quantity: 1,
         },

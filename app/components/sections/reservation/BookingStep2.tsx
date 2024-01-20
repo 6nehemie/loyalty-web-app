@@ -13,15 +13,11 @@ interface BookingStep2Props {
 }
 
 const BookingStep2: React.FC<BookingStep2Props> = ({
-  htmlFor,
-  name,
   carName,
   carImage,
   price,
   isChecked,
 }) => {
-  const radioRef = useRef<HTMLInputElement>(null);
-
   return (
     <div className="relative border border-neutral-700 rounded-md">
       <BookCarCard
