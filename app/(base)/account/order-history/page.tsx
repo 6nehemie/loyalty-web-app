@@ -16,7 +16,7 @@ const page = async () => {
       createdAt: 'desc',
     },
     include: {
-      car: true,
+      vehicule: true,
     },
   });
 
@@ -26,9 +26,9 @@ const page = async () => {
       <div className="account-grid w-full">
         {orders.map((order, index) => (
           <OrderHistoryCard
-            title={`${order.car?.brand} ${order.car?.model}`}
+            title={`${order.vehicule?.title}`}
             checkoutSessionId={order.checkoutSessionId as string}
-            image={order.car?.wallpaper as string}
+            image={order.vehicule?.wallpaper as string}
             key={index}
           />
         ))}
