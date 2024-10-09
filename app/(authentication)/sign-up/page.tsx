@@ -141,7 +141,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <AuthWrapper title="Bienvenue à bord !" innerWidth="450px">
+    <AuthWrapper title="Bienvenue à bord !">
       <div>
         <p className="font-exo font-light text-sm">Étape {currentStep} sur 2</p>
         <h1 className="text-2xl mb-2">{signUp.title}</h1>

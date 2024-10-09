@@ -33,7 +33,7 @@ const SignUpStepOne: React.FC<SignUpStepOneProps> = ({ control }) => {
       />
 
       {/* INPUT */}
-      <div className="grid grid-cols-2 gap-4 w-full">
+      <div className="grid sm:grid-cols-2 gap-4 w-full">
         <FormField
           control={control}
           name="firstName"

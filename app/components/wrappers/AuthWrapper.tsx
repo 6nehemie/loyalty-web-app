@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Logo from '../logos/Logo';
 import { X } from 'lucide-react';
 import { BorderTrail } from '../animations/BorderTrail';
+import { cn } from '@/utils';
 
 interface AuthWrapperProps {
   title: string;
@@ -18,7 +19,10 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
 }) => {
   return (
     <div
-      className={`relative md:border-[2px] md:border-app-gray-2 md:border-opacity-15 h-max max-md:h-full md:max-w-[${outerWidth}] w-full bg-dark-gray py-10 p-side md:rounded-xl md-box-shadow`}
+      className={cn(
+        `relative md:border-[2px] md:border-app-gray-2 md:border-opacity-15 h-max max-md:h-full md:max-w-[516px] w-full bg-dark-gray py-10 p-side md:rounded-xl md-box-shadow`,
+        {}
+      )}
     >
       <BorderTrail
         style={{
