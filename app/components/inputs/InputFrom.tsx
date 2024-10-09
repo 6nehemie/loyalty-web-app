@@ -3,35 +3,27 @@
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { LegacyRef, useState } from 'react';
+import { Input } from '../ui/input';
+import { ControllerRenderProps } from 'react-hook-form';
 
 interface InputFromProps {
-  label?: string;
   name: string;
   type: string;
   placeholder?: string;
   required?: boolean;
-  setCurrentValue?: any;
-  error?: boolean | null;
-  errorMessage?: string;
+  field: ControllerRenderProps<any>;
   className?: string;
-  defaultValue?: string;
   lowerCase?: boolean;
-  ref?: LegacyRef<HTMLInputElement> | undefined;
 }
 
 const InputFrom: React.FC<InputFromProps> = ({
-  label,
   name,
   type = 'text',
   required,
   placeholder,
-  defaultValue,
+  field,
   className,
-  setCurrentValue,
-  ref,
-  error,
   lowerCase,
-  errorMessage,
 }) => {
   const [showPassword, setShowPassword] = useState<'password' | 'text'>(
     'password'
@@ -43,38 +35,24 @@ const InputFrom: React.FC<InputFromProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={name} className="font-exo">
-        {label}
-      </label>
-
       <div className="relative w-full">
-        <input
-          type={type === 'password' ? showPassword : type}
-          name={name}
+        <Input
           id={name}
-          ref={ref}
+          {...field}
+          type={type === 'password' ? showPassword : type}
           required={required}
-          defaultValue={defaultValue}
-          onChange={(e) => setCurrentValue && setCurrentValue(e.target.value)}
-          className={`h-[48px] border-2 bg-light-gray rounded-md px-4  outline-cool-gray-1 font-exo w-full ${
-            lowerCase && 'lowercase'
-          } ${error && 'border-red-500'}`}
+          placeholder={placeholder}
+          className={`${lowerCase && 'lowercase'}`}
         />
         {type === 'password' && (
           <div
             onClick={handleInputType}
-            className="absolute top-1/2 right-6 -translate-y-[50%] cursor-pointer"
+            className="absolute top-1/2 right-6 -translate-y-[50%] cursor-pointer text-sm"
           >
             {showPassword === 'password' ? 'montrer' : 'cacher'}
           </div>
         )}
       </div>
-      {errorMessage && (
-        <div className="flex gap-2 text-red-500 text-sm mt-2">
-          <ExclamationCircleIcon className="h-4 w-4 block mt-0.5" />
-          <p>{errorMessage}</p>
-        </div>
-      )}
     </div>
   );
 };

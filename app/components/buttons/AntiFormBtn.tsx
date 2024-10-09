@@ -1,3 +1,5 @@
+import { BorderTrail } from '../animations/BorderTrail';
+
 type AntiFormBtnProps = {
   light?: boolean;
   label?: string;
@@ -21,7 +23,7 @@ const AntiFormBtn: React.FC<AntiFormBtnProps> = ({
     <div
       onClick={onClick}
       aria-disabled={ariaDisabled}
-      className={`h-[48px] font-light flex items-center justify-center px-6 rounded-md ${themeMode} ${className} transition-colors duration-300 cursor-pointer`}
+      className={`relative h-[48px] font-light flex items-center justify-center px-6 rounded-md ${themeMode} ${className} transition-colors duration-300 cursor-pointer font-medium`}
     >
       {label}
     </div>

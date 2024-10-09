@@ -8,5 +8,9 @@ export default async function DashboardLayout({
 }) {
   const session = await getServerSession();
   if (session) redirect('/');
-  return <div>{children}</div>;
+  return (
+    <div className="w-full min-h-screen bg-dark-gray md:bg-black flex justify-center items-center text-white">
+      {children}
+    </div>
+  );
 }

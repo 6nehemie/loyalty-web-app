@@ -1,3 +1,6 @@
+import { cn } from '@/utils';
+import { Button } from '../ui/button';
+
 type SubmitButtonProps = {
   light?: boolean;
   label?: string;
@@ -20,14 +23,19 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
     : 'bg-dark-gray text-white hover:bg-cool-gray-1';
 
   return (
-    <button
+    <Button
       type={type}
       disabled={disabled}
       aria-disabled={ariaDisabled}
-      className={`h-[48px] font-light flex items-center justify-center px-6 rounded-md ${themeMode} ${className} transition-colors duration-300`}
+      className={cn(
+        `font-light flex items-center justify-center px-6 rounded-md ${themeMode} ${className} transition-colors duration-300 rounded-xl font-medium text-base`,
+        {
+          'cursor-not-allowed opacity-50': disabled,
+        }
+      )}
     >
       {label}
-    </button>
+    </Button>
   );
 };
 export default SubmitButton;

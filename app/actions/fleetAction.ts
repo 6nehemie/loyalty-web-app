@@ -128,7 +128,7 @@ export const updateProduct = async (formData: FormData, carId: string) => {
 
 export const deleteProduct = async (id: string) => {
   try {
-    const car = await prisma.car.delete({
+    const car = await prisma.vehicule.delete({
       where: { id: id },
     });
 

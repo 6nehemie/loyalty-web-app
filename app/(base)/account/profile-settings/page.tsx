@@ -29,6 +29,8 @@ const ProfilePage = async () => {
     },
   });
 
+  console.log(user);
+
   return (
     <div className="w-full">
       <h1 className="dashboard-heading">Mon Profil Loyalty</h1>

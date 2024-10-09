@@ -24,6 +24,15 @@ const config = {
         large: '1294px',
       },
       colors: {
+        app: {
+          gray: {
+            1: '#FFFFFFF0A',
+            2: '#86868B',
+          },
+          blue: {
+            1: '#0071E3',
+          },
+        },
         'light-gray': '#F4F4F4',
         'dark-gray': '#1E1E1E',
         'cool-gray-1': '#525252',
@@ -73,6 +82,11 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
+        'border-spin': {
+          '100%': {
+            transform: 'rotate(-360deg)',
+          },
+        },
         'accordion-down': {
           from: { height: '0' },
           to: { height: 'var(--radix-accordion-content-height)' },
@@ -85,6 +99,7 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'border-spin': 'border-spin 7s linear infinite',
       },
     },
   },

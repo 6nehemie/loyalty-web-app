@@ -1,32 +1,71 @@
 import { CheckboxForm, InputFrom } from '@/app/components';
-import { IstepTwo } from '@/app/types';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/app/components/ui/form';
+import { Control } from 'react-hook-form';
 
 interface SignUpStepTwoProps {
-  stepTwoError: IstepTwo;
+  control?: Control<any>;
 }
 
-const SignUpStepTwo: React.FC<SignUpStepTwoProps> = ({ stepTwoError }) => {
-  console.log(stepTwoError);
+const SignUpStepTwo: React.FC<SignUpStepTwoProps> = ({ control }) => {
   return (
     <div className="flex flex-col gap-6">
-      <InputFrom
-        label="Mot de passe *"
-        type="password"
+      <FormField
+        control={control}
         name="password"
-        error={stepTwoError.password ? true : false}
-        errorMessage={stepTwoError.password}
+        render={({ field }) => (
+          <FormItem>
+            <FormControl>
+              <InputFrom
+                field={field}
+                placeholder="Mot de passe"
+                type="password"
+                name="password"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
       />
-      <InputFrom
-        label="Confirmer le mot de passe *"
-        type="password"
-        error={stepTwoError.confirmPassword ? true : false}
-        errorMessage={stepTwoError.confirmPassword}
+
+      <FormField
+        control={control}
         name="confirmPassword"
+        render={({ field }) => (
+          <FormItem>
+            <FormControl>
+              <InputFrom
+                field={field}
+                placeholder="Confirmez votre mot de passe"
+                type="password"
+                name="confirmPassword"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
       />
-      <CheckboxForm name="newsletter">
-        <p>Recevoir les news Loylaty.RC .</p>
-      </CheckboxForm>
+
+      <FormField
+        control={control}
+        name="newsletter"
+        render={({ field }) => (
+          <FormItem>
+            <FormControl>
+              <CheckboxForm field={field}>
+                <p>Recevoir les news Loyalty.RC.</p>
+              </CheckboxForm>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </div>
   );
 };
+
 export default SignUpStepTwo;

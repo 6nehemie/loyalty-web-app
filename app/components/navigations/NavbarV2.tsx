@@ -12,7 +12,6 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { IVehicule } from '@/app/types';
-import Image from 'next/image';
 import Collection from './navbarContent/Collection';
 import Discover from './navbarContent/Discover';
 
@@ -94,7 +93,7 @@ const NavbarV2: React.FC<INavbarV2Props> = ({ collection }) => {
             isScrolled || isDropdownOpen || darkBg
               ? 'text-black bg-opacity-100'
               : 'text-white bg-opacity-0'
-          }  fixed p-sides-2 w-full z-[150] bg-white font-sans py-2 top-0 transition-all duration-300 ${
+          }  fixed p-sides-2 w-full z-[150] bg-white font-sans py-3 top-0 transition-all duration-300 ${
             !isScrolled && ''
           }`}
         >

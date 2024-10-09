@@ -1,62 +1,39 @@
 'use client';
 
-import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline';
-import React, { Children, LegacyRef, useState } from 'react';
+import React from 'react';
+import { ControllerRenderProps } from 'react-hook-form';
+import { Checkbox } from '../ui/checkbox';
 
 interface CheckboxFormProps {
-  label?: string;
-  name: string;
-  required?: boolean;
-  error?: boolean;
-  errorMessage?: string;
+  field: ControllerRenderProps<any, any>;
   children?: React.ReactNode;
-  setCurrentValue?: any;
 }
 
-const CheckboxForm: React.FC<CheckboxFormProps> = ({
-  label,
-  name,
-  error,
-  errorMessage,
-  required,
-  children,
-  setCurrentValue,
-}) => {
-  const [isChecked, setIsChecked] = useState(false);
+const CheckboxForm: React.FC<CheckboxFormProps> = ({ field, children }) => {
+  if (!field) {
+    return null; // Handle the case where field is undefined
+  }
+
+  // Handle checkbox change
+  const handleCheckboxChange = () => {
+    field.onChange(!field.value); // Toggle the checkbox value
+  };
 
   return (
-    <div className="relative">
+    <div className="flex items-center space-x-2">
+      <Checkbox
+        id={field.name}
+        checked={field.value} // Bind checked state to field.value
+        onCheckedChange={handleCheckboxChange} // Handle change on click
+      />
       <label
-        htmlFor={name}
-        onClick={() => setIsChecked((prev) => !prev)}
-        className="cursor-pointer flex gap-2 items-center"
+        htmlFor={field.name}
+        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
-        <div
-          className={`flex items-center justify-center h-7 w-7 aspect-square border-2 rounded-md border-dark-gray transition-all duration-200
-        ${isChecked && 'bg-dark-gray'} ${error && 'border-red-500'}
-        `}
-        >
-          {isChecked && <CheckIcon className="h-5 w-5 text-white" />}
-        </div>
         {children}
       </label>
-      <input
-        type="checkbox"
-        name={name}
-        id={name}
-        className="hidden"
-        required={required}
-        onChange={(event) =>
-          setCurrentValue && setCurrentValue(event.target.checked)
-        }
-      />
-      {errorMessage && (
-        <div className="flex gap-2 text-red-500 text-sm mt-2">
-          <ExclamationCircleIcon className="h-4 w-4 block mt-0.5" />
-          <p>{errorMessage}</p>
-        </div>
-      )}
     </div>
   );
 };
+
 export default CheckboxForm;

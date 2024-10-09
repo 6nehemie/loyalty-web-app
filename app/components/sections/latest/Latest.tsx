@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { CarCard } from '../..';
 import prisma from '@/app/utils/prisma';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
+import { fleet } from '@/app/constants';
 
 const Latest = async () => {
   const latestCars =
@@ -11,6 +12,8 @@ const Latest = async () => {
       },
       take: 3,
     })) || [];
+
+  // const latestCars: any[] = fleet.collection;
 
   return (
     <section className="max-w-wide w-full mx-auto flex flex-col gap-12">

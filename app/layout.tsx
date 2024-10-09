@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Exo_2 } from 'next/font/google';
 import './globals.css';
 
 import { getServerSession } from 'next-auth';
 import SessionProvider from '@/app/providers/SessionProvider';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Exo_2({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Loyalty RC | Location automobile sportive.',
