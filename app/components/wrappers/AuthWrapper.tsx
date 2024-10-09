@@ -20,7 +20,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
   return (
     <div
       className={cn(
-        `relative md:border-[2px] md:border-app-gray-2 md:border-opacity-15 h-max max-md:h-full md:max-w-[516px] w-full bg-dark-gray py-10 p-side md:rounded-xl md-box-shadow`,
+        `relative md:border-[2px] md:border-app-gray-2 md:border-opacity-15 h-max max-md:h-full md:max-w-[576px] w-full bg-dark-gray py-10 p-side md:rounded-xl md-box-shadow`,
         {}
       )}
     >

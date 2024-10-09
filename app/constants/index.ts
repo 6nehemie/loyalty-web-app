@@ -12,15 +12,16 @@ export const userInfos = {
 };
 
 export const navbarNavigation = [
-  { label: 'À propos de nous', link: '/about' },
-  { label: 'Nos voitures', link: '/fleet' },
-  { label: 'Abonnements', link: '/subscriptions' },
-  { label: 'Le journal', link: '/blog' },
+  // { label: 'Acceuil', link: '/' },
+  { label: 'Flotte', link: '/fleet' },
+  { label: 'Contact', link: '/contact' },
+  { label: 'Journal', link: '/blogs' },
+  { label: 'A Propos', link: '/about' },
 ];
 
 export const hero = {
   title: 'Voitures de luxe.\nServices premium.',
-  image: 'https://utfs.io/f/220bd99c-5e51-4bde-9623-14f916721e4b-suwc7m.png',
+  image: 'https://utfs.io/f/AkDgHfNpCyfwXJUgocl2L4KT0VBbmrPpDwIknso7z6jM9vGq',
   video:
     'https://res.cloudinary.com/dkkykglbb/video/upload/v1705443261/jzjho994bg33rj2ijliw.mov',
 };

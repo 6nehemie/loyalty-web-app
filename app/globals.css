@@ -110,6 +110,12 @@ html {
   .card-content {
     @apply bg-gradient-to-b from-slate-800 to-slate-900;
   }
+
+  .filter {
+    filter: invert(
+      100%
+    ); /* Invert the colors completely (good for black-to-white logos) */
+  }
 }
 
 @layer components {

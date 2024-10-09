@@ -31,6 +31,7 @@ const config = {
           },
           blue: {
             1: '#0071E3',
+            2: '#005BB5',
           },
         },
         'light-gray': '#F4F4F4',
