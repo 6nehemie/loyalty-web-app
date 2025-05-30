@@ -1,4 +1,5 @@
 import { AccountSideBar } from '@/app/components';
+import SectionWrapper from '@/app/components/wrappers/SectionWrapper';
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
@@ -15,14 +16,25 @@ export default async function AccountLayout({
   // Redirect to sign in if not logged in
   const session = await getServerSession();
   if (!session) redirect('/sign-in');
+
   return (
-    <section className="mt-16 p-sides h-full">
-      <div className="flex gap-6 max-w-wide w-full h-full mx-auto py-14">
-        <div className="w-max">
-          <AccountSideBar />
+    <SectionWrapper>
+      <div className="h-full w-full flex flex-col py-[120px]">
+        <div className="flex flex-col lg:flex-row max-w-[1440px] w-full mx-auto gap-6">
+          <div className="w-full md:w-[300px] flex-shrink-0">
+            <AccountSideBar />
+          </div>
+
+          <div className=" lg:space-x-5 w-full">
+            <div className="max-md:hidden flex-grow bg-white border-gray-300 md:block hidden">
+              {/* This is the separator; hidden on mobile */}
+              <div className="border-l border-gray-300 h-full"></div>
+            </div>
+
+            <div className="flex-grow bg-white">{children}</div>
+          </div>
         </div>
-        {children}
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

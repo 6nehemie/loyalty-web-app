@@ -29,13 +29,12 @@ const ProfilePage = async () => {
     },
   });
 
-  console.log(user);
-
   return (
-    <div className="w-full">
+    <div className="w-full max-w-4xl">
       <h1 className="dashboard-heading">Mon Profil Loyalty</h1>
+
       {/* PROFILE SETTINGS */}
-      <div className="account-grid w-full mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
         <Name firstName={user!.firstName} lastName={user!.lastName} />
         <Address
           addressLine1={user?.addressLine1}
@@ -46,10 +45,11 @@ const ProfilePage = async () => {
         />
         <PhoneNumber number={user?.phoneNumber} />
       </div>
+
       {/* SECURITY SETTINGS */}
       <h3 className="heading-4">Sécurité</h3>
 
-      <div className="account-grid w-full mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
         <Email email={user!.email} />
         <Password />
       </div>
@@ -58,4 +58,5 @@ const ProfilePage = async () => {
     </div>
   );
 };
+
 export default ProfilePage;

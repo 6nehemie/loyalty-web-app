@@ -21,7 +21,7 @@ const EditCard: React.FC<IEditCardProps> = ({
 
   return (
     <>
-      <Backdrop isActive={isEditing} />
+      <Backdrop zIndex={1000} isActive={isEditing} />
 
       {isEditing && (
         <div className="z-[1000] fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center">

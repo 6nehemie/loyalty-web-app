@@ -13,7 +13,7 @@ export const userInfos = {
 
 export const navbarNavigation = [
   // { label: 'Acceuil', link: '/' },
-  { label: 'Flotte', link: '/fleet' },
+  { label: 'Flotte', link: '/collection' },
   { label: 'Contact', link: '/contact' },
   { label: 'Journal', link: '/blogs' },
   { label: 'A Propos', link: '/about' },

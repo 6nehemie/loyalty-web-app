@@ -1,76 +1,78 @@
 'use client';
 
+import { useState } from 'react';
 import { accountNavigation } from '@/app/constants/components';
 import useFetchUserData from '@/app/hooks/useFetchUserData';
-import {
-  ArrowRightOnRectangleIcon,
-  ShieldCheckIcon,
-} from '@heroicons/react/24/outline';
 import { signOut } from 'next-auth/react';
-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const AccountSideBar = () => {
   const pathname = usePathname();
   const user = useFetchUserData();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleCurrentPath = (link: string) => {
-    return pathname === link ? 'text-dark-gray font-medium' : '';
-  };
-
-  const handleCurrentPathIcon = (link: string) => {
-    return pathname === link ? 'bg-light-gray' : '';
-  };
+  const isActive = (link: string) => pathname === link;
 
   const handleSignOut = () => {
     signOut();
   };
+
   return (
-    <nav className="w-[300px] pt-[104px] font-exo">
-      <div className="flex flex-col gap-6 p-2 text-cool-gray-1">
-        {accountNavigation.map((item, index) => (
-          <Link
-            href={item.link}
-            key={index}
-            className={`flex items-center gap-4 hover:text-black transition-colors duration-200 ${handleCurrentPath(
-              item.link
-            )} `}
-          >
-            <span
-              className={`${handleCurrentPathIcon(
-                item.link
-              )}  p-1.5 rounded-full`}
-            >
-              {item.icon}
-            </span>
-            <span>{item.label}</span>
-          </Link>
-        ))}
-
-        {user?.role === 'ADMIN' && (
-          <Link
-            href={'/admin'}
-            className="flex items-center gap-4 hover:text-black transition-colors duration-200"
-          >
-            <span className="p-1.5">
-              <ShieldCheckIcon className="h-5 w-5" strokeWidth={2} />
-            </span>
-            <span>Admin</span>
-          </Link>
-        )}
-
-        <button
-          onClick={handleSignOut}
-          className="flex items-center gap-4 hover:text-black transition-colors duration-200"
-        >
-          <span className="p-1.5">
-            <ArrowRightOnRectangleIcon className="h-5 w-5" strokeWidth={2} />
-          </span>
-          <span>Déconnexion</span>
-        </button>
+    <nav className="lg:max-w-[300px] w-full pt-10 bg-white">
+      <div className="mb-6">
+        <h5 className="font-medium">Nehemie Mombanga</h5>
+        <p className="text-sm text-gray-500">Loyalty-rc</p>
       </div>
+
+      {/* Toggle button for mobile devices */}
+      <button
+        className="lg:hidden text-blue-600 mb-2"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {isOpen ? 'Masquer' : 'Afficher'} le menu
+      </button>
+
+      {/* Navigation items */}
+      <ul className={`space-y-2 ${isOpen ? 'block' : 'hidden lg:block'}`}>
+        {accountNavigation.map((item, index) => (
+          <li key={index}>
+            <Link
+              href={item.link}
+              className={`block p-2 rounded-lg transition-colors duration-200 ${
+                isActive(item.link)
+                  ? 'bg-gray-100 font-medium'
+                  : 'hover:bg-gray-50'
+              }`}
+            >
+              {item.label}
+            </Link>
+          </li>
+        ))}
+        {/* Admin link for users with admin role */}
+        {user?.role === 'ADMIN' && (
+          <li>
+            <Link
+              href="/admin"
+              className={`block p-2 rounded-lg transition-colors duration-200 ${
+                isActive('/admin')
+                  ? 'bg-gray-100 font-medium'
+                  : 'hover:bg-gray-50'
+              }`}
+            >
+              Admin
+            </Link>
+          </li>
+        )}
+        <li
+          className="font-medium underline cursor-pointer"
+          onClick={handleSignOut}
+        >
+          Se déconnecter
+        </li>
+      </ul>
     </nav>
   );
 };
+
 export default AccountSideBar;

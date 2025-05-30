@@ -28,7 +28,7 @@ const HowItWorks = () => {
           <InfoCard
             title="Réservation sans effort"
             description="Choisissez votre voiture, vos options essentielles et téléchargez votre permis. Plus besoin d’attendre, tout se fait sur votre téléphone ou ordinateur."
-            image="https://utfs.io/f/AkDgHfNpCyfwYy8yFHvAwLKxWu8C0pZrJctqal7D1TyeSRmk"
+            image="https://utfs.io/f/AkDgHfNpCyfwpBMOtFXFJR8wni3CX95dUeS1M7qy02OrDHVG"
             altText="Réservation sans effort"
           />
 

@@ -1,16 +1,17 @@
-import { Hero, HomeHero, Latest } from '../components';
+import { Hero, Latest } from '../components';
+import FAQ from '../components/sections/home/FAQ';
 import HowItWorks from '../components/sections/home/HowItWorks';
 
 export default function HomePage() {
   return (
     <div className="bg-zinc-100 flex flex-col pb-16 gap-[120px] ">
       <Hero />
-      {/* <HomeHero /> */}
 
       <HowItWorks />
 
       <Latest />
-      {/* <div className="flex flex-col gap-[120px] py-[120px] p-sides-2 max-w-[1440px] mx-auto"></div> */}
+
+      <FAQ />
     </div>
   );
 }
